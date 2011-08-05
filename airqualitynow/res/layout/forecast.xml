@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/mainTableTab2"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="0,1"
+    >
+    <TableRow>
+    	<TextView
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    android:text="@string/mainTableFirstRow"
+		    android:layout_span="2"
+		    />
+    </TableRow>
+    <TableRow>
+		<TextView
+			android:id="@+id/mainTableTodayTextView"  
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    android:text="@string/today"
+		    />
+		<TextView
+			android:id="@+id/mainTableTomorrowTextView"  
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    android:text="@string/tomorrow" 
+		    />
+	</TableRow>
+	<TableRow>
+		<TextView
+			android:id="@+id/mainTableTodayMessageTextView"  
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    />
+		<TextView
+			android:id="@+id/mainTableTomorrowMessageTextView"  
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    />
+		
+	</TableRow>
+</TableLayout>
