@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, airqualitynow!</string>
     <string name="app_name">Air Quality Now</string>
+    <string name="mainTableFirstRow">Air Quality Forecast</string>
+    <string name="today">Today\'s Hi</string>
+    <string name="tomorrow">Tomorrow\'s Hi</string>
 </resources>
