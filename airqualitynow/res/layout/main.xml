@@ -8,29 +8,58 @@
 		android:id="@+id/mainTableActionMenu"
 		   android:orientation="vertical"
 		   android:layout_width="fill_parent"
-		   android:layout_height="fill_parent"
-		   android:stretchColumns="0">
-         	<TableRow>
+		   android:layout_height="wrap_content"
+		   android:stretchColumns="0" android:background="#ff0000">
+         	<TableRow android:background="#00ff00" android:layout_margin="2dip">
          		<EditText
 			  		android:id="@+id/mainTable1SearchEditText"
 			          android:layout_width="wrap_content"
 			          android:layout_height="fill_parent"
 			       />
 			    <Button
-			  		android:id="@+id/mainTable1DeleteTextView"
+			  		android:id="@+id/mainTable1SearchButton"
 			          android:layout_width="wrap_content"
 			          android:layout_height="fill_parent"
 			          android:drawableLeft="@drawable/ic_menu_search"
 			       />
 			    
 	         	<Button
-		  			android:id="@+id/mainTable1AddTextView"
+		  			android:id="@+id/mainTable1AddButton"
 		          	android:layout_width="wrap_content"
 		          	android:layout_height="fill_parent"
 		          	android:drawableLeft="@drawable/ic_menu_add"
 	       		/>
 			   
          	</TableRow>
+         	<TableRow android:background="#00ff00" android:layout_margin="2dip">
+         	    <TextView
+         	    	android:id="@+id/forecastTableReportingAreaTextView" 
+				    android:layout_width="wrap_content"
+				    android:textAppearance="?android:attr/textAppearanceMedium"
+				    android:gravity="left"
+				    android:paddingLeft="5dip"
+				    android:singleLine="true"
+				    android:text="ReportingArea"
+				/>
+			<TextView
+				android:id="@+id/forecastTableTodayTextView" 
+			    android:layout_width="fill_parent"
+			    android:textAppearance="?android:attr/textAppearanceMedium"
+			    android:gravity="left"
+			    android:singleLine="true"
+			    android:text="Today"
+			/>
+		    <TextView
+		    	android:id="@+id/forecastTableTomorrowTextView" 
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:textAppearance="?android:attr/textAppearanceMedium"
+			    android:gravity="left"
+			    android:singleLine="true"
+			    android:text="Tomorrow"
+			/>
+         	
+     </TableRow>    	
    </TableLayout>
    <ListView android:id="@+id/forecastAreasList" android:layout_width="fill_parent"
        android:layout_height="0dip" android:layout_weight="1"  />

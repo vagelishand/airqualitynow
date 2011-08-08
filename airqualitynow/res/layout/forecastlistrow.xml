@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            >
+    <TableRow android:background="#006295" android:layout_margin="1dip">
+    <TextView 
+	    android:id="@+id/forecastCityTextView"
+	    android:layout_width="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:paddingLeft="5dip"
+	    android:singleLine="true"
+	    android:background="#d5e1dd"
+	    android:layout_margin="1dip"
+	/>
+	<TextView 
+	    android:id="@+id/forecastTodayTextView"
+	    android:layout_width="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:singleLine="true"
+	    android:background="#d5e1dd"
+	    android:layout_margin="1dip"
+	/>
+    <TextView 
+	    android:id="@+id/forecastTomorrowTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:singleLine="true"
+	    android:background="#d5e1dd"
+	    android:layout_margin="1dip"
+	/>
+	</TableRow>
+</TableLayout>    

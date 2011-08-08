@@ -30,6 +30,32 @@
 	       		/>
 			   
          	</TableRow>
+         	<TableRow >
+         	    <TextView 
+	    android:layout_width="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:paddingLeft="5dip"
+	    android:singleLine="true"
+	    android:text="ReportingArea"
+	/>
+	<TextView 
+	    android:layout_width="fill_parent"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:singleLine="true"
+	    android:text="Today"
+	/>
+    <TextView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="left"
+	    android:singleLine="true"
+	    android:text="Tomorrow"
+	/>
+         	
+         	</TableRow>
    </TableLayout>
    <ListView android:id="@+id/forecastAreasList1" android:layout_width="fill_parent"
        android:layout_height="0dip" android:layout_weight="1"  />
