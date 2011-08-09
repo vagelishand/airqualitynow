@@ -19,6 +19,7 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 	@InjectView(R.id.mainTable1SearchEditText) 		private EditText mSearchEditText;
 	@InjectView(R.id.mainTable1SearchButton)		private Button   mSearchButton;
 	@InjectView(R.id.mainTable1AddButton)			private Button   mAddButton;
+	@InjectView(R.id.mainTable1GuideButton)			private Button   mGuideButton;
 	@Inject 										public ForecastListPresenter mPresenter;
 	
 	public ForecastListView(){
@@ -33,6 +34,7 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 		((AdapterView<?>) mView).setOnItemClickListener(this);
 		mSearchButton.setOnClickListener(this);
 		mAddButton.setOnClickListener(this);
+		mGuideButton.setOnClickListener(this);
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -44,8 +46,11 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 		if(v.getId() == R.id.mainTable1SearchButton){
 			
 		}
-		else{
+		else if(v.getId() == R.id.mainTable1AddButton){
 			
+		}
+		else if(v.getId() == R.id.mainTable1GuideButton){
+			mPresenter.onPollutantGuideButtonClick();
 		}
 	}
 

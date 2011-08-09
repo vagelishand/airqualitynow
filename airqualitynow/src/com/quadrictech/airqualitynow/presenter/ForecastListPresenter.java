@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
 
 import com.j256.ormlite.support.ConnectionSource;
@@ -91,7 +94,19 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 			}
 			return null;
 		}
-		
-		
+	}
+
+
+	public void onPollutantGuideButtonClick() {
+		AlertDialog.Builder builder;
+		AlertDialog alertDialog;
+
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService("layout_inflater");
+		View layout = inflater.inflate(R.layout.aqipollutantguide, null);
+
+		builder = new AlertDialog.Builder(mContext);
+		builder.setView(layout);
+		alertDialog = builder.create();
+		alertDialog.show();
 	}
 }
