@@ -4,37 +4,39 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="#ffffff"
             >
-    <TableRow android:background="#006295" android:layout_margin="1dip">
+    <TableRow  android:layout_margin="1dip">
     <TextView 
 	    android:id="@+id/forecastCityTextView"
-	    android:layout_width="wrap_content"
+	    android:layout_width="0px"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:gravity="left"
 	    android:paddingLeft="5dip"
 	    android:singleLine="true"
-	    android:background="#d5e1dd"
+	    android:textColor="#000000"
 	    android:layout_margin="1dip"
+	    android:layout_weight=".45"
 	/>
 	<TextView 
 	    android:id="@+id/forecastTodayTextView"
-	    android:layout_width="wrap_content"
+	    android:layout_width="0px"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:gravity="left"
+	    android:gravity="right"
 	    android:singleLine="true"
-	    android:background="#d5e1dd"
+	    android:textColor="#000000"
 	    android:layout_margin="1dip"
+	    android:layout_weight=".25"
 	/>
     <TextView 
 	    android:id="@+id/forecastTomorrowTextView"
-	    android:layout_width="wrap_content"
+	    android:layout_width="0px"
 	    android:layout_height="wrap_content"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:gravity="left"
+	    android:gravity="right"
 	    android:singleLine="true"
-	    android:background="#d5e1dd"
+	    android:textColor="#000000"
 	    android:layout_margin="1dip"
+	    android:layout_weight=".30"
 	/>
 	</TableRow>
 </TableLayout>    
