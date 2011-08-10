@@ -35,11 +35,11 @@ public class ForecastArrayAdapter extends ArrayAdapter<Forecast> {
 			convertView = inflater.inflate(R.layout.forecastlistrow, parent, false);
 			
 			mViewHolder = new ViewHolder();
-			mViewHolder.cityTextView = (TextView)convertView.findViewById(R.id.forecastCityTextView);
+			mViewHolder.cityTextView = (TextView)convertView.findViewById(R.id.forecastListCityTextView);
 			
-			mViewHolder.todayTextView = (TextView)convertView.findViewById(R.id.forecastTodayTextView);
+			mViewHolder.todayTextView = (TextView)convertView.findViewById(R.id.forecastListTodayTextView);
 			
-			mViewHolder.tomorrowTextView = (TextView)convertView.findViewById(R.id.forecastTomorrowTextView);
+			mViewHolder.tomorrowTextView = (TextView)convertView.findViewById(R.id.forecastListTomorrowTextView);
 			
 			convertView.setTag(mViewHolder);
 		}

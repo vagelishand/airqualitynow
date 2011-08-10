@@ -15,12 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ForecastListView implements IForecastListView<ListView>, OnItemClickListener, OnClickListener  {
-	@InjectView(R.id.forecastAreasList) 			private ListView mView;
-	@InjectView(R.id.mainTable1SearchEditText) 		private EditText mSearchEditText;
-	@InjectView(R.id.mainTable1SearchButton)		private Button   mSearchButton;
-	@InjectView(R.id.mainTable1AddButton)			private Button   mAddButton;
-	@InjectView(R.id.mainTable1GuideButton)			private Button   mGuideButton;
-	@Inject 										public ForecastListPresenter mPresenter;
+	@InjectView(R.id.forecastAreasList) 				private ListView mView;
+	@InjectView(R.id.forecastListTableSearchEditText) 	private EditText mSearchEditText;
+	@InjectView(R.id.forecastListTableSearchButton)		private Button   mSearchButton;
+	@InjectView(R.id.forecastListTableAddButton)		private Button   mAddButton;
+	@InjectView(R.id.forecastListTableGuideButton)		private Button   mGuideButton;
+	@Inject 											public ForecastListPresenter mPresenter;
 	
 	public ForecastListView(){
 		
@@ -43,13 +43,13 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 	}
 
 	public void onClick(View v) {
-		if(v.getId() == R.id.mainTable1SearchButton){
+		if(v.getId() == R.id.forecastListTableSearchButton){
 			
 		}
-		else if(v.getId() == R.id.mainTable1AddButton){
+		else if(v.getId() == R.id.forecastListTableAddButton){
 			
 		}
-		else if(v.getId() == R.id.mainTable1GuideButton){
+		else if(v.getId() == R.id.forecastListTableGuideButton){
 			mPresenter.onPollutantGuideButtonClick();
 		}
 	}
