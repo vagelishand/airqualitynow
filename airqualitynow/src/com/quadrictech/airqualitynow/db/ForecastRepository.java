@@ -8,6 +8,10 @@ import com.quadrictech.airqualitynow.model.Forecast;
 
 public class ForecastRepository extends AQIRepository<Forecast> implements IForecastRepository{
 
+	public ForecastRepository() throws SQLException{
+		super();
+	}
+	
 	public ForecastRepository(ConnectionSource connectionSource,
 			Class<Forecast> dataClass) throws SQLException {
 		super(connectionSource, dataClass);
