@@ -7,7 +7,7 @@
             >
     <TableRow  android:layout_margin="1dip">
     <TextView 
-	    android:id="@+id/forecastCityTextView"
+	    android:id="@+id/forecastListCityTextView"
 	    android:layout_width="0px"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:gravity="left"
@@ -18,7 +18,7 @@
 	    android:layout_weight=".45"
 	/>
 	<TextView 
-	    android:id="@+id/forecastTodayTextView"
+	    android:id="@+id/forecastListTodayTextView"
 	    android:layout_width="0px"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:gravity="right"
@@ -28,7 +28,7 @@
 	    android:layout_weight=".25"
 	/>
     <TextView 
-	    android:id="@+id/forecastTomorrowTextView"
+	    android:id="@+id/forecastListTomorrowTextView"
 	    android:layout_width="0px"
 	    android:layout_height="wrap_content"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
