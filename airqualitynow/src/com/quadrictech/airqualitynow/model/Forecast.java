@@ -26,8 +26,6 @@ public class Forecast {
 	@DatabaseField
 	public int AQI; //-1 is no forecast
 	@DatabaseField
-	public int AQICurrent;
-	@DatabaseField
 	public int CategoryNumber;
 	@DatabaseField
 	public int CategoryName;
@@ -35,4 +33,6 @@ public class Forecast {
 	public boolean ActionDay;
 	@DatabaseField
 	public String Discussion;
+	@DatabaseField
+	public int Type;//1=forecast 2=observed(actual)
 }
