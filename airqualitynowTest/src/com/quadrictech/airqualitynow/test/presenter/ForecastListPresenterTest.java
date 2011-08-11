@@ -3,6 +3,9 @@ package com.quadrictech.airqualitynow.test.presenter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import junit.framework.Assert;
 
 import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
@@ -25,7 +28,7 @@ public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNow
 	@SuppressWarnings("unchecked")
 	public void setUp(){
 		repository = AndroidMock.createMock(IForecastRepository.class);
-		
+				
 		view =  AndroidMock.createMock(IForecastListView.class);
 		presenter = new ForecastListPresenter(view, repository);
 	}
@@ -38,9 +41,42 @@ public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNow
 		AndroidMock.expect(repository.queryForAll()).andReturn(forecasts);
 		
 		AndroidMock.replay(repository);
-		presenter.initializeList();
+		
+		try {
+			presenter.initializeList();
+			presenter.asyncTask.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		AndroidMock.verify(repository);
+	}
+	
+	@UsesMocks(IForecastListView.class)
+	@MediumTest
+	public void testOnPollutantButtonClick(){
+		try{
+			presenter.onPollutantGuideButtonClick();
+			AndroidMock.replay(view);
+			
+			presenter.onPollutantGuideButtonClick();
+			AndroidMock.verify(view);
+			Assert.fail("Should throw null Context exception");
+		}catch(NullPointerException e){
+			//
+		}
+	}
+	
+	@MediumTest
+	public void testOnSearchAreaClick(){
+		presenter.onSearchAreaClick();
+		AndroidMock.replay(view);
+		
+		AndroidMock.verify(view);
 	}
 	
 	public List<Forecast> getForecasts(){
