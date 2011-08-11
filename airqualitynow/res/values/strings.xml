@@ -4,8 +4,9 @@
     <string name="mainTableFirstRow">Air Quality Forecast</string>
     <string name="today">Today\'s Hi</string>
     <string name="tomorrow">Tomorrow\'s Hi</string>
-    <string name="forecastTableReportingAreaHeader">ReportingArea</string>
-    <string name="forecastTableTodayHeader">Today</string>
-    <string name="forecastTableTomorrowHeader">Tomorrow</string>
-    
+    <string name="forecastListTableReportingAreaHeader">ReportingArea</string>
+    <string name="forecastListTableTodayHeader">Today</string>
+    <string name="forecastListTableTomorrowHeader">Tomorrow</string>
+    <string name="currentConditions">Current Conditions</string>
+    <string name="dataNotAvailable">Data not Available</string>
 </resources>
