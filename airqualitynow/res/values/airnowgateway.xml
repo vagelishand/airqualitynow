@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="airnowgateway_apikey">secret</string>
+    <string name="airnowgatewayforecastbyzipcodeurl">http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecastbyzipcode</string>
+    <string name="airnowgatewayobservedbyzipcode">http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/observedbyzipcode</string>
+    <string name="airnowgatewayforecastsbyissuedate">http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecasts</string>
+    <string name="airnowgatewaygetreportingareas">http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/reportingareas?format=json&amp;key=654C8A3C-683A-43FD-BBB2-B1F45B8F1E21</string>
+    <string name="airnowgatewaypointdata">http://ws1.airnowgateway.org/wcs/wcs.asmx/wcs</string>
+</resources>
