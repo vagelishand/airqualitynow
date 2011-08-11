@@ -29,6 +29,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	private ForecastArrayAdapter mAdapter;
 	private List<Forecast> mForecasts;
 	private ConnectionSource mConnectionSource;
+	public ListViewAsyncTask asyncTask;
 	
 	/***
 	 * REquired for roboguice parameter injection
@@ -38,7 +39,6 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 	
 	public ForecastListPresenter(IForecastListView<ListView> view, IForecastRepository repository){
-		mContext = view.getView().getContext();
 		mForecastListView = view;
 		mRepository = repository;
 	}
@@ -59,7 +59,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 
 	public void initializeList(){
-		ListViewAsyncTask asyncTask = new ListViewAsyncTask();
+		asyncTask = new ListViewAsyncTask();
 		asyncTask.execute();
 	}
 
@@ -72,7 +72,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		mForecastListView = null;
 	}
 	
-	class ListViewAsyncTask extends AsyncTask<Void, Void, Void>{
+	public class ListViewAsyncTask extends AsyncTask<Void, Void, Void>{
 		
 		
 		final Handler adapterHandler = new Handler(){
@@ -108,5 +108,9 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		builder.setView(layout);
 		alertDialog = builder.create();
 		alertDialog.show();
+	}
+
+	public void onSearchAreaClick() {
+		
 	}
 }
