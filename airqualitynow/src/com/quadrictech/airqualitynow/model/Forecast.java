@@ -18,9 +18,9 @@ public class Forecast {
 	@DatabaseField
 	public String StateCode;
 	@DatabaseField
-	public int Latitude;
+	public double Latitude;
 	@DatabaseField
-	public int Longitude;
+	public double Longitude;
 	@DatabaseField
 	public String ParameterName;
 	@DatabaseField
@@ -28,7 +28,7 @@ public class Forecast {
 	@DatabaseField
 	public int CategoryNumber;
 	@DatabaseField
-	public int CategoryName;
+	public String CategoryName;
 	@DatabaseField
 	public boolean ActionDay;
 	@DatabaseField
