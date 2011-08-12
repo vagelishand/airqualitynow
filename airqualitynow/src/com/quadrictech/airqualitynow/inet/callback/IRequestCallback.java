@@ -8,8 +8,6 @@ import com.google.api.client.http.HttpResponse;
  *
  */
 public interface IRequestCallback {
-	
 	public void onError(Throwable exception);
 	public void onResponseReceived(HttpResponse response);
-	
 }
