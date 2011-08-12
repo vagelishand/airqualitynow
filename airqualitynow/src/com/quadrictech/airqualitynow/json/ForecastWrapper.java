@@ -2,7 +2,7 @@ package com.quadrictech.airqualitynow.json;
 
 import java.util.List;
 
-public class ForecastWrapper {
+public class ForecastWrapper implements IForecastWrapper{
 	public List<com.quadrictech.airqualitynow.model.Forecast> forecasts;
 	
 	public List<com.quadrictech.airqualitynow.model.Forecast> getForecast(){
