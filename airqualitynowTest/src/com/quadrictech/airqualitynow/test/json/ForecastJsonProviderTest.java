@@ -7,7 +7,7 @@ import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
-import com.quadrictech.airqualitynow.json.ForecastWrapper;
+import com.quadrictech.airqualitynow.json.IForecastWrapper;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
@@ -31,16 +31,16 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 	
 	@MediumTest
 	public void testParseForecastWrapper(){
-		ForecastWrapper wrapper = mJsonProvider.parseForecastJson(new ObjectMapper(), mJson);
+		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
 		assertNotNull(wrapper);
-		assertEquals(6, wrapper.forecasts.size());
+		assertEquals(6, wrapper.getForecast().size());
 	}
 	
 	@MediumTest 
 	public void testParseWrapperForecasts(){
-		ForecastWrapper wrapper = mJsonProvider.parseForecastJson(new ObjectMapper(), mJson);
-		Forecast forecast = wrapper.forecasts.get(0);
+		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
+		Forecast forecast = wrapper.getForecast().get(0);
 		
 		assertEquals("Napa", forecast.ReportingArea);
 		assertEquals("CA", forecast.StateCode);
