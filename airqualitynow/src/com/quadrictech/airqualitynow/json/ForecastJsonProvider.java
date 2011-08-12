@@ -1,22 +1,22 @@
 package com.quadrictech.airqualitynow.json;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ForecastJsonProvider implements IForecastJsonProvider {
 		
 	public ForecastJsonProvider(){
 		
 	}
-	
-	public ForecastWrapper parseForecastJson(ObjectMapper mapper, String json) {
-		final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss a";
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        mapper.setDateFormat(sdf);
+
+	public IForecastWrapper parseJson(ObjectMapper mapper, String json) {
+		
+        mapper.setDateFormat(DateUtil.getDateFormat(DateUtil.DATE_FORMAT));
         //TODO use apache commons string.utils 
         json = json.replace("False", "false");
         json = json.replace("True", "true");
