@@ -2,23 +2,33 @@ package com.quadrictech.airqualitynow.test.inet.rest;
 
 import roboguice.test.RoboUnitTestCase;
 
+import com.google.android.testing.mocking.AndroidMock;
+import com.google.android.testing.mocking.UsesMocks;
 import com.google.api.client.googleapis.GoogleUrl;
+
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.inet.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.inet.rest.RestClient;
+import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
+import com.quadrictech.airqualitynow.json.IForecastWrapper;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class RestClientTest extends RoboUnitTestCase<AirQualityNowApplication>{
 	private RestClient client;
+	private IForecastJsonProvider mJsonProvider;
+	private IForecastWrapper mForecastWrapper;
 	
 	@Override
 	public void setUp(){
 		client = new RestClient();
+		mJsonProvider = AndroidMock.createMock(IForecastJsonProvider.class);
+		mForecastWrapper = AndroidMock.createMock(IForecastWrapper.class);
 	}
 	
 	@MediumTest
+	@UsesMocks(IRequestCallback.class)
 	public void testExecuteHttpGet(){
 		String zip = "78756";
 		String date = "2011-08-11";
@@ -31,9 +41,10 @@ public class RestClientTest extends RoboUnitTestCase<AirQualityNowApplication>{
 		url.append("&data=" + date);
 		url.append("&format=" + format);
 		url.append("&key=" + key);
-		
+		IRequestCallback callback = new ForecastRequestCallback(mJsonProvider, mForecastWrapper);
 		GoogleUrl googleUrl = new GoogleUrl(url.toString());
-		IRequestCallback callback = new ForecastRequestCallback();
+		
 		client.executeHttpGet(googleUrl, callback);
+		assertEquals(false, client.getErrorStatus());
 	}
 }
