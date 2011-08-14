@@ -8,11 +8,11 @@ import com.google.api.client.googleapis.GoogleUrl;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
-import com.quadrictech.airqualitynow.inet.callback.ForecastRequestCallback;
-import com.quadrictech.airqualitynow.inet.callback.IRequestCallback;
+import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
+import com.quadrictech.airqualitynow.inet.callback.ForecastRESTRequestCallback;
 import com.quadrictech.airqualitynow.inet.rest.RestClient;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
-import com.quadrictech.airqualitynow.json.IForecastWrapper;
+import com.quadrictech.airqualitynow.model.IForecastWrapper;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class RestClientTest extends RoboUnitTestCase<AirQualityNowApplication>{
@@ -41,7 +41,7 @@ public class RestClientTest extends RoboUnitTestCase<AirQualityNowApplication>{
 		url.append("&data=" + date);
 		url.append("&format=" + format);
 		url.append("&key=" + key);
-		IRequestCallback callback = new ForecastRequestCallback(mJsonProvider, mForecastWrapper);
+		IRequestCallback callback = new ForecastRESTRequestCallback(mJsonProvider, mForecastWrapper);
 		GoogleUrl googleUrl = new GoogleUrl(url.toString());
 		
 		client.executeHttpGet(googleUrl, callback);
