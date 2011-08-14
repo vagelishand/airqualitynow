@@ -7,7 +7,7 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.extensions.android2.AndroidHttp;
-import com.quadrictech.airqualitynow.inet.callback.IRequestCallback;
+import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 
 public class RestClient {
 	/**
