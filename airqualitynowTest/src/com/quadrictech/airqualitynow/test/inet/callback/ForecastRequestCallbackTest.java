@@ -6,7 +6,7 @@ import android.test.suitebuilder.annotation.MediumTest;
 
 import com.google.android.testing.mocking.AndroidMock;
 import com.google.android.testing.mocking.UsesMocks;
-import com.quadrictech.airqualitynow.inet.callback.IRequestCallback;
+import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ForecastRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
