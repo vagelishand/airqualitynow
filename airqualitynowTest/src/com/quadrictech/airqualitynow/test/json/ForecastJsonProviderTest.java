@@ -7,8 +7,8 @@ import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
-import com.quadrictech.airqualitynow.json.IForecastWrapper;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.IForecastWrapper;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowApplication>{

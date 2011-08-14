@@ -6,6 +6,8 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
+import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ReportingAreaJsonProvider implements IReportingAreaJsonProvider {

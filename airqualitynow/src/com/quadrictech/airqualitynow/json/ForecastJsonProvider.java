@@ -6,6 +6,8 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.quadrictech.airqualitynow.model.ForecastWrapper;
+import com.quadrictech.airqualitynow.model.IForecastWrapper;
 import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ForecastJsonProvider implements IForecastJsonProvider {

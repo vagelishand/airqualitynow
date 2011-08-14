@@ -7,8 +7,8 @@ import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.json.IReportingAreaJsonProvider;
-import com.quadrictech.airqualitynow.json.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.json.ReportingAreaJsonProvider;
+import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
