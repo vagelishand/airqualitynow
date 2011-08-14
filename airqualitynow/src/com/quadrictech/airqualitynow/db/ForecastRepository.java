@@ -6,15 +6,14 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.quadrictech.airqualitynow.model.Forecast;
 
 
-public class ForecastRepository extends AQIRepository<Forecast> implements IForecastRepository{
+public class ForecastRepository extends Repository<Forecast> implements IForecastRepository{
 
 	public ForecastRepository() throws SQLException{
 		super();
 	}
 	
-	public ForecastRepository(ConnectionSource connectionSource,
-			Class<Forecast> dataClass) throws SQLException {
-		super(connectionSource, dataClass);
+	public ForecastRepository(ConnectionSource connectionSource) throws SQLException {
+		super(connectionSource, Forecast.class);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -49,7 +49,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		mForecastListView = view;
 		
 		try {
-			mRepository = new ForecastRepository(mConnectionSource, Forecast.class);
+			mRepository = new ForecastRepository(mConnectionSource);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
