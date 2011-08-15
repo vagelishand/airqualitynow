@@ -1,14 +1,11 @@
 package com.quadrictech.airqualitynow.forecast;
 
 import com.google.inject.Inject;
-import com.j256.ormlite.support.ConnectionSource;
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.db.DatabaseHelper;
 import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
 import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.ForecastListView;
 
 import roboguice.activity.RoboActivity;
@@ -20,9 +17,7 @@ public class AQIForecastListActivity extends RoboActivity {
 	@Inject private ForecastListView mForecastListView;
 	@Inject private ForecastListPresenter mForecastListPresenter;
 	@Inject protected EventManager mEventManager;
-	DatabaseHelper helper;
-	private ConnectionSource mConnectionSource;
-	private IDataProviderServiceHelper serviceHelper;
+	private DataProviderServiceHelper serviceHelper;
 	
     /** Called when the activity is first created. */
     @Override
@@ -30,22 +25,13 @@ public class AQIForecastListActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forecastlist);
         
-        Intent intent = new Intent(this.getApplicationContext(), DataProviderService.class);
+        Intent intent = new Intent(this, DataProviderService.class);
         startService(intent);
-        serviceHelper = new DataProviderServiceHelper(this.getApplicationContext(), mEventManager);
-        helper = new DatabaseHelper(this);
-        mConnectionSource = helper.getConnectionSource();
-        initializeViews();
-        initializePresenters();
-    }
-    
-    private void initializeViews(){
-    	mForecastListView.initialize();
-    }
-    
-    private void initializePresenters(){
+        serviceHelper = new DataProviderServiceHelper(mForecastListView.getView().getContext(), mEventManager);
+
+        mForecastListView.initialize();
     	mForecastListView.mPresenter = mForecastListPresenter;
-    	mForecastListPresenter.initialize(new PresenterInitializeParameter(mForecastListView, mConnectionSource, mEventManager, (DataProviderServiceHelper) this.serviceHelper));
+    	mForecastListPresenter.initialize(new PresenterInitializeParameter(mForecastListView,  mEventManager, serviceHelper));
     }
     
     @Override
