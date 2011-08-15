@@ -1,6 +1,7 @@
 package com.quadrictech.airqualitynow.inet.callback;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -45,5 +46,9 @@ public class ForecastRESTRequestCallback implements IForecastRESTRequestCallback
 
 	public String getErrorMessage() {
 		return mException.getLocalizedMessage();
+	}
+
+	public List<HttpResponse> getList() {
+		return null;
 	}
 }
