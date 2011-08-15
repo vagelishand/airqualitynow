@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.db.callback.IForecastRequestCallback;
+import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.event.GotAllForecastsEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
@@ -51,14 +51,15 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 	
 	protected void handleGetAllForecasts(@Observes GotAllForecastsEvent gotAllForecastsEvent){
-		IForecastRequestCallback callback =  gotAllForecastsEvent.mForecastRequestCallback;
+		IRequestCallback<Forecast> callback =  gotAllForecastsEvent.mRequestCallback;
 				
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();			
 		}
 		else{
-			mForecasts = callback.getForecasts();
+			mForecasts =  callback.getList();
 			mAdapter = new ForecastArrayAdapter(mContext, R.layout.forecastlistrow, mForecasts);
+			
 			mForecastListView.getView().setAdapter(mAdapter);
 		}
 	}
