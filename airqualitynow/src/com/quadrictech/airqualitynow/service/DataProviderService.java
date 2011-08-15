@@ -12,20 +12,16 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
-import com.quadrictech.airqualitynow.db.ForecastRepository;
-import com.quadrictech.airqualitynow.db.IAppRepository;
-import com.quadrictech.airqualitynow.db.IForecastRepository;
-import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
-import com.quadrictech.airqualitynow.db.IRepository;
-import com.quadrictech.airqualitynow.db.ReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.Repository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.IForecastRequestCallback;
-import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
+import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
+import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.State;
 
-public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> {
+public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> implements IDataProviderService {
 	/**
      * Class for clients to access.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with
@@ -59,13 +55,13 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> {
 		return START_NOT_STICKY;
 	}
 	
-	public IForecastRequestCallback onGetAllReportingAreas(){
+	public IRequestCallback<ReportingArea> onGetAllReportingAreas(){
 		try {
 			Repository<ReportingArea> repository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
 						
 			List<ReportingArea> reportingAreas = repository.queryForAll();
 			
-			return new ForecastRequestCallback(); 
+			return new ReportingAreaRequestCallback(new ReportingAreaWrapper(reportingAreas)); 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,4 +69,35 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> {
 		return null;
 	}
 	
+	public IRequestCallback<Forecast> onGetAllForecasts(){
+		
+		Repository<Forecast> repository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
+		try {
+			List<Forecast> forecasts = repository.queryForAll();
+			IRequestCallback<Forecast> callback = new ForecastRequestCallback(new ForecastWrapper(forecasts));
+			
+			return callback;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public IRequestCallback<Forecast> onGetForecastById(int id){
+		Repository<Forecast> repository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
+		
+		try {
+			Forecast forecast = repository.queryForId(id);
+			IRequestCallback<Forecast> callback = new ForecastRequestCallback(forecast);
+			
+			return callback;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
