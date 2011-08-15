@@ -7,5 +7,6 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 
 public interface IForecastRequestCallback extends IRequestCallback<ForecastWrapper> {
+	public Forecast getForecast();
 	public List<Forecast> getForecasts();
 }

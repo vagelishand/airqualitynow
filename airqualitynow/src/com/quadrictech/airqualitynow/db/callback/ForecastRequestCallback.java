@@ -7,9 +7,14 @@ import com.quadrictech.airqualitynow.model.ForecastWrapper;
 
 public class ForecastRequestCallback implements IForecastRequestCallback {
 	ForecastWrapper mForecastWrapper;
+	Forecast		mForecast;
 	
 	public ForecastRequestCallback(){
 		
+	}
+	
+	public ForecastRequestCallback(Forecast forecast){
+		mForecast = forecast;
 	}
 	
 	public ForecastRequestCallback(ForecastWrapper forecastWrapper){
@@ -27,6 +32,10 @@ public class ForecastRequestCallback implements IForecastRequestCallback {
 
 	public List<Forecast> getForecasts() {
 		return mForecastWrapper.getForecast();
+	}
+
+	public Forecast getForecast() {
+		return mForecast;
 	}
 
 }
