@@ -12,6 +12,10 @@ import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ReportingAreaJsonProvider implements IReportingAreaJsonProvider {
 
+	public ReportingAreaJsonProvider(){
+		
+	}
+	
 	public IReportingAreaWrapper parseJson(ObjectMapper mapper, String json) {
 		mapper.setDateFormat(DateUtil.getDateFormat(DateUtil.DATE_FORMAT));
         //TODO use apache commons string.utils 
