@@ -6,8 +6,9 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 
 public class ForecastRequestCallback implements IForecastRequestCallback {
-	ForecastWrapper mForecastWrapper;
-	Forecast		mForecast;
+	private ForecastWrapper mForecastWrapper;
+	private Forecast		mForecast;
+	private Throwable       mException;
 	
 	public ForecastRequestCallback(){
 		
@@ -22,8 +23,7 @@ public class ForecastRequestCallback implements IForecastRequestCallback {
 	}
 	
 	public void onError(Throwable exception) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void onResponseReceived(ForecastWrapper response) {
@@ -38,4 +38,11 @@ public class ForecastRequestCallback implements IForecastRequestCallback {
 		return mForecast;
 	}
 
+	public boolean getErrorStatus() {
+		return !(mException == null);
+	}
+
+	public String getErrorMessage() {
+		return mException.getLocalizedMessage();
+	}
 }

@@ -8,6 +8,7 @@ import com.quadrictech.airqualitynow.model.ReportingArea;
 public class ReportingAreaRequestCallback implements IReportingAreaRequestCallback{
 	private IReportingAreaWrapper mReportingAreaWrapper;
 	private ReportingArea         mReportingArea;
+	private Throwable       	  mException;
 	
 	public ReportingAreaRequestCallback(ReportingArea reportingArea){
 		mReportingArea = reportingArea;
@@ -33,6 +34,14 @@ public class ReportingAreaRequestCallback implements IReportingAreaRequestCallba
 
 	public ReportingArea getReportingArea() {
 		return mReportingArea;
+	}
+
+	public boolean getErrorStatus() {
+		return !(mException == null);
+	}
+
+	public String getErrorMessage() {
+		return mException.getLocalizedMessage();
 	}
 
 }

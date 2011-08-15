@@ -12,6 +12,7 @@ import com.quadrictech.airqualitynow.model.IForecastWrapper;
 public class ForecastRESTRequestCallback implements IForecastRESTRequestCallback{
 	@Inject private IForecastJsonProvider mJsonProvider;
 	@Inject private IForecastWrapper mForecastWrapper;
+	private Throwable mException;
 	
 	public ForecastRESTRequestCallback(){
 		
@@ -36,5 +37,13 @@ public class ForecastRESTRequestCallback implements IForecastRESTRequestCallback
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public boolean getErrorStatus() {
+		return !(mException == null);
+	}
+
+	public String getErrorMessage() {
+		return mException.getLocalizedMessage();
 	}
 }
