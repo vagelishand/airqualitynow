@@ -2,10 +2,11 @@ package com.quadrictech.airqualitynow.db.callback;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 
-public class ReportingAreaRequestCallback implements IReportingAreaRequestCallback{
+public class ReportingAreaRequestCallback implements IRequestCallback<ReportingArea>{
 	private IReportingAreaWrapper mReportingAreaWrapper;
 	private ReportingArea         mReportingArea;
 	private Throwable       	  mException;
@@ -28,7 +29,7 @@ public class ReportingAreaRequestCallback implements IReportingAreaRequestCallba
 		
 	}
 
-	public List<ReportingArea> getReportingAreas() {
+	public List<ReportingArea> getList() {
 		return mReportingAreaWrapper.getReportingArea();
 	}
 
