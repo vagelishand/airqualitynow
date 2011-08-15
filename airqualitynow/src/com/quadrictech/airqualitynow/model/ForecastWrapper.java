@@ -1,15 +1,20 @@
 package com.quadrictech.airqualitynow.model;
 
 import java.util.List;
+import com.quadrictech.airqualitynow.model.Forecast;
 
 public class ForecastWrapper implements IForecastWrapper{
-	public List<com.quadrictech.airqualitynow.model.Forecast> forecasts;
+	public List<Forecast> mForecasts;
+	
+	public ForecastWrapper(List<Forecast> forecasts){
+		mForecasts = forecasts;
+	}
 	
 	public List<com.quadrictech.airqualitynow.model.Forecast> getForecast(){
-		return forecasts;
+		return mForecasts;
 	}
 	
 	public void setForecast(List<com.quadrictech.airqualitynow.model.Forecast> forecasts){
-		this.forecasts = forecasts;
+		mForecasts = forecasts;
 	}
 }
