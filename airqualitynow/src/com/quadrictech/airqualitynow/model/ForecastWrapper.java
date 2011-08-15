@@ -6,6 +6,10 @@ import com.quadrictech.airqualitynow.model.Forecast;
 public class ForecastWrapper implements IForecastWrapper{
 	public List<Forecast> mForecasts;
 	
+	public ForecastWrapper(){
+		
+	}
+	
 	public ForecastWrapper(List<Forecast> forecasts){
 		mForecasts = forecasts;
 	}

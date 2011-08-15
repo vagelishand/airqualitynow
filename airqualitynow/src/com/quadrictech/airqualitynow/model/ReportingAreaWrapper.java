@@ -5,6 +5,10 @@ import java.util.List;
 public class ReportingAreaWrapper implements IReportingAreaWrapper{
 	List<ReportingArea> mReportingAreas;
 	
+	public ReportingAreaWrapper(){
+		
+	}
+	
 	public ReportingAreaWrapper(List<ReportingArea> reportingAreas){
 		mReportingAreas = reportingAreas;
 	}
