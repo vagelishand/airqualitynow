@@ -5,14 +5,13 @@ import android.widget.ListView;
 
 import com.j256.ormlite.support.ConnectionSource;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastListView;
 
 public class PresenterInitializeParameter {
 	public IForecastListView<ListView> view;
 	public ConnectionSource connectionSource;
 	public EventManager eventManager;
-	public IDataProviderServiceHelper dataProviderServiceHelper;
+	public DataProviderServiceHelper dataProviderServiceHelper;
 
 	public PresenterInitializeParameter(IForecastListView<ListView> view,
 			ConnectionSource connectionSource, EventManager eventManager, DataProviderServiceHelper helper) {
