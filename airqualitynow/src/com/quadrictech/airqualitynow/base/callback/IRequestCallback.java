@@ -5,7 +5,9 @@ package com.quadrictech.airqualitynow.base.callback;
  * @author Art Gonzalez
  *
  */
-public interface IRequestCallback<T> {
+public interface IRequestCallback<T>{
 	public void onError(Throwable exception);
 	public void onResponseReceived(T response);
+	public boolean getErrorStatus();
+	public String getErrorMessage();
 }
