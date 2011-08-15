@@ -49,6 +49,10 @@ public class DataProviderServiceHelperTest extends RoboUnitTestCase<AirQualityNo
 	@MediumTest
 	@UsesMocks(IDataProviderService.class)
 	public void testGetAllReportingAreas(){
+		mDataProviderService.onGetAllReportingAreas();
+		AndroidMock.replay(mDataProviderService);
 		
+		mDataProviderServiceHelper.getAllReportingAreas();
+		AndroidMock.verify(mDataProviderService);
 	}
 }
