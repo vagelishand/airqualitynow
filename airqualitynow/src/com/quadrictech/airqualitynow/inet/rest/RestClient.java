@@ -22,7 +22,7 @@ public class RestClient {
 	 * @param url Callers supply a url string with get parameters
 	 * @param requestCallback Uses to process reply/error 
 	 */
-	public void executeHttpGet(GoogleUrl url, IRequestCallback requestCallback){
+	public IRequestCallback<HttpResponse> executeHttpGet(GoogleUrl url, IRequestCallback<HttpResponse> requestCallback){
 		HttpRequest request = null;
 		HttpResponse response = null;
 		
@@ -50,6 +50,8 @@ public class RestClient {
 				e.printStackTrace();
 			}
 		}
+		
+		return requestCallback;
 	}
 	
 	/**
