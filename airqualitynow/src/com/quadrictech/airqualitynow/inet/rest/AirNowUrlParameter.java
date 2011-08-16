@@ -17,7 +17,7 @@ public class AirNowUrlParameter {
 	 * 
 	 * @param baseUrl
 	 * @param zipCode
-	 * @param date
+	 * @param date   in yyyy-mm-dd format
 	 * @param format
 	 * @param key
 	 */
