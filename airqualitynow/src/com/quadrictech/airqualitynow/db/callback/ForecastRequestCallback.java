@@ -26,10 +26,6 @@ public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> 
 		
 	}
 
-	public void onResponseReceived(ForecastWrapper response) {
-		mForecastWrapper = response;
-	}
-
 	public List<Forecast> getList() {
 		return mForecastWrapper.getForecast();
 	}
