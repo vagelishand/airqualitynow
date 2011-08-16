@@ -41,8 +41,8 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 	
 	public void initialize(PresenterInitializeParameter parameterObject) {
-		mContext = parameterObject.view.getView().getContext();
-		mForecastListView = parameterObject.view;
+		mContext = parameterObject.listView.getView().getContext();
+		mForecastListView = parameterObject.listView;
 		mDataProviderServiceHelper = parameterObject.dataProviderServiceHelper;
 	}
 
