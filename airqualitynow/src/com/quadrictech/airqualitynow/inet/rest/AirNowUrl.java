@@ -25,7 +25,7 @@ public class AirNowUrl {
 	}
 	
 	private void addZipCode(String zipCode){
-		if(!zipCode.isEmpty()){
+		if(zipCode != null){
 			stringBuilder.append("zipCode=" + zipCode);
 		}
 	}
@@ -34,7 +34,7 @@ public class AirNowUrl {
 	 * @param date in yyyy-mm-dd format
 	 */
 	private void addDate(String date){
-		if(!date.isEmpty()){
+		if(date != null){
 			stringBuilder.append("&date=" + date);
 		}
 	}
