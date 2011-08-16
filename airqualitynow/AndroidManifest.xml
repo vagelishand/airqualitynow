@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
 		<service android:name="com.quadrictech.airqualitynow.service.DataProviderService"/>
+		<service android:name="com.quadrictech.airqualitynow.service.RemoteDataProviderService"/>
     </application>
     <uses-sdk android:minSdkVersion="4"/>
     <uses-sdk android:maxSdkVersion="13"/>
