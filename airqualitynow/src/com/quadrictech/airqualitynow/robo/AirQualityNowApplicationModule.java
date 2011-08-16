@@ -7,8 +7,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.quadrictech.airqualitynow.db.ForecastRepository;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
-import com.quadrictech.airqualitynow.inet.callback.ForecastRESTRequestCallback;
-import com.quadrictech.airqualitynow.inet.callback.IForecastRESTRequestCallback;
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IReportingAreaJsonProvider;
@@ -39,7 +37,6 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 		bind(IReportingAreaJsonProvider.class).to(ReportingAreaJsonProvider.class);
 		bind(IReportingAreaWrapper.class).to(ReportingAreaWrapper.class);
 		bind(IForecastJsonProvider.class).to(ForecastJsonProvider.class);
-		bind(IForecastRESTRequestCallback.class).to(ForecastRESTRequestCallback.class);
 		bind(IForecastWrapper.class).to(ForecastWrapper.class);
 		bind(new TypeLiteral <IForecastPresenter<View>>(){}).to((Class<? extends IForecastPresenter<View>>) ForecastPresenter.class);
 		bind(new TypeLiteral<IForecastView<View>>(){}).to(ForecastView.class);

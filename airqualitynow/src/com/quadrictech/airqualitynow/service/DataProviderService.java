@@ -3,17 +3,16 @@ package com.quadrictech.airqualitynow.service;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseService;
-import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
 import com.quadrictech.airqualitynow.db.Repository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
@@ -55,7 +54,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return START_NOT_STICKY;
 	}
 	
-	public IRequestCallback<ReportingArea> onGetAllReportingAreas(){
+	public ILocalRequestCallback<ReportingArea> onGetAllReportingAreas(){
 		try {
 			Repository<ReportingArea> repository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
 						
@@ -69,12 +68,12 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return null;
 	}
 	
-	public IRequestCallback<Forecast> onGetAllForecasts(){
+	public ILocalRequestCallback<Forecast> onGetAllForecasts(){
 		
 		Repository<Forecast> repository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 		try {
 			List<Forecast> forecasts = repository.queryForAll();
-			IRequestCallback<Forecast> callback = new ForecastRequestCallback(new ForecastWrapper(forecasts));
+			ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback(new ForecastWrapper(forecasts));
 			
 			return callback;
 		} catch (SQLException e) {
@@ -85,12 +84,12 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return null;
 	}
 	
-	public IRequestCallback<Forecast> onGetForecastById(int id){
+	public ILocalRequestCallback<Forecast> onGetForecastById(int id){
 		Repository<Forecast> repository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 		
 		try {
 			Forecast forecast = repository.queryForId(id);
-			IRequestCallback<Forecast> callback = new ForecastRequestCallback(forecast);
+			ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback(forecast);
 			
 			return callback;
 		} catch (SQLException e) {

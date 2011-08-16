@@ -2,11 +2,10 @@ package com.quadrictech.airqualitynow.db.callback;
 
 import java.util.List;
 
-import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 
-public class ForecastRequestCallback implements IRequestCallback<Forecast> {
+public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> {
 	private ForecastWrapper mForecastWrapper;
 	private Forecast		mForecast;
 	private Throwable       mException;
