@@ -5,4 +5,9 @@
     <string name="tomorrow">Manaña</string>
     <string name="forecastTableForecastHeader">Pronostico</string>
     <string name="forecastTableReportingAreaHeader">Area Reportando</string>
+	<string name="fourdayForecastTableDay">Dia</string>
+    <string name="fourdayForecastPM10">PM10</string>
+    <string name="fourdayForecastPM25">PM25</string>
+    <string name="fourdayForecastOzone">Ozone</string>
+    <string name="fourdayForecastActionDay">Dia de accion</string>    
 </resources>

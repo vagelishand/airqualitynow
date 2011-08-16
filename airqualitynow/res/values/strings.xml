@@ -9,4 +9,9 @@
     <string name="forecastListTableTomorrowHeader">Tomorrow</string>
     <string name="currentConditions">Current Conditions</string>
     <string name="dataNotAvailable">Data not Available</string>
+    <string name="fourdayForecastTableDay">Day</string>
+    <string name="fourdayForecastPM10">PM10</string>
+    <string name="fourdayForecastPM25">PM25</string>
+    <string name="fourdayForecastOzone">Ozone</string>
+    <string name="fourdayForecastActionDay">Action Day</string>
 </resources>
