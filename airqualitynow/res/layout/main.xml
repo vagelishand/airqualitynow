@@ -27,7 +27,7 @@
 			</TableRow>
 			<TableRow>
 				<Button
-					android:id="@+id/mainTableForecastListButton" 
+					android:id="@+id/mainTableObservedForecastButton" 
 				    android:layout_width="fill_parent"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
