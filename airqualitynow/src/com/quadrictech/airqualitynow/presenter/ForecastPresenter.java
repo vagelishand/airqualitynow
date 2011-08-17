@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
+import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
@@ -33,31 +35,21 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 		mContext = parameterObject.view.getView().getContext();
 		mForecastView = parameterObject.view;
 		mRemoteDataProviderServiceHelper = parameterObject.remoteDataProviderServiceHelper;
-		setForecastTableValues();
 	}
 	
 	public void initializeTable(@Observes BindedToServiceEvent event){
 		Toast.makeText(mContext,"retrieving observd", Toast.LENGTH_SHORT).show();
-		mRemoteDataProviderServiceHelper.getObservedByZipCode("78756");
+		mRemoteDataProviderServiceHelper.getObservedByZipCode("92401");
 	} 
 
 	public void onDestroy() {
 		mForecastView.onDestroy();		
 	}
 	
-	public void setForecastTableValues(){
-		List<Forecast> forecasts = new ArrayList<Forecast>();
-		Forecast forecast = new Forecast();
-		forecast.AQI = 50;
-		forecast.Discussion = "test";
-		forecasts.add(forecast);
+	public void setForecastTableValues(@Observes ObservedDataRetrieved data){
+		List<Observed> observedList = data.mRemoteRequestCallback.getList();
 		
-		forecast = new Forecast();
-		forecast.AQI = 120;
-		forecast.Discussion = "another test";
-		forecasts.add(forecast);
-		
-		mForecastView.setForecastTableValues(forecasts);
+		mForecastView.setObservedTableValues(observedList);
 	}
 	
 	
