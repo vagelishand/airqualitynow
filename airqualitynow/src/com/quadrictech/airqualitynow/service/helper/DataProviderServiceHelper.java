@@ -8,15 +8,17 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllForecasts;
-import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
+import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
+import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
-import com.quadrictech.airqualitynow.event.GotAllForecastsEvent;
+import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.presenter.ForecastListPresenter.GuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
@@ -25,14 +27,9 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	private EventManager mEventManager;
 	private static DataProviderServiceHelper mDataProviderServiceHelper;
 	private DataProviderService mDataServiceProvider;
-	DataAsyncTask task;
-	
-	public final Handler mHandler = new Handler(){
-		@Override
-		public void handleMessage(Message m){
-			mEventManager.fire(mContext, (GotAllForecastsEvent)m.obj);
-		}
-	};
+	DataAsyncTask<?> task;
+	GuiRunnable<?> runnable;
+	public final Handler mGuiHandler = new Handler();
 	
 	public static DataProviderServiceHelper getInstance(){
 		if(mDataProviderServiceHelper == null){
@@ -52,19 +49,22 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		doBindService();
 	}
 	
-	public void getAllForecasts() {
-		task = new DataAsyncTask();
-		task.execute(new CommandGetAllForecasts(mContext, mDataServiceProvider, mHandler));
+	public void getAllForecasts(GuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
+		task.execute(new CommandGetAllForecasts(mDataServiceProvider));
 	}
 
-	public void getForecastById(int id) {
-		task = new DataAsyncTask();
-		task.execute(new CommandGetForecastById(id, mContext, mDataServiceProvider, mHandler));
+	public void getForecastById(int id, GuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
+		task.execute(new CommandGetForecastById(id, mDataServiceProvider));
 	}
 
-	public void getAllReportingAreas() {
-		task = new DataAsyncTask();
-		task.execute(new CommandGetAllReportingAreas(mContext, mDataServiceProvider, mHandler));
+	public void getAllReportingAreas(GuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));
 	}
 	
 	public void onServiceConnected(ComponentName className, IBinder service) {
@@ -91,12 +91,17 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		doUnBindService();		
 	}
 	
-	class DataAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, Void>{
-
+	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, Void>{
+		ILocalRequestCallback<?> callback;
 		@Override
 		protected Void doInBackground(IDaoCommand<?>... arg0) {
-			arg0[0].execute();
+			callback = (ILocalRequestCallback<?>) arg0[0].execute();
+			
+			runnable.setCallback(callback);
+			mGuiHandler.post(runnable);
+			
 			return null;
 		}
+		
 	}
 }
