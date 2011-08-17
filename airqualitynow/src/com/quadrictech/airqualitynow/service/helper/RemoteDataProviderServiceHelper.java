@@ -5,8 +5,10 @@ import java.util.List;
 import roboguice.event.EventManager;
 
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
+import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
 import android.content.ComponentName;
@@ -21,7 +23,7 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	private boolean mServiceBound;
 	private Context mContext;
 	private EventManager mEventManager;
-	
+	//TODO implement AsyncTask for remote calls
 	public RemoteDataProviderServiceHelper(){
 		
 	}
@@ -47,11 +49,14 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	}
 
 	public void getObservedByZipCode(String zipCode) {
-		IRemoteRequestCallback<Forecast> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
-		List<Forecast>forecasts = callback.getList();
+		IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
+		ObservedDataRetrieved retrieved = new ObservedDataRetrieved();
+		retrieved.mRemoteRequestCallback = callback;
+		mEventManager.fire(mContext, retrieved);
+		List<Observed>observed = callback.getList();
 		
-		for(Forecast f: forecasts){
-			Log.d(this.getClass().getName(), f.ReportingArea);
+		for(Observed o: observed){
+			Log.d(this.getClass().getName(), o.CategoryName);
 		}
 	}
 
