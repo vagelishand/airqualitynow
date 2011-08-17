@@ -8,13 +8,18 @@ import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.inet.callback.ForecastRemoteRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.IRestRequestCallback;
+import com.quadrictech.airqualitynow.inet.callback.ObservedRemoteRequestCallback;
 import com.quadrictech.airqualitynow.inet.rest.AirNowUrl;
 import com.quadrictech.airqualitynow.inet.rest.AirNowUrlParameter;
 import com.quadrictech.airqualitynow.inet.rest.RestClient;
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
+import com.quadrictech.airqualitynow.json.IObservedJsonProvider;
+import com.quadrictech.airqualitynow.json.ObservedJsonProvider;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
+import com.quadrictech.airqualitynow.model.IObservedWrapper;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 
 import android.app.Service;
@@ -31,6 +36,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 	IRestRequestCallback mRestRequestCallback;
 	Context mContext;
 	IForecastJsonProvider mForecastJsonProvider;
+	IObservedJsonProvider mObservedJsonProvider;
 	/**
      * Class for clients to access.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with
@@ -86,7 +92,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return  null;
 	}
 
-	public IRemoteRequestCallback<Forecast> onGetObservedbyZipCode(String zipCode) {
+	public IRemoteRequestCallback<Observed> onGetObservedbyZipCode(String zipCode) {
 		Time now = new Time();
 		now.setToNow();
 		mAirNowUrlParameter = new AirNowUrlParameter(mContext.getString(R.string.airnowgatewayobservedbyzipcode),
@@ -97,15 +103,16 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		Log.d("test", mAirNowUrl.url.toString());
 		mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 		
-		mForecastJsonProvider = new ForecastJsonProvider();
+		mObservedJsonProvider = new ObservedJsonProvider();
 		
-		IRemoteRequestCallback<Forecast> callback = null;
+		IRemoteRequestCallback<Observed> callback = null;
 		
 		try {
-			Log.d(this.getClass().getName(), mRestRequestCallback.getResponse().parseAsString());
-			IForecastWrapper wrapper = mForecastJsonProvider.parseJson(new ObjectMapper(), 
-			                    mRestRequestCallback.getResponse().parseAsString());
-			callback = new ForecastRemoteRequestCallback(wrapper); 
+			String json = mRestRequestCallback.getResponse().parseAsString();
+			Log.d(this.getClass().getName(), json);
+			
+			IObservedWrapper wrapper = mObservedJsonProvider.parseJson(new ObjectMapper(), json);
+			callback = new ObservedRemoteRequestCallback(wrapper); 
 			return callback;
 		
 		} catch (IOException e) {
