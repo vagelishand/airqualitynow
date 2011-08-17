@@ -1,6 +1,5 @@
 package com.quadrictech.airqualitynow.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.event.Observes;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
-import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
