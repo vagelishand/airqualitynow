@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 
 import roboguice.inject.InjectView;
@@ -13,8 +14,9 @@ import android.widget.TextView;
 
 public class ForecastView implements IForecastView<View>, OnClickListener {
 	@InjectView(R.id.forecastLinearLayout)	private View mView;
-	@InjectView(R.id.forecastTableCurrentAQITimeDescTextView)	public TextView currentAQITimeDescTextView;
-	@InjectView(R.id.forecastTableCurrentAQITextView)			public TextView currentAQITextView;
+	@InjectView(R.id.observedTableCurrentLabelTextView)			public TextView currentTextView;
+	@InjectView(R.id.observedTableCurrentAQITimeDescTextView)	public TextView currentAQITimeDescTextView;
+	@InjectView(R.id.observedTableCurrentAQITextView)			public TextView currentAQITextView;
 	@InjectView(R.id.forecastTableTodayAQITextView)				public TextView todayAQITextView;
 	@InjectView(R.id.forecastTableTomorrowAQIDescTextView)		public TextView todayAQIDescTextView;
 	@InjectView(R.id.forecastTableTomorrowAQITextView)			public TextView tomorrowAQITextView;
@@ -57,11 +59,6 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	}
 
 	public void setForecastTableValues(List<Forecast> forecast) {
-		currentAQITextView.setText("");//observed
-		todayAQITextView.setText(forecast.get(0).AQI + "");
-		todayAQIDescTextView.setText("");
-		todayMsgTextView.setText(forecast.get(0).Discussion);
-		
 		tomorrowAQITextView.setText(forecast.get(1).AQI + "");
 		tomorrowAQIDescTextView.setText("");
 		tomorrowMsgTextView.setText(forecast.get(1).Discussion);
@@ -70,6 +67,11 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 
 	public void initialize(IForecastPresenter<View> presenter) {
 		mPresenter = presenter;		
+	}
+
+	public void setObservedTableValues(List<Observed> observedList) {
+		currentTextView.setText("Current Conditions: " + observedList.get(0).ReportingArea);
+		currentAQITextView.setText(observedList.get(0).AQI + "");//observed
 	}
 
 }
