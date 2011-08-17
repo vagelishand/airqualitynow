@@ -3,24 +3,21 @@ package com.quadrictech.airqualitynow.db;
 import java.sql.SQLException;
 
 import com.j256.ormlite.support.ConnectionSource;
-import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.State;
 
 public class AppRepository implements IAppRepository {
 	ConnectionSource mConnectionSource;
-	Repository<Forecast> mForecastRepository;
-	Repository<ReportingArea> mReportingAreaRepository;
-	Repository<State> mStateRepository;
+	IForecastRepository mForecastRepository;
+	IReportingAreaRepository mReportingAreaRepository;
+	IStateRepository mStateRepository;
 		
 	public AppRepository(ConnectionSource connectionSource){
 		mConnectionSource = connectionSource;
 	}
 	
-	public Repository<State> StateRepository(){
+	public IStateRepository StateRepository(){
 		if(mStateRepository == null){
 			try {
-				mStateRepository = new Repository<State>(mConnectionSource, State.class);
+				mStateRepository = new StateRepository(mConnectionSource);
 				
 				return mStateRepository;
 			} catch (SQLException e) {
@@ -31,10 +28,10 @@ public class AppRepository implements IAppRepository {
 		return null;
 	}
 
-	public Repository<Forecast> ForecastRepository() {
+	public IForecastRepository ForecastRepository() {
 		if(mForecastRepository == null){
 			try {
-				mForecastRepository = new Repository<Forecast>(mConnectionSource, Forecast.class);
+				mForecastRepository = new ForecastRepository(mConnectionSource);
 				
 				return mForecastRepository;
 			} catch (SQLException e) {
@@ -46,10 +43,10 @@ public class AppRepository implements IAppRepository {
 		return null;
 	}
 
-	public Repository<ReportingArea> ReportingAreaRepository() {
+	public IReportingAreaRepository ReportingAreaRepository() {
 		if(mReportingAreaRepository == null){
 			try {
-				mReportingAreaRepository = new Repository<ReportingArea>(mConnectionSource, ReportingArea.class);
+				mReportingAreaRepository = new ReportingAreaRepository(mConnectionSource);
 				
 				return mReportingAreaRepository;
 			} catch (SQLException e) {

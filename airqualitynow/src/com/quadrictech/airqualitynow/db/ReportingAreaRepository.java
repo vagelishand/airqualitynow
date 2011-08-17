@@ -5,11 +5,8 @@ import java.sql.SQLException;
 import com.j256.ormlite.support.ConnectionSource;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 
-public class ReportingAreaRepository extends Repository<ReportingArea> implements IReportingAreaRepository{
+public class ReportingAreaRepository extends GenericRepository<ReportingArea> implements IReportingAreaRepository{
 
-	public ReportingAreaRepository() throws SQLException{
-		super();
-	}
 	
 	public ReportingAreaRepository(ConnectionSource connectionSource) throws SQLException {
 		super(connectionSource, ReportingArea.class);
