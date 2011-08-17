@@ -5,8 +5,6 @@ import android.view.View;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
-import com.quadrictech.airqualitynow.db.ForecastRepository;
-import com.quadrictech.airqualitynow.db.IForecastRepository;
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IReportingAreaJsonProvider;
@@ -42,7 +40,6 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 		bind(new TypeLiteral<IForecastView<View>>(){}).to(ForecastView.class);
 		bind(IForecastListPresenter.class).to(ForecastListPresenter.class);
 		bind(IForecastListView.class).to(ForecastListView.class);
-		bind(IForecastRepository.class).to(ForecastRepository.class);
 	}
 
 }
