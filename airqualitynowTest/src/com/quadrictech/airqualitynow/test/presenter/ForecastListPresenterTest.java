@@ -3,7 +3,6 @@ package com.quadrictech.airqualitynow.test.presenter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import junit.framework.Assert;
 
@@ -38,7 +37,7 @@ public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNow
 	public void testInitializeList() throws SQLException{
 		List<Forecast> forecasts = getForecasts();
 				
-		AndroidMock.expect(repository.queryForAll()).andReturn(forecasts);
+		AndroidMock.expect(repository.getAll()).andReturn(forecasts);
 		
 		AndroidMock.replay(repository);
 		
