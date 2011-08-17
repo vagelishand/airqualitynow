@@ -17,6 +17,7 @@ import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.ForecastListPresenter.GuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
@@ -67,6 +68,12 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));
 	}
 	
+	public void getObservedByZipCode(String zipCode, GuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<Observed>>();
+		
+	}	
+	
 	public void onServiceConnected(ComponentName className, IBinder service) {
 		mDataServiceProvider = ((DataProviderService.LocalBinder)service).getService();
 		mEventManager.fire(mContext, new BindedToServiceEvent(DataProviderServiceHelper.this));
@@ -104,4 +111,5 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		}
 		
 	}
+	
 }

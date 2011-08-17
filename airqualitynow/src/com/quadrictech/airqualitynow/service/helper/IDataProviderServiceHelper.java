@@ -8,6 +8,7 @@ public interface IDataProviderServiceHelper extends IServiceHelper {
 	public void getAllForecasts(GuiRunnable<?> guiUpdateRunnable);
 	public void getForecastById(int id, GuiRunnable<?> guiUpdateRunnable);
 	public void getAllReportingAreas(GuiRunnable<?> guiUpdateRunnable);
+	public void getObservedByZipCode(String zipCode, GuiRunnable<?> guiUpdateRunnable);
 	public void doBindService();
 	public void doUnBindService();
 }
