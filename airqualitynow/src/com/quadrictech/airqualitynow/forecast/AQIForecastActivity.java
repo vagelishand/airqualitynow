@@ -32,6 +32,18 @@ public class AQIForecastActivity extends RoboActivity {
     }
     
     @Override
+    public void onPause(){
+    	super.onPause();
+    	mProviderServiceHelper.doUnBindService();
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	mProviderServiceHelper.doBindService();
+    }
+    
+    @Override
     public void onDestroy(){
     	super.onDestroy();
     	mForecastView.onDestroy();
