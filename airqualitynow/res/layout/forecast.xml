@@ -25,9 +25,15 @@
 		          	android:drawableLeft="@drawable/ic_menu_add"
 	       		/>
          	</TableRow>
+      </TableLayout>
+      <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/observedTable"
+		   android:orientation="vertical"
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content">
          	<TableRow>
 				<TextView
-         	    	android:id="@+id/forecastTableCurrentLabelTextView" 
+         	    	android:id="@+id/observedTableCurrentLabelTextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight=".10"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -40,7 +46,7 @@
          	</TableRow>
          	<TableRow>
 				<TextView
-         	    	android:id="@+id/forecastTableCurrentAQILabelTextView" 
+         	    	android:id="@+id/observedTableCurrentAQILabelTextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight=".10"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -52,7 +58,7 @@
 			</TableRow>
 			<TableRow>
 				<TextView
-         	    	android:id="@+id/forecastTableCurrentAQITimeDescTextView" 
+         	    	android:id="@+id/observedTableCurrentAQITimeDescTextView" 
 				    android:layout_width="0px"
 		        	android:layout_weight=".40"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -64,7 +70,7 @@
 			</TableRow>
 			<TableRow>
 				<TextView
-         	    	android:id="@+id/forecastTableCurrentAQITextView" 
+         	    	android:id="@+id/observedTableCurrentAQITextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight=".10"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -76,7 +82,7 @@
 			</TableRow>
 			<TableRow>
 				<TextView
-         	    	android:id="@+id/forecastTableCurrentAQIMsgTextView" 
+         	    	android:id="@+id/observedTableCurrentAQIMsgTextView" 
 				    android:layout_width="0px"
 		        	android:layout_weight=".40"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -86,6 +92,12 @@
 				    android:layout_margin="1dip"
 					/>	
          	</TableRow>
+     </TableLayout>
+     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		   android:id="@+id/forecastTableActionMenu"
+		   android:orientation="vertical"
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content">
          	<TableRow>
          		<TextView
          	    	android:id="@+id/forecastTableTodayTextView" 

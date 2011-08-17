@@ -48,6 +48,6 @@
 				    android:layout_margin="1dip"
 				    android:text="Map Points"
 				/>
-     </TableRow>    	
+     	</TableRow>			
    </TableLayout>
 </LinearLayout>
