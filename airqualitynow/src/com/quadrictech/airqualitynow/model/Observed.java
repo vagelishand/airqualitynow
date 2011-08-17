@@ -12,23 +12,26 @@ public class Observed {
 	@DatabaseField(id=true)
 	public int Id;
 	@DatabaseField
-	Date DateObserved;
+	public Date DateObserved;
 	@DatabaseField
-	int HourObserved;
+	public String HourObserved;
 	@DatabaseField
-	String LocalTimeZone;
-	//TODO reportingarea 
+	public String LocalTimeZone;
 	@DatabaseField
-	float Latitude;
+	public String ReportingArea;
 	@DatabaseField
-	float Longitude;
+	public String StateCode;
 	@DatabaseField
-	String ParamaterName;
+	public float Latitude;
 	@DatabaseField
-	int AQI;
+	public float Longitude;
 	@DatabaseField
-	int CategoryNumber;
+	public String ParameterName;
 	@DatabaseField
-	String CategoryName;
+	public int AQI;
+	@DatabaseField
+	public int CategoryNumber;
+	@DatabaseField
+	public String CategoryName;
 	
 }
