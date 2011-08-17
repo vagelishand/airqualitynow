@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
-import com.quadrictech.airqualitynow.event.GotAllForecastsEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
@@ -47,28 +46,54 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 
 	public void initializeList(@Observes BindedToServiceEvent event){
-		mDataProviderServiceHelper.getAllForecasts();
+		if(mDataProviderServiceHelper != null){
+			mDataProviderServiceHelper.getAllForecasts(new HandleGetForecasts());
+		}
 	}
-	
-	protected void handleGetAllForecasts(@Observes GotAllForecastsEvent gotAllForecastsEvent){
-		ILocalRequestCallback<Forecast> callback =  gotAllForecastsEvent.mRequestCallback;
+
+	protected void handleForecasts(ILocalRequestCallback<Forecast> c){
+		ILocalRequestCallback<Forecast> callback =  (ILocalRequestCallback<Forecast>) c;
 		
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();			
 		}
 		else{
-			mForecasts =  callback.getList();
+			mForecasts =  (List<Forecast>) callback.getList();
 			mAdapter = new ForecastArrayAdapter(mContext, R.layout.forecastlistrow, mForecasts);
 			
 			mForecastListView.getView().setAdapter(mAdapter);
 		}
-	}
+	}	
 
+	public interface GuiRunnable<T> extends Runnable{
+		public void setCallback(ILocalRequestCallback<?> callback);
+	}
+	
+	class HandleGetForecasts implements GuiRunnable<ILocalRequestCallback<Forecast>>{
+		ILocalRequestCallback<Forecast> callback;
+		
+		public void run() {
+			handleForecasts(callback);			
+		}
+
+		@SuppressWarnings("unchecked")
+		public void setCallback(ILocalRequestCallback<?> callback) {
+			this.callback = (ILocalRequestCallback<Forecast>) callback;
+		}
+	}
+	
 	public void onDestroy() {
-		mAdapter.clear();
-		mAdapter = null;
-		mForecasts.clear();
-		mForecasts = null;
+		
+		if(mAdapter != null){
+			mAdapter.clear();
+			mAdapter = null;
+		}
+		
+		if(mForecasts != null){
+			mForecasts.clear();
+			mForecasts = null;
+		}
+		
 		mForecastListView.onDestroy();
 		mForecastListView = null;
 	}
