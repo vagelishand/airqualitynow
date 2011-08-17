@@ -1,32 +1,19 @@
 package com.quadrictech.airqualitynow.command;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
-import com.quadrictech.airqualitynow.event.GotForecastByIdEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
 
-public class CommandGetForecastById extends DaoCommand<Forecast> {
+public class CommandGetForecastById extends DaoCommand<ILocalRequestCallback<Forecast>> {
 	private int mForecastId;
 	
-	public CommandGetForecastById(int forecastId, Context context, IDataProviderService dataProviderService, Handler handler){
+	public CommandGetForecastById(int forecastId, IDataProviderService dataProviderService){
 		mForecastId = forecastId;
-		mContext = context;
 		mDataProviderService = dataProviderService;
-		mHandler = handler;
 	}
 	
-	public void execute() {
-		ILocalRequestCallback<Forecast> callback = mDataProviderService.onGetForecastById(mForecastId);
-		GotForecastByIdEvent event = new GotForecastByIdEvent(null);
-		event.mRequestCallback = callback;
-		
-		Message m = Message.obtain();
-		m.obj = event;
-		mHandler.sendMessage(m);
+	public ILocalRequestCallback<Forecast> execute() {
+		return mDataProviderService.onGetForecastById(mForecastId);
 	}
 
 }
