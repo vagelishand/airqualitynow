@@ -6,13 +6,13 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 
 
-public class Repository<T> extends BaseDaoImpl<T, Integer>  {
+public class AppDao<T> extends BaseDaoImpl<T, Integer>  {
 	
-	public Repository() throws SQLException{
+	public AppDao() throws SQLException{
 		super(null);
 	}
 	
-	public Repository(ConnectionSource connectionSource,
+	public AppDao(ConnectionSource connectionSource,
 			Class<T> dataClass) throws SQLException {
 		super(connectionSource, dataClass);
 	}
