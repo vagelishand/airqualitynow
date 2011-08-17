@@ -1,7 +1,7 @@
 package com.quadrictech.airqualitynow;
 
 import com.quadrictech.airqualitynow.forecast.AQIForecastActivity;
-import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
+import com.quadrictech.airqualitynow.forecast.AQIForecastListActivity;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -14,14 +14,14 @@ import android.widget.Button;
 public class AirQualityNow extends RoboActivity implements OnClickListener{
     /** Called when the activity is first created. */
 	@InjectView(R.id.mainTableObservedForecastButton) Button mButton;
+	@InjectView(R.id.mainTableForecastListButton)		Button mFButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Intent intent = new Intent(this, RemoteDataProviderService.class);
-        startService(intent);
         mButton.setOnClickListener(this);
+        mFButton.setOnClickListener(this);
     }
     
     @Override
@@ -33,6 +33,10 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 		if(view.getId() == R.id.mainTableObservedForecastButton){
 			Intent intent = new Intent(AirQualityNow.this, AQIForecastActivity.class);
 			startActivity(intent);
-		}		
+		}
+		else if(view.getId() == R.id.mainTableForecastListButton){
+			Intent intent = new Intent(AirQualityNow.this, AQIForecastListActivity.class);
+			startActivity(intent);
+		}
 	}
 }
