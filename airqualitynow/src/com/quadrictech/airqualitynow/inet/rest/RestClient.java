@@ -34,14 +34,6 @@ public class RestClient {
 		} catch (IOException e) {
 			requestCallback.onError(new Throwable("Error getting remote data."));
 		}
-		finally{
-				try {
-					TRANSPORT.shutdown();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
 		
 		return requestCallback;
 	}
