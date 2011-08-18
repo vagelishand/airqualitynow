@@ -7,19 +7,14 @@ import com.quadrictech.airqualitynow.model.ForecastWrapper;
 
 public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> {
 	private ForecastWrapper mForecastWrapper;
-	private Forecast		mForecast;
 	private Throwable       mException;
 	
 	public ForecastRequestCallback(){
 		
 	}
 	
-	public ForecastRequestCallback(Forecast forecast){
-		mForecast = forecast;
-	}
-	
-	public ForecastRequestCallback(ForecastWrapper forecastWrapper){
-		mForecastWrapper = forecastWrapper;
+	public void onResponseReceived(List<Forecast> response) {
+		mForecastWrapper.setForecast(response);		
 	}
 	
 	public void onError(Throwable exception) {
@@ -30,20 +25,11 @@ public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> 
 		return mForecastWrapper.getForecast();
 	}
 
-	public Forecast getForecast() {
-		return mForecast;
-	}
-
 	public boolean getErrorStatus() {
 		return !(mException == null);
 	}
 
 	public String getErrorMessage() {
 		return mException.getLocalizedMessage();
-	}
-
-	public void onResponseReceived(Forecast response) {
-		// TODO Auto-generated method stub
-		
 	}
 }

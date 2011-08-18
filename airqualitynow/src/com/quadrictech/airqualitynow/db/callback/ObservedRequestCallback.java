@@ -3,38 +3,36 @@ package com.quadrictech.airqualitynow.db.callback;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.model.IObservedWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ObservedWrapper;
 
 public class ObservedRequestCallback implements ILocalRequestCallback<Observed> {
-	public ObservedWrapper wrapper;
+	private IObservedWrapper mObservedWrapper;
+	private Throwable mException;
 	
-	public ObservedRequestCallback(ObservedWrapper wrapper){
-		this.wrapper = wrapper;
+	public ObservedRequestCallback(){
+		mObservedWrapper = new ObservedWrapper();
 	}
 	
 	public void onError(Throwable exception) {
-		// TODO Auto-generated method stub
-		
+		mException = exception;		
 	}
-
-	public void onResponseReceived(Observed response) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public List<Observed> getList() {
-		return wrapper.getObserved();
-	}
-
+	
 	public boolean getErrorStatus() {
-		// TODO Auto-generated method stub
-		return false;
+		return mException != null;
 	}
-
+	
 	public String getErrorMessage() {
-		// TODO Auto-generated method stub
-		return null;
+		return mException.getLocalizedMessage();
 	}
-
+	
+	public void onResponseReceived(List<Observed> response) {
+		mObservedWrapper.setObserved(response);
+	}
+	
+	public List<Observed> getList() {
+		return mObservedWrapper.getObserved();
+	}
+	
 }
