@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
+import com.quadrictech.airqualitynow.model.IForecastWrapper;
 
 public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> {
-	private ForecastWrapper mForecastWrapper;
+	private IForecastWrapper mForecastWrapper;
 	private Throwable       mException;
 	
 	public ForecastRequestCallback(){
-		
+		mForecastWrapper = new ForecastWrapper();
 	}
 	
 	public void onResponseReceived(List<Forecast> response) {
@@ -18,7 +19,7 @@ public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> 
 	}
 	
 	public void onError(Throwable exception) {
-		
+		mException = exception;
 	}
 
 	public List<Forecast> getList() {
