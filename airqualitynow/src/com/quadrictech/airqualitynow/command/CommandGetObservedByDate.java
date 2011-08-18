@@ -4,16 +4,16 @@ import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
 
-public class CommandGetObservedByZipCode extends DaoCommand<ILocalRequestCallback<Observed>>{
+public class CommandGetObservedByDate extends DaoCommand<ILocalRequestCallback<Observed>>{
 	String mZipCode;
 	
-	public CommandGetObservedByZipCode(String zipCode, IDataProviderService dataProviderService){
+	public CommandGetObservedByDate(String zipCode, IDataProviderService dataProviderService){
 		mZipCode = zipCode;
 		mDataProviderService = dataProviderService;
 	}
 	
 	public ILocalRequestCallback<Observed> execute() {
-		return mDataProviderService.onGetObservedByDate(mZipCode);
+		return mDataProviderService.onGetObservedByDate(null);
 	}
 
 }
