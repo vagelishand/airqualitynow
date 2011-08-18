@@ -21,13 +21,14 @@ import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
+import com.quadrictech.airqualitynow.service.IDataProviderService;
 
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
 	private Context mContext;
 	private boolean mServiceBound;
 	private EventManager mEventManager;
 	private static DataProviderServiceHelper mDataProviderServiceHelper;
-	private DataProviderService mDataServiceProvider;
+	private IDataProviderService mDataServiceProvider;
 	DataAsyncTask<?> task;
 	IGuiRunnable<?> runnable;
 	public final Handler mGuiHandler = new Handler();
@@ -42,6 +43,10 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	
 	public DataProviderServiceHelper(){
 		
+	}
+	
+	public DataProviderServiceHelper(IDataProviderService dataProviderService){
+		mDataServiceProvider = dataProviderService;
 	}
 	
 	public DataProviderServiceHelper(Context context, EventManager eventManager){
