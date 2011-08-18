@@ -1,5 +1,11 @@
 package com.quadrictech.airqualitynow.test.json;
 
+import java.io.IOException;
+
+import junit.framework.Assert;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import roboguice.test.RoboUnitTestCase;
@@ -23,7 +29,7 @@ public class ReportingAreasJsonProviderTest extends RoboUnitTestCase<AirQualityN
 	}
 	
 	@MediumTest
-	public void testParseReportingArea(){
+	public void testParseReportingArea() throws JsonParseException, JsonMappingException, IOException{
 		IReportingAreaWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
 		assertNotNull(wrapper);
@@ -31,11 +37,35 @@ public class ReportingAreasJsonProviderTest extends RoboUnitTestCase<AirQualityN
 	}
 	
 	@MediumTest
-	public void testParseWrapperReportingAreas(){
+	public void testParseWrapperReportingAreas() throws JsonParseException, JsonMappingException, IOException{
 		IReportingAreaWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		ReportingArea area = wrapper.getReportingArea().get(0);
 		
 		assertEquals("Aberdeen", area.Name);
 		assertEquals("WA", area.State);
+	}
+	
+	@MediumTest
+	public void testWhenNoWrapperData() throws JsonParseException, IOException{
+		mJson = "{\"reportingArea\": \"\"}";
+		try{
+			mJsonProvider.parseJson(new ObjectMapper(), mJson);
+			Assert.fail("Should throw JsonMappingException");
+		}
+		catch(JsonMappingException e){
+			
+		}
+	}
+	
+	@MediumTest
+	public void testWhenPlainTextReturned() throws JsonMappingException, IOException{
+		mJson = "Invalid Key";
+		try{
+			mJsonProvider.parseJson(new ObjectMapper(), mJson);
+			Assert.fail("Should throw JsonParseException");
+		}
+		catch(JsonParseException e){
+			
+		}
 	}
 }

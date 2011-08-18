@@ -1,5 +1,11 @@
 package com.quadrictech.airqualitynow.test.json;
 
+import java.io.IOException;
+
+import junit.framework.Assert;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import roboguice.test.RoboUnitTestCase;
@@ -30,7 +36,7 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 	}
 	
 	@MediumTest
-	public void testParseForecastWrapper(){
+	public void testParseForecastWrapper() throws JsonParseException, JsonMappingException, IOException{
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
 		assertNotNull(wrapper);
@@ -38,7 +44,7 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 	}
 	
 	@MediumTest 
-	public void testParseWrapperForecasts(){
+	public void testParseWrapperForecasts() throws JsonParseException, JsonMappingException, IOException{
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		Forecast forecast = wrapper.getForecast().get(0);
 		
@@ -51,6 +57,30 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 		assertEquals(1, forecast.CategoryNumber);
 		assertEquals("Good", forecast.CategoryName);
 		assertEquals(false, forecast.ActionDay);
+	}
+	
+	@MediumTest
+	public void testWhenNoWrapperData() throws JsonParseException, IOException{
+		mJson = "{\"forecast\": \"\"}";
+		try{
+			mJsonProvider.parseJson(new ObjectMapper(), mJson);
+			Assert.fail("Should throw JsonMappingException");
+		}
+		catch(JsonMappingException e){
+			
+		}
+	}
+	
+	@MediumTest
+	public void testWhenPlainTextReturned() throws JsonMappingException, IOException{
+		mJson = "Invalid Key";
+		try{
+			mJsonProvider.parseJson(new ObjectMapper(), mJson);
+			Assert.fail("Should throw JsonParseException");
+		}
+		catch(JsonParseException e){
+			
+		}
 	}
 	
 }
