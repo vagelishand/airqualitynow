@@ -12,26 +12,14 @@ import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ObservedJsonProvider implements IObservedJsonProvider {
 
-	public IObservedWrapper parseJson(ObjectMapper mapper, String json) {
+	public IObservedWrapper parseJson(ObjectMapper mapper, String json) throws JsonParseException, JsonMappingException, IOException {
         mapper.setDateFormat(DateUtil.getDateFormat(DateUtil.DATE_FORMAT));
         //TODO use apache commons string.utils 
         json = json.replace("False", "false");
         json = json.replace("True", "true");
-		try {
-			ObservedWrapper observedData = mapper.readValue(json, ObservedWrapper.class);
+		ObservedWrapper observedData = mapper.readValue(json, ObservedWrapper.class);
 			
-			return observedData;
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return observedData;
 	}
 
 }

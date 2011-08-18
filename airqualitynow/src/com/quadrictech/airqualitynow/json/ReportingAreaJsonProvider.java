@@ -16,26 +16,15 @@ public class ReportingAreaJsonProvider implements IReportingAreaJsonProvider {
 		
 	}
 	
-	public IReportingAreaWrapper parseJson(ObjectMapper mapper, String json) {
+	public IReportingAreaWrapper parseJson(ObjectMapper mapper, String json) throws JsonParseException, JsonMappingException, IOException {
 		mapper.setDateFormat(DateUtil.getDateFormat(DateUtil.DATE_FORMAT));
         //TODO use apache commons string.utils 
         json = json.replace("False", "false");
         json = json.replace("True", "true");
-		try {
-			ReportingAreaWrapper reportingAreaData = mapper.readValue(json, ReportingAreaWrapper.class);
+		
+        ReportingAreaWrapper reportingAreaData = mapper.readValue(json, ReportingAreaWrapper.class);
 			
-			return reportingAreaData;
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return reportingAreaData;
 	}
 
 }
