@@ -1,8 +1,10 @@
 package com.quadrictech.airqualitynow.db;
 
+import java.sql.SQLException;
+
 public interface IAppRepository {
-	public IStateRepository StateRepository();
-	public IForecastRepository ForecastRepository();
-	public IReportingAreaRepository ReportingAreaRepository();
-	public IObservedRepository ObservedRepository();
+	public IStateRepository StateRepository()throws SQLException;
+	public IForecastRepository ForecastRepository()throws SQLException;
+	public IReportingAreaRepository ReportingAreaRepository()throws SQLException;
+	public IObservedRepository ObservedRepository()throws SQLException;
 }

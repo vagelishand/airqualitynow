@@ -15,59 +15,34 @@ public class AppRepository implements IAppRepository {
 		mConnectionSource = connectionSource;
 	}
 	
-	public IStateRepository StateRepository(){
+	public IStateRepository StateRepository() throws SQLException{
 		if(mStateRepository == null){
-			try {
-				mStateRepository = new StateRepository(mConnectionSource);
-				
-				return mStateRepository;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mStateRepository = new StateRepository(mConnectionSource);
 		}
-		return null;
+		
+		return mStateRepository;
 	}
 
-	public IForecastRepository ForecastRepository() {
+	public IForecastRepository ForecastRepository() throws SQLException {
 		if(mForecastRepository == null){
-			try {
-				mForecastRepository = new ForecastRepository(mConnectionSource);
-				
-				return mForecastRepository;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mForecastRepository = new ForecastRepository(mConnectionSource);
 		}		
 		
-		return null;
+		return mForecastRepository;
 	}
 
-	public IReportingAreaRepository ReportingAreaRepository() {
+	public IReportingAreaRepository ReportingAreaRepository() throws SQLException {
 		if(mReportingAreaRepository == null){
-			try {
-				mReportingAreaRepository = new ReportingAreaRepository(mConnectionSource);
-				
-				return mReportingAreaRepository;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mReportingAreaRepository = new ReportingAreaRepository(mConnectionSource);
 		}
-		return null;
+		return mReportingAreaRepository;
 	}
 	
-	public IObservedRepository ObservedRepository(){
+	public IObservedRepository ObservedRepository() throws SQLException{
 		if(mObservedRepository == null){
-			try {
-				mObservedRepository = new ObservedRepository(mConnectionSource);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mObservedRepository = new ObservedRepository(mConnectionSource);
 		}
 		
-		return null;
+		return mObservedRepository;
 	}
 }
