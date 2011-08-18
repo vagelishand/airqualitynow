@@ -1,5 +1,8 @@
 package com.quadrictech.airqualitynow.test.service;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import com.google.android.testing.mocking.AndroidMock;
 import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
@@ -10,6 +13,7 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.service.DataProviderService;
+import com.quadrictech.airqualitynow.utils.DateUtil;
 
 import android.content.Intent;
 import android.os.IBinder;
@@ -62,24 +66,6 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 		
 	}
 
-	@UsesMocks(IForecastRepository.class)
-	@MediumTest
-	public void testGetForecastById(){
-		ILocalRequestCallback<Forecast> forecastRequest = null;
-		mForecastRepository = AndroidMock.createMock(IForecastRepository.class);
-		IBinder binder = bindService(startIntent);
-		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
-		service.initialize(mForecastRepository);
-		
-		AndroidMock.expect(service.onGetForecastById(AndroidMock.anyInt())).andReturn(forecastRequest);
-		AndroidMock.replay(mForecastRepository);
-		
-		service.onGetForecastById(1);
-		
-		AndroidMock.verify(mForecastRepository);
-		
-	}
-	
 	@UsesMocks(IReportingAreaRepository.class)
 	@MediumTest
 	public void testGetReportingArea(){
@@ -99,16 +85,18 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 	
 	@UsesMocks(IObservedRepository.class)
 	@MediumTest
-	public void testGetObservedByZipCode(){
+	public void testGetObservedByDate() throws ParseException{
 		ILocalRequestCallback<Observed> observedRequest = null;
 		mObservedRepository = AndroidMock.createMock(IObservedRepository.class);
 		IBinder binder = bindService(startIntent);
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
+		service.initialize(mObservedRepository);
+		Date date = DateUtil.getDate("04/05/2010", "dd/MM/yyyy");
 		
-		AndroidMock.expect(service.onGetObservedByDate("74861")).andReturn(observedRequest);
+		AndroidMock.expect(service.onGetObservedByDate(date)).andReturn(observedRequest);
 		AndroidMock.replay(mObservedRepository);
 		
-		service.onGetObservedByDate("74861");
+		service.onGetObservedByDate(date);
 		AndroidMock.verify(mObservedRepository);
 	}
 	
