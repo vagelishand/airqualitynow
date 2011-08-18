@@ -1,4 +1,4 @@
-package com.quadrictech.airqualitynow.test.inet.callback;
+package com.quadrictech.airqualitynow.test.db.callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,31 +7,31 @@ import roboguice.test.RoboUnitTestCase;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
+import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
-	private ILocalRequestCallback<Observed> callback;
+public class ForecastRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
+	private ILocalRequestCallback<Forecast> callback;
 	
 	@Override
 	public void setUp()throws Exception{
 		super.setUp();
-		callback = new ObservedRequestCallback();
+		callback = new ForecastRequestCallback();
 	}
 	
 	@MediumTest
 	public void testOnResponseReceived(){
-		List<Observed> observed = new ArrayList<Observed>(){
+		List<Forecast> forecasts = new ArrayList<Forecast>(){
 			private static final long serialVersionUID = 1L;
 			{
-				add(new  Observed());
-				add(new  Observed());
+				add(new  Forecast());
+				add(new  Forecast());
 			}
 		};
 		
-		callback.onResponseReceived(observed);
+		callback.onResponseReceived(forecasts);
 		
 		assertNotNull(callback.getList());
 		assertEquals(2, callback.getList().size());
@@ -51,5 +51,4 @@ public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowA
 		callback = null;
 		super.tearDown();
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.quadrictech.airqualitynow.test.inet.callback;
+package com.quadrictech.airqualitynow.test.db.callback;
 
 import java.util.ArrayList;
 import java.util.List;
