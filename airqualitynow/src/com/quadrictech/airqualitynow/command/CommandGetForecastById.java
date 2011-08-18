@@ -3,17 +3,18 @@ package com.quadrictech.airqualitynow.command;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
-
+//TODO determine if needed or not
 public class CommandGetForecastById extends DaoCommand<ILocalRequestCallback<Forecast>> {
-	private int mForecastId;
+	//private int mForecastId;
 	
 	public CommandGetForecastById(int forecastId, IDataProviderService dataProviderService){
-		mForecastId = forecastId;
-		mDataProviderService = dataProviderService;
+		//mForecastId = forecastId;
+		//mDataProviderService = dataProviderService;
 	}
 	
 	public ILocalRequestCallback<Forecast> execute() {
-		return mDataProviderService.onGetForecastById(mForecastId);
+		//return mDataProviderService.onGetForecastById(mForecastId);
+		return null;
 	}
 
 }
