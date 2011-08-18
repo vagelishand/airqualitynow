@@ -9,4 +9,5 @@ public interface IGenericRepository<T> {
 	public void insert(T entity) throws SQLException ;
 	public void update(T entity) throws SQLException ;
 	public void delete(int id) throws SQLException ;
+	public List<T> getByFieldEquals(String fieldName, Object value)throws SQLException ;
 }

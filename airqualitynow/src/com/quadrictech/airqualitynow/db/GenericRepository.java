@@ -34,4 +34,8 @@ public class GenericRepository<T> implements IGenericRepository<T> {
 		mDao.delete(entity);		
 	}
 
+	public List<T> getByFieldEquals(String fieldName, Object value) throws SQLException {
+		return mDao.queryForEq(fieldName, value);
+	}
+
 }
