@@ -14,10 +14,6 @@ public class ReportingAreaRemoteRequestCallback implements IRemoteRequestCallbac
 		mException = exception;		
 	}
 
-	public void onResponseReceived(ReportingArea response) {
-		mReportingArea = response;
-	}
-
 	public List<ReportingArea> getList() {
 		return mReportingAreaWrapper.getReportingArea();
 	}
@@ -28,6 +24,11 @@ public class ReportingAreaRemoteRequestCallback implements IRemoteRequestCallbac
 
 	public String getErrorMessage() {
 		return mException.getLocalizedMessage();
+	}
+
+	public void onResponseReceived(List<ReportingArea> response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

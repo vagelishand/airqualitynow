@@ -34,4 +34,8 @@ public class ForecastRemoteRequestCallback implements IRemoteRequestCallback<For
 		mForecast = response;
 	}
 
+	public void onResponseReceived(List<Forecast> response) {
+				
+	}
+
 }

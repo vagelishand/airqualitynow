@@ -18,10 +18,6 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 		mException = exception;
 	}
 
-	public void onResponseReceived(Observed response) {
-		mObserved = response;
-	}
-
 	public List<Observed> getList() {
 		return mWrapper.getObserved();
 	}
@@ -32,6 +28,11 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 
 	public String getErrorMessage() {
 		return mException.getLocalizedMessage();
+	}
+
+	public void onResponseReceived(List<Observed> response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

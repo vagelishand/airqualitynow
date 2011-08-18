@@ -25,5 +25,4 @@ public class RestRequestCallback implements IRestRequestCallback {
 	public HttpResponse getResponse() {
 		return mHttpResponse;
 	}
-
 }
