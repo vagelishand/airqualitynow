@@ -22,9 +22,9 @@ public class Observed {
 	@DatabaseField
 	public String StateCode;
 	@DatabaseField
-	public float Latitude;
+	public double Latitude;
 	@DatabaseField
-	public float Longitude;
+	public double Longitude;
 	@DatabaseField
 	public String ParameterName;
 	@DatabaseField
