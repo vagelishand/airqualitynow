@@ -79,11 +79,12 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	
 	public ILocalRequestCallback<Forecast> onGetAllForecasts(){
 		ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback();
-		if(mForecastRepository == null){
-			mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
-		}
 		
 		try {
+			if(mForecastRepository == null){
+				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
+			}
+			
 			List<Forecast> forecasts = mForecastRepository.getAll();
 			callback.onResponseReceived(forecasts);
 			
@@ -96,11 +97,12 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	
 	public ILocalRequestCallback<Observed> onGetObservedByDate(String date) {
 		ILocalRequestCallback<Observed> callback = new ObservedRequestCallback();
-		if(mObservedRepository == null){
-			mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
-		}
 		
 		try {
+			if(mObservedRepository == null){
+				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
+			}
+			
 			List<Observed> observed = mObservedRepository.getByFieldEquals("DateObserved", date);
 			callback.onResponseReceived(observed);
 		} catch (SQLException e) {
