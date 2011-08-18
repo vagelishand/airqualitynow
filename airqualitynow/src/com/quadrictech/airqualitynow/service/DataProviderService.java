@@ -1,6 +1,7 @@
 package com.quadrictech.airqualitynow.service;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Intent;
@@ -95,7 +96,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public ILocalRequestCallback<Observed> onGetObservedByDate(String date) {
+	public ILocalRequestCallback<Observed> onGetObservedByDate(Date date) {
 		ILocalRequestCallback<Observed> callback = new ObservedRequestCallback();
 		
 		try {
