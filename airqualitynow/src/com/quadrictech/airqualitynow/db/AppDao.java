@@ -6,7 +6,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 
 
-public class AppDao<T> extends BaseDaoImpl<T, Integer>  {
+public class AppDao<T> extends BaseDaoImpl<T, Integer> implements IAppDao<T> {
 	
 	public AppDao() throws SQLException{
 		super(null);
