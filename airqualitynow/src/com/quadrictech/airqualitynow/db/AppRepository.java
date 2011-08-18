@@ -9,6 +9,7 @@ public class AppRepository implements IAppRepository {
 	IForecastRepository mForecastRepository;
 	IReportingAreaRepository mReportingAreaRepository;
 	IStateRepository mStateRepository;
+	IObservedRepository mObservedRepository;
 		
 	public AppRepository(ConnectionSource connectionSource){
 		mConnectionSource = connectionSource;
@@ -54,6 +55,19 @@ public class AppRepository implements IAppRepository {
 				e.printStackTrace();
 			}
 		}
+		return null;
+	}
+	
+	public IObservedRepository ObservedRepository(){
+		if(mObservedRepository == null){
+			try {
+				mObservedRepository = new ObservedRepository(mConnectionSource);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		return null;
 	}
 }
