@@ -16,6 +16,7 @@ import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
+import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastListView;
 
@@ -65,11 +66,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		}
 	}	
 
-	public interface GuiRunnable<T> extends Runnable{
-		public void setCallback(ILocalRequestCallback<?> callback);
-	}
-	
-	class HandleGetForecasts implements GuiRunnable<ILocalRequestCallback<Forecast>>{
+	class HandleGetForecasts implements IGuiRunnable<ILocalRequestCallback<Forecast>>{
 		ILocalRequestCallback<Forecast> callback;
 		
 		public void run() {

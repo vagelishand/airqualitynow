@@ -19,7 +19,7 @@ import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.presenter.ForecastListPresenter.GuiRunnable;
+import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
@@ -29,7 +29,7 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	private static DataProviderServiceHelper mDataProviderServiceHelper;
 	private DataProviderService mDataServiceProvider;
 	DataAsyncTask<?> task;
-	GuiRunnable<?> runnable;
+	IGuiRunnable<?> runnable;
 	public final Handler mGuiHandler = new Handler();
 	
 	public static DataProviderServiceHelper getInstance(){
@@ -50,25 +50,25 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		doBindService();
 	}
 	
-	public void getAllForecasts(GuiRunnable<?> guiUpdateRunnable) {
+	public void getAllForecasts(IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
 		task.execute(new CommandGetAllForecasts(mDataServiceProvider));
 	}
 
-	public void getForecastById(int id, GuiRunnable<?> guiUpdateRunnable) {
+	public void getForecastById(int id, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
 		task.execute(new CommandGetForecastById(id, mDataServiceProvider));
 	}
 
-	public void getAllReportingAreas(GuiRunnable<?> guiUpdateRunnable) {
+	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));
 	}
 	
-	public void getObservedByZipCode(String zipCode, GuiRunnable<?> guiUpdateRunnable) {
+	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<Observed>>();
 		
