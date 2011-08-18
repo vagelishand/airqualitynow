@@ -5,8 +5,7 @@ import java.util.List;
 public class ObservedWrapper implements IObservedWrapper {
 	List<Observed> mObserved;
 	
-	public ObservedWrapper(List<Observed> observed){
-		mObserved = observed;
+	public ObservedWrapper(){
 	}
 	
 	public List<Observed> getObserved() {
