@@ -18,11 +18,8 @@ import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
-import com.quadrictech.airqualitynow.model.ObservedWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.State;
 
 public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> implements IDataProviderService {
@@ -41,7 +38,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	private IForecastRepository mForecastRepository;
 	private IReportingAreaRepository mReportingAreaRepository;
 	private IObservedRepository mObservedRepository;
-	
+		
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
@@ -63,6 +60,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	}
 	
 	public ILocalRequestCallback<ReportingArea> onGetAllReportingAreas(){
+		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		try {
 			if(mReportingAreaRepository == null){
 				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
@@ -70,67 +68,46 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 						
 			List<ReportingArea> reportingAreas = mReportingAreaRepository.getAll();
 			
-			return new ReportingAreaRequestCallback(new ReportingAreaWrapper(reportingAreas)); 
+			callback.onResponseReceived(reportingAreas);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			callback.onError(e);
 		}
-		return null;
+		
+		return callback;
 	}
 	
 	public ILocalRequestCallback<Forecast> onGetAllForecasts(){
+		ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		if(mForecastRepository == null){
 			mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 		}
 		
 		try {
 			List<Forecast> forecasts = mForecastRepository.getAll();
-			ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback(new ForecastWrapper(forecasts));
+			callback.onResponseReceived(forecasts);
 			
-			return callback;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			callback.onError(e);
 		}
 		
-		return null;
+		return callback;
 	}
 	
-	public ILocalRequestCallback<Forecast> onGetForecastById(int id){
-		if(mForecastRepository == null){
-			mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
-		}
-		
-		try {
-			Forecast forecast = mForecastRepository.getById(id);
-			ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback(forecast);
-			
-			return callback;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
 	public ILocalRequestCallback<Observed> onGetObservedByDate(String date) {
-		
+		ILocalRequestCallback<Observed> callback = new ObservedRequestCallback();
 		if(mObservedRepository == null){
 			mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
 		}
 		
 		try {
 			List<Observed> observed = mObservedRepository.getByFieldEquals("DateObserved", date);
-			ILocalRequestCallback<Observed> callback = new ObservedRequestCallback(new ObservedWrapper(observed));
-			
-			return callback;
+			callback.onResponseReceived(observed);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			callback.onError(e);
 		} 
 		
-		return null;
+		return callback;
 	}
 
 	public void initialize(IForecastRepository fr) {
