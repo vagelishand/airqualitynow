@@ -1,5 +1,5 @@
 <factorypath>
     <factorypathentry kind="EXTJAR" id="C:\eclipse\git\airqualitynow\airqualitynowTest\lib\AndroidMockGenerator.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="ANDROID_RUNTIME" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="AIRQUALITYNOWBIN" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="ANDROID_RUNTIME" enabled="false" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="AIRQUALITYNOWBIN" enabled="false" runInBatchMode="false"/>
 </factorypath>
