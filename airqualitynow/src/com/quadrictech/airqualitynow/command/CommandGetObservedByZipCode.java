@@ -13,7 +13,7 @@ public class CommandGetObservedByZipCode extends DaoCommand<ILocalRequestCallbac
 	}
 	
 	public ILocalRequestCallback<Observed> execute() {
-		return mDataProviderService.onGetObservedByZipCode(mZipCode);
+		return mDataProviderService.onGetObservedByDate(mZipCode);
 	}
 
 }
