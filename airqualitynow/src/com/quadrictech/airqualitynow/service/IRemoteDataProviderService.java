@@ -8,5 +8,4 @@ import com.quadrictech.airqualitynow.model.ReportingArea;
 public interface IRemoteDataProviderService {
 	public IRemoteRequestCallback<Forecast> onGetForecastByZipCode(String zipCode);
 	public IRemoteRequestCallback<Observed> onGetObservedbyZipCode(String zipCode);
-	public IRemoteRequestCallback<ReportingArea> onGetAllReportingAreas();
 }

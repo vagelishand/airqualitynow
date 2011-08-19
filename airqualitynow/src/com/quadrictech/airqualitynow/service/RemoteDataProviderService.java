@@ -20,7 +20,6 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
 import com.quadrictech.airqualitynow.model.IObservedWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
-import com.quadrictech.airqualitynow.model.ReportingArea;
 
 import android.app.Service;
 import android.content.Context;
@@ -28,7 +27,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.Time;
-import android.util.Log;
 
 public class RemoteDataProviderService extends Service implements IRemoteDataProviderService{
 	AirNowUrl mAirNowUrl;
@@ -63,7 +61,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return START_NOT_STICKY;
 	}
 
-	public IRemoteRequestCallback<Forecast> onGetForecastByZipCode(String zipCode) {
+	public IRemoteRequestCallback<Forecast> onGetForecastByZipCode(String zipCode){
 		Time now = new Time();
 		now.setToNow();
 		
@@ -72,24 +70,30 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 				                                     mContext.getString(R.string.airnowgateway_apikey));
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
-		mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 		
 		mForecastJsonProvider = new ForecastJsonProvider();
 		
 		IRemoteRequestCallback<Forecast> callback = null;
 		
 		try {
-			IForecastWrapper wrapper = mForecastJsonProvider.parseJson(new ObjectMapper(), 
-					                                     mRestRequestCallback.getResponse().parseAsString());
-			callback = new ForecastRemoteRequestCallback(wrapper); 
-			return callback;
+			callback = new ForecastRemoteRequestCallback();
+			mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
+			
+			if(mRestRequestCallback.getErrorStatus()){
+				throw new IOException("Error");
+			}
+			else{
+				IForecastWrapper wrapper = mForecastJsonProvider.parseJson(new ObjectMapper(), 
+						                                     mRestRequestCallback.getResponse().parseAsString());
+				callback = new ForecastRemoteRequestCallback();
+				callback.onResponseReceived(wrapper.getForecast());
+			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			callback.onError(new Throwable("Cannot retrieve remote data"));
 		}
 		
-		return  null;
+		return  callback;
 	}
 
 	public IRemoteRequestCallback<Observed> onGetObservedbyZipCode(String zipCode) {
@@ -100,32 +104,24 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 						        mContext.getString(R.string.airnowgateway_apikey));
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
-		Log.d("test", mAirNowUrl.url.toString());
-		mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 		
 		mObservedJsonProvider = new ObservedJsonProvider();
 		
 		IRemoteRequestCallback<Observed> callback = null;
 		
 		try {
+			callback = new ObservedRemoteRequestCallback();
+			mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 			String json = mRestRequestCallback.getResponse().parseAsString();
-			Log.d(this.getClass().getName(), json);
 			
 			IObservedWrapper wrapper = mObservedJsonProvider.parseJson(new ObjectMapper(), json);
-			callback = new ObservedRemoteRequestCallback(wrapper); 
-			return callback;
+			 
+			callback.onResponseReceived(wrapper.getObserved());
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			callback.onError(e);
 		}
 		
-		return  null;	
+		return  callback;	
 	}
-
-	public IRemoteRequestCallback<ReportingArea> onGetAllReportingAreas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
