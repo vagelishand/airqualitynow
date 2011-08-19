@@ -5,6 +5,7 @@ import roboguice.inject.InjectView;
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
 
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,5 +57,9 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 
 	public void onDestroy() {
 		mView = null;
+	}
+
+	public void setAdapter(ForecastArrayAdapter adapter) {
+		mView.setAdapter(adapter);		
 	}
 }

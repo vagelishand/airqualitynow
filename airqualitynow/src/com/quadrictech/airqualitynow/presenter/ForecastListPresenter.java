@@ -35,7 +35,8 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		
 	}
 	
-	public ForecastListPresenter(IForecastListView<ListView> view, IDataProviderServiceHelper dataProviderServiceHelper){
+	public ForecastListPresenter(IForecastListView<ListView> view, IDataProviderServiceHelper dataProviderServiceHelper, Context context){
+		mContext = context;
 		mForecastListView = view;
 		mDataProviderServiceHelper = dataProviderServiceHelper;
 	}
@@ -52,8 +53,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		}
 	}
 
-	protected void handleForecasts(ILocalRequestCallback<Forecast> c){
-		ILocalRequestCallback<Forecast> callback =  (ILocalRequestCallback<Forecast>) c;
+	public void handleForecasts(ILocalRequestCallback<Forecast> callback){
 		
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();			
@@ -62,7 +62,7 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 			mForecasts =  (List<Forecast>) callback.getList();
 			mAdapter = new ForecastArrayAdapter(mContext, R.layout.forecastlistrow, mForecasts);
 			
-			mForecastListView.getView().setAdapter(mAdapter);
+			mForecastListView.setAdapter(mAdapter);
 		}
 	}	
 
