@@ -12,9 +12,10 @@ import com.quadrictech.airqualitynow.model.ReportingArea;
 
 public interface IDataProviderService {
 	public ILocalRequestCallback<Forecast> onGetAllForecasts();
-	public ILocalRequestCallback<ReportingArea> onGetAllReportingAreas();
 	public ILocalRequestCallback<Observed> onGetObservedByDate(Date date);
 	public void initialize(IForecastRepository fr);
 	public void initialize(IReportingAreaRepository rar);
 	public void initialize(IObservedRepository or);
+	public ILocalRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea);
+	public ILocalRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode);
 }

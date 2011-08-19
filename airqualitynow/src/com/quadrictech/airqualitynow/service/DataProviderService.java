@@ -124,6 +124,39 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	public void initialize(IObservedRepository or) {
 		mObservedRepository = or;		
 	}
+
+	public ILocalRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea) {
+		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
+		
+		try {
+			if(mReportingAreaRepository == null){
+				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
+			}
+			mReportingAreaRepository.insert(reportingArea);
+		} catch (SQLException e) {
+			callback.onError(new Throwable("Unable to insert Reporting Area"));
+		}
+		
+		return callback;
+	}
+
+	public ILocalRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode) {
+		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
+		
+		try {
+			if(mReportingAreaRepository == null){
+				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
+			}
+			
+			List<ReportingArea> areas = mReportingAreaRepository.getByFieldEquals("ZipCode", zipCode);
+			
+			callback.onResponseReceived(areas);
+		} catch (SQLException e) {
+			callback.onError(new Throwable("Unable to retrieve Reporting Area: " + e.getMessage()));
+		}
+		
+		return callback;
+	}
 	
 	
 }
