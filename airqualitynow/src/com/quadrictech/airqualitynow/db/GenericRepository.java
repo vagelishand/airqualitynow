@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.j256.ormlite.support.ConnectionSource;
 
-public class GenericRepository<T> implements IGenericRepository<T> {
+public abstract class GenericRepository<T> implements IGenericRepository<T> {
 	AppDao<T> mDao;
 	
 	public GenericRepository(ConnectionSource connectionSource,
