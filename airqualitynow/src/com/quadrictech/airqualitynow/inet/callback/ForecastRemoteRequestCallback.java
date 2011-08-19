@@ -10,10 +10,6 @@ public class ForecastRemoteRequestCallback implements IRemoteRequestCallback<For
 	Forecast mForecast;
 	Throwable mException;
 	
-	public ForecastRemoteRequestCallback(){
-		
-	}
-	
 	public void onError(Throwable exception) {
 		mException = exception;		
 	}
