@@ -11,5 +11,6 @@ public interface IForecastListPresenter<T> extends IPresenter<T>{
 	public void initializeList(@Observes BindedToServiceEvent event);
 	public void onPollutantGuideButtonClick();
 	public void onSearchAreaClick();
+	public void onAddReportingAreaClick();
 	public void handleForecasts(ILocalRequestCallback<Forecast> callback);
 }

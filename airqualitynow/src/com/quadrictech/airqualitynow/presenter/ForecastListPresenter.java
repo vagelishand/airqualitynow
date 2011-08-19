@@ -111,4 +111,8 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	public void onSearchAreaClick() {
 		
 	}
+
+	public void onAddReportingAreaClick() {
+		Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
+	}
 }
