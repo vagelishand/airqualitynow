@@ -7,13 +7,14 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Forecast {
+	public Forecast(){}
+	
 	@DatabaseField(id = true)
 	public int id;
 	@DatabaseField
 	public Date DateIssue;
 	@DatabaseField
 	public String DateForecast;
-	@DatabaseField
 	public String ReportingArea;
 	@DatabaseField
 	public String StateCode;
@@ -34,5 +35,5 @@ public class Forecast {
 	@DatabaseField
 	public String Discussion;
 	@DatabaseField
-	public int Type;//1=forecast 2=observed(actual)
+	public String ZipCode;
 }

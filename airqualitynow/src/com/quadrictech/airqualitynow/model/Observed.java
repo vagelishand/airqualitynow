@@ -17,7 +17,6 @@ public class Observed {
 	public String HourObserved;
 	@DatabaseField
 	public String LocalTimeZone;
-	@DatabaseField
 	public String ReportingArea;
 	@DatabaseField
 	public String StateCode;
@@ -33,5 +32,6 @@ public class Observed {
 	public int CategoryNumber;
 	@DatabaseField
 	public String CategoryName;
-	
+	@DatabaseField
+	public String ZipCode;
 }
