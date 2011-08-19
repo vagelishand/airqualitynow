@@ -10,8 +10,8 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 	Throwable mException;
 	Observed mObserved;
 	
-	public ObservedRemoteRequestCallback(IObservedWrapper wrapper){
-		mWrapper = wrapper;
+	public ObservedRemoteRequestCallback(){
+		
 	}
 	
 	public void onError(Throwable exception) {
