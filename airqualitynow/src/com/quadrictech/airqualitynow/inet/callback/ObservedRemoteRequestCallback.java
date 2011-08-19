@@ -10,10 +10,6 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 	Throwable mException;
 	Observed mObserved;
 	
-	public ObservedRemoteRequestCallback(){
-		
-	}
-	
 	public void onError(Throwable exception) {
 		mException = exception;
 	}
@@ -32,7 +28,5 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 
 	public void onResponseReceived(List<Observed> response) {
 		// TODO Auto-generated method stub
-		
 	}
-
 }
