@@ -1,5 +1,7 @@
 package com.quadrictech.airqualitynow.service.helper;
 
+import java.util.List;
+
 import roboguice.event.EventManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,7 +14,6 @@ import android.os.IBinder;
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllForecasts;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
-import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
@@ -67,17 +68,31 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetForecastById(id, mDataServiceProvider));
 	}
 
-	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable) {
-		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
-		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));
-	}
-	
 	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<Observed>>();
+		//TODO finish method
+	}
+	
+	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		//TODO finish method
+	}
+
+	public void insertReportingArea(ReportingArea reportingArea) {
 		
-	}	
+	}
+
+	public void insertObserved(List<Observed> observedList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertForecast(List<Forecast> forecasts) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void onServiceConnected(ComponentName className, IBinder service) {
 		mDataServiceProvider = ((DataProviderService.LocalBinder)service).getService();
@@ -103,18 +118,18 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		doUnBindService();		
 	}
 	
-	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, Void>{
+	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, ILocalRequestCallback<?>>{
 		ILocalRequestCallback<?> callback;
 		@Override
-		protected Void doInBackground(IDaoCommand<?>... arg0) {
+		protected ILocalRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
 			callback = (ILocalRequestCallback<?>) arg0[0].execute();
 			
 			runnable.setCallback(callback);
+			
 			mGuiHandler.post(runnable);
 			
-			return null;
+			return callback;
 		}
 		
 	}
-	
 }
