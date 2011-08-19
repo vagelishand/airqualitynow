@@ -19,22 +19,19 @@ public class RestClient {
 	 * Execute Http Get requests using google apis
 	 * @param parameterObject TODO
 	 * @param requestCallback Uses to process reply/error 
+	 * @throws IOException 
 	 */
-	public  synchronized static IRestRequestCallback executeHttpGet(AirNowUrl parameterObject){
+	public  synchronized static IRestRequestCallback executeHttpGet(AirNowUrl parameterObject) throws IOException{
 		HttpRequest request = null;
 		HttpResponse response = null;
 		IRestRequestCallback requestCallback = null;
 		
-		try {
-			request = TRANSPORT.createRequestFactory().buildGetRequest(parameterObject.url);
-			requestCallback = new RestRequestCallback();
-			response = request.execute();
-			
-			requestCallback.onResponseReceived(response);
-		} catch (IOException e) {
-			requestCallback.onError(new Throwable("Error getting remote data."));
-		}
+		request = TRANSPORT.createRequestFactory().buildGetRequest(parameterObject.url);
+		requestCallback = new RestRequestCallback();
+		response = request.execute();
 		
+		requestCallback.onResponseReceived(response);
+
 		return requestCallback;
 	}
 }
