@@ -9,6 +9,7 @@ import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
 import android.content.ComponentName;
@@ -34,11 +35,6 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		doBindService();
 	}
 
-	public void getAllReportingAreas() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void getForecastByZipCode(String zipCode) {
 		IRemoteRequestCallback<Forecast> callback = mRemoteDataProviderService.onGetForecastByZipCode(zipCode);
 		List<Forecast>forecasts = callback.getList();
@@ -48,16 +44,38 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		}
 	}
 
-	public void getObservedByZipCode(String zipCode) {
-		IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
-		ObservedDataRetrieved retrieved = new ObservedDataRetrieved();
-		retrieved.mRemoteRequestCallback = callback;
-		mEventManager.fire(mContext, retrieved);
-		List<Observed>observed = callback.getList();
+	public void getObservedByZipCode(final String zipCode) {
+		new Thread(new Runnable(){
+			public void run(){
+				IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
+				ObservedDataRetrieved retrieved = new ObservedDataRetrieved();
+				retrieved.mRemoteRequestCallback = callback;
+				
+				List<Observed>observed = callback.getList();
+				
+				for(Observed o: observed){
+					Log.d(this.getClass().getName(), o.CategoryName);
+				}
+			}
+		}).start();
+	}
+	
+	public void getReportingAreaByZipCode(final String zipCode) {
+		new Thread(new Runnable(){
+			public void run(){
+				IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
+				
+				if(!callback.getErrorStatus()){
+					Observed observed = callback.getList().get(0);
+					ReportingArea area = new ReportingArea();
+					area.Name = observed.ReportingArea;
+					area.State = observed.StateCode;
+					area.ZipCode = observed.ZipCode;
+				}
+				
+			}
+		}).start();
 		
-		for(Observed o: observed){
-			Log.d(this.getClass().getName(), o.CategoryName);
-		}
 	}
 
 	public void onServiceConnected(ComponentName className, IBinder service) {
