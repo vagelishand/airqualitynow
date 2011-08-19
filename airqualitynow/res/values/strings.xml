@@ -2,11 +2,11 @@
 <resources>
     <string name="app_name">Air Quality Now</string>
     <string name="mainTableFirstRow">Air Quality Forecast</string>
-    <string name="today">Today\'s Hi</string>
-    <string name="tomorrow">Tomorrow\'s Hi</string>
-    <string name="forecastListTableReportingAreaHeader">ReportingArea</string>
-    <string name="forecastListTableTodayHeader">Today</string>
-    <string name="forecastListTableTomorrowHeader">Tomorrow</string>
+    <string name="todayHi">Today\'s Hi</string>
+    <string name="tomorrowHi">Tomorrow\'s Hi</string>
+    <string name="reportingAreaHeader">ReportingArea</string>
+    <string name="todayHeader">Today</string>
+    <string name="tomorrowHeader">Tomorrow</string>
     <string name="currentConditions">Current Conditions</string>
     <string name="dataNotAvailable">Data not Available</string>
     <string name="fourdayForecastTableDay">Day</string>
@@ -14,4 +14,6 @@
     <string name="fourdayForecastPM25">PM25</string>
     <string name="fourdayForecastOzone">Ozone</string>
     <string name="fourdayForecastActionDay">Action Day</string>
+    <string name="zipCodeInputSubmit">Submit</string>
+    <string name="zipCodeInputCancel">Cancel</string>
 </resources>
