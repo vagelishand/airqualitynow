@@ -48,7 +48,7 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 			
 		}
 		else if(v.getId() == R.id.forecastListTableAddButton){
-			
+			mPresenter.onAddReportingAreaClick();
 		}
 		else if(v.getId() == R.id.forecastListTableGuideButton){
 			mPresenter.onPollutantGuideButtonClick();
@@ -61,5 +61,9 @@ public class ForecastListView implements IForecastListView<ListView>, OnItemClic
 
 	public void setAdapter(ForecastArrayAdapter adapter) {
 		mView.setAdapter(adapter);		
+	}
+
+	public String getEditTextString() {
+		return this.mSearchEditText.getText().toString();
 	}
 }
