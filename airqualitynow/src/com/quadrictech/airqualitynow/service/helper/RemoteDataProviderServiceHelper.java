@@ -2,14 +2,12 @@ package com.quadrictech.airqualitynow.service.helper;
 
 import java.util.List;
 
-import roboguice.event.EventManager;
-
-import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
 import android.content.ComponentName;
@@ -23,16 +21,17 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	private RemoteDataProviderService mRemoteDataProviderService;
 	private boolean mServiceBound;
 	private Context mContext;
-	private EventManager mEventManager;
+	private static RemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
 	//TODO implement AsyncTask for remote calls
 	public RemoteDataProviderServiceHelper(){
 		
 	}
 	
-	public RemoteDataProviderServiceHelper(Context context, EventManager eventManager){
-		mContext = context;
-		mEventManager = eventManager;
-		doBindService();
+	public static RemoteDataProviderServiceHelper getInstance(){
+		if(mRemoteDataProviderServiceHelper == null){
+			mRemoteDataProviderServiceHelper = new RemoteDataProviderServiceHelper();
+		}
+		return mRemoteDataProviderServiceHelper;
 	}
 
 	public void getForecastByZipCode(String zipCode) {
@@ -60,17 +59,19 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		}).start();
 	}
 	
-	public void getReportingAreaByZipCode(final String zipCode) {
+	public void getReportingAreaByZipCode(final String zipCode, final IGuiRunnable<?> guiUpdateRunnable) {
 		new Thread(new Runnable(){
 			public void run(){
 				IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
 				
-				if(!callback.getErrorStatus()){
+				if(!callback.getErrorStatus() && callback.getList().size() > 0){
 					Observed observed = callback.getList().get(0);
 					ReportingArea area = new ReportingArea();
 					area.Name = observed.ReportingArea;
 					area.State = observed.StateCode;
-					//area.ZipCode = observed.ZipCode;
+					area.ObservedAQI = observed.AQI;
+					
+					DataProviderServiceHelper.getInstance().insertReportingArea(area, guiUpdateRunnable);
 				}
 				
 			}
@@ -80,7 +81,6 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 
 	public void onServiceConnected(ComponentName className, IBinder service) {
 		mRemoteDataProviderService = ((RemoteDataProviderService.LocalBinder)service).getService();		
-		mEventManager.fire(mContext, new BindedToServiceEvent(null));
 	}
 
 	public void onServiceDisconnected(ComponentName className) {
@@ -88,7 +88,9 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		
 	}
 	
-	public void doBindService(){
+	public void doBindService(Context context){
+		mContext = context;
+		
 		if(!mServiceBound){
 			mServiceBound = mContext.bindService(new Intent(mContext, RemoteDataProviderService.class), this, Context.BIND_AUTO_CREATE);
 		}
