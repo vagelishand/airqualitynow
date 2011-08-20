@@ -20,7 +20,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.quadrictech.airqualitynow.forecast.AQIForecastActivity" 
+        <activity android:name=".forecast.ForecastActivity" 
 			      android:label="Air Quality Forecast"
 			      >
             <intent-filter>
