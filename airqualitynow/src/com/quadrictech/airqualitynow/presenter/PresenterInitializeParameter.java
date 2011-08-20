@@ -6,17 +6,17 @@ import android.widget.ListView;
 
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.view.IForecastListView;
+import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 public class PresenterInitializeParameter {
-	public IForecastListView<ListView> listView;
+	public IReportingAreaListView<ListView> listView;
 	public IForecastView<View> view;
 	public EventManager eventManager;
 	public DataProviderServiceHelper dataProviderServiceHelper;
 	public RemoteDataProviderServiceHelper remoteDataProviderServiceHelper;
 
-	public PresenterInitializeParameter(IForecastListView<ListView> view,
+	public PresenterInitializeParameter(IReportingAreaListView<ListView> view,
 			EventManager eventManager, DataProviderServiceHelper helper) {
 		this.listView = view;
 		this.eventManager = eventManager;
