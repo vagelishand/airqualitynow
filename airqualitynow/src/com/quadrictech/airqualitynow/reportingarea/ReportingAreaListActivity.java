@@ -1,21 +1,21 @@
-package com.quadrictech.airqualitynow.forecast;
+package com.quadrictech.airqualitynow.reportingarea;
 
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
-import com.quadrictech.airqualitynow.view.ForecastListView;
+import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 
 import roboguice.activity.RoboActivity;
 import roboguice.event.EventManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class AQIForecastListActivity extends RoboActivity {
-	@Inject private ForecastListView mForecastListView;
-	@Inject private ForecastListPresenter mForecastListPresenter;
+public class ReportingAreaListActivity extends RoboActivity {
+	@Inject private ReportingAreaListView mForecastListView;
+	@Inject private ReportingAreaListPresenter mForecastListPresenter;
 	@Inject protected EventManager mEventManager;
 	private DataProviderServiceHelper serviceHelper;
 	
@@ -23,7 +23,7 @@ public class AQIForecastListActivity extends RoboActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forecastlist);
+        setContentView(R.layout.reportingarealist);
         
         Intent intent = new Intent(this, DataProviderService.class);
         startService(intent);

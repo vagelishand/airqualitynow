@@ -1,7 +1,7 @@
 package com.quadrictech.airqualitynow;
 
 import com.quadrictech.airqualitynow.forecast.AQIForecastActivity;
-import com.quadrictech.airqualitynow.forecast.AQIForecastListActivity;
+import com.quadrictech.airqualitynow.reportingarea.ReportingAreaListActivity;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -35,7 +35,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 			startActivity(intent);
 		}
 		else if(view.getId() == R.id.mainTableForecastListButton){
-			Intent intent = new Intent(AirQualityNow.this, AQIForecastListActivity.class);
+			Intent intent = new Intent(AirQualityNow.this, ReportingAreaListActivity.class);
 			startActivity(intent);
 		}
 	}

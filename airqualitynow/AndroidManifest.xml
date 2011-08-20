@@ -13,7 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.quadrictech.airqualitynow.forecast.AQIForecastListActivity" 
+        <activity android:name=".reportingarea.ReportingAreaListActivity" 
 			      android:label="Air Quality Forecast List"
 			      >
             <intent-filter>

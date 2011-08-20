@@ -4,7 +4,7 @@ import roboguice.inject.InjectView;
 
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
 
 import android.view.View;
@@ -15,15 +15,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ForecastListView implements IForecastListView<ListView>, OnItemClickListener, OnClickListener  {
+public class ReportingAreaListView implements IReportingAreaListView<ListView>, OnItemClickListener, OnClickListener  {
 	@InjectView(R.id.forecastAreasList) 				private ListView mView;
 	@InjectView(R.id.forecastListTableSearchEditText) 	private EditText mSearchEditText;
 	@InjectView(R.id.forecastListTableSearchButton)		private Button   mSearchButton;
 	@InjectView(R.id.forecastListTableAddButton)		private Button   mAddButton;
 	@InjectView(R.id.forecastListTableGuideButton)		private Button   mGuideButton;
-	@Inject 											public ForecastListPresenter mPresenter;
+	@Inject 											public ReportingAreaListPresenter mPresenter;
 	
-	public ForecastListView(){
+	public ReportingAreaListView(){
 		
 	}
 	

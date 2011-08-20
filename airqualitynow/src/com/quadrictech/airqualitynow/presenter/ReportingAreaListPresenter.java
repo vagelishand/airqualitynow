@@ -15,14 +15,15 @@ import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.view.IForecastListView;
+import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
-public class ForecastListPresenter implements IForecastListPresenter<IForecastListView<ListView>>{
+public class ReportingAreaListPresenter implements IReportingAreaListPresenter<IReportingAreaListView<ListView>>{
 	
-	private IForecastListView<ListView> mForecastListView;
+	private IReportingAreaListView<ListView> mForecastListView;
 	private Context mContext;
 	private ForecastArrayAdapter mAdapter;
 	private List<Forecast> mForecasts;
@@ -31,11 +32,11 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	/***
 	 * REquired for roboguice parameter injection
 	 */
-	public ForecastListPresenter(){
+	public ReportingAreaListPresenter(){
 		
 	}
 	
-	public ForecastListPresenter(IForecastListView<ListView> view, IDataProviderServiceHelper dataProviderServiceHelper, Context context){
+	public ReportingAreaListPresenter(IReportingAreaListView<ListView> view, IDataProviderServiceHelper dataProviderServiceHelper, Context context){
 		mContext = context;
 		mForecastListView = view;
 		mDataProviderServiceHelper = dataProviderServiceHelper;
@@ -79,6 +80,29 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 		}
 	}
 	
+	public void handleInsertReportingAreaCallback(ILocalRequestCallback<ReportingArea> callback){
+		if(callback.getErrorStatus()){
+			
+		}
+		else{
+			ReportingArea area = callback.getList().get(0);
+			int index = (mAdapter.getCount() == 0) ? 0:mAdapter.getCount() - 1;
+			//mAdapter.insert(area, index);
+		}
+	}
+	
+	class HandleInsertReportingAreaCallback implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
+		ILocalRequestCallback<ReportingArea> callback;
+		
+		public void run() {
+			// TODO Auto-generated method stub
+		}
+
+		public void setCallback(ILocalRequestCallback<?> callback) {
+			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		}
+	}
+	
 	public void onDestroy() {
 		
 		if(mAdapter != null){
@@ -113,6 +137,11 @@ public class ForecastListPresenter implements IForecastListPresenter<IForecastLi
 	}
 
 	public void onAddReportingAreaClick() {
+		/*for(int i=0; i < mAdapter.getCount(); i++){
+			if(mAdapter.getItem(i).ZipCode == mForecastListView.getEditTextString()){
+				Toast.makeText(mContext, "found match", Toast.LENGTH_SHORT).show();
+			}
+		}*/
 		Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
 	}
 }
