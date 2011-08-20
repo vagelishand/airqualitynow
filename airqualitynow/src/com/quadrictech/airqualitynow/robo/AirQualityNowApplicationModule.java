@@ -13,17 +13,17 @@ import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
 import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
-import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.ForecastPresenter;
-import com.quadrictech.airqualitynow.presenter.IForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.IReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.view.ForecastListView;
+import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 import com.quadrictech.airqualitynow.view.ForecastView;
-import com.quadrictech.airqualitynow.view.IForecastListView;
+import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 public class AirQualityNowApplicationModule extends AbstractModule{
@@ -38,8 +38,8 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 		bind(IForecastWrapper.class).to(ForecastWrapper.class);
 		bind(new TypeLiteral <IForecastPresenter<View>>(){}).to((Class<? extends IForecastPresenter<View>>) ForecastPresenter.class);
 		bind(new TypeLiteral<IForecastView<View>>(){}).to(ForecastView.class);
-		bind(IForecastListPresenter.class).to(ForecastListPresenter.class);
-		bind(IForecastListView.class).to(ForecastListView.class);
+		bind(IReportingAreaListPresenter.class).to(ReportingAreaListPresenter.class);
+		bind(IReportingAreaListView.class).to(ReportingAreaListView.class);
 	}
 
 }
