@@ -14,9 +14,8 @@ import android.widget.Toast;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
-import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
+import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
@@ -25,8 +24,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 	private IReportingAreaListView<ListView> mForecastListView;
 	private Context mContext;
-	private ForecastArrayAdapter mAdapter;
-	private List<Forecast> mForecasts;
+	private ReportingAreaArrayAdapter mAdapter;
+	private List<ReportingArea> mReportingAreas;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
 	
 	/***
@@ -50,33 +49,33 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 
 	public void initializeList(@Observes BindedToServiceEvent event){
 		if(mDataProviderServiceHelper != null){
-			mDataProviderServiceHelper.getAllForecasts(new HandleGetForecasts());
+			mDataProviderServiceHelper.getAllReportingAreas(new HandleGetReportingAreas());
 		}
 	}
 
-	public void handleForecasts(ILocalRequestCallback<Forecast> callback){
+	public void handleGetReportingAreas(ILocalRequestCallback<ReportingArea> callback){
 		
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();			
 		}
 		else{
-			mForecasts =  (List<Forecast>) callback.getList();
-			mAdapter = new ForecastArrayAdapter(mContext, R.layout.forecastlistrow, mForecasts);
+			mReportingAreas =  (List<ReportingArea>) callback.getList();
+			mAdapter = new ReportingAreaArrayAdapter(mContext, R.layout.forecastlistrow, mReportingAreas);
 			
 			mForecastListView.setAdapter(mAdapter);
 		}
 	}	
 
-	class HandleGetForecasts implements IGuiRunnable<ILocalRequestCallback<Forecast>>{
-		ILocalRequestCallback<Forecast> callback;
+	class HandleGetReportingAreas implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
+		ILocalRequestCallback<ReportingArea> callback;
 		
 		public void run() {
-			handleForecasts(callback);			
+			handleGetReportingAreas(callback);			
 		}
 
 		@SuppressWarnings("unchecked")
 		public void setCallback(ILocalRequestCallback<?> callback) {
-			this.callback = (ILocalRequestCallback<Forecast>) callback;
+			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
 		}
 	}
 	
@@ -98,6 +97,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			// TODO Auto-generated method stub
 		}
 
+		@SuppressWarnings("unchecked")
 		public void setCallback(ILocalRequestCallback<?> callback) {
 			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
 		}
@@ -110,9 +110,9 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			mAdapter = null;
 		}
 		
-		if(mForecasts != null){
-			mForecasts.clear();
-			mForecasts = null;
+		if(mReportingAreas != null){
+			mReportingAreas.clear();
+			mReportingAreas = null;
 		}
 		
 		mForecastListView.onDestroy();

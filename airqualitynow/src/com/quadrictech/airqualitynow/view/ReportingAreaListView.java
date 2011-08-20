@@ -5,7 +5,7 @@ import roboguice.inject.InjectView;
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
-import com.quadrictech.airqualitynow.presenter.util.ForecastArrayAdapter;
+import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +59,7 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 		mView = null;
 	}
 
-	public void setAdapter(ForecastArrayAdapter adapter) {
+	public void setAdapter(ReportingAreaArrayAdapter adapter) {
 		mView.setAdapter(adapter);		
 	}
 

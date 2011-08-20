@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import com.quadrictech.airqualitynow.base.IDisposable;
-import com.quadrictech.airqualitynow.command.CommandGetAllForecasts;
+import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
@@ -56,13 +56,13 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		mEventManager = eventManager;
 		doBindService();
 	}
-	
-	public void getAllForecasts(IGuiRunnable<?> guiUpdateRunnable) {
-		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
-		task.execute(new CommandGetAllForecasts(mDataServiceProvider));
-	}
 
+	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
+	}
+	
 	public void getForecastById(int id, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();

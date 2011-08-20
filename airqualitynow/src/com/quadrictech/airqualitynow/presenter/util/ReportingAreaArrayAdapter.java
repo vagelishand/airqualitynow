@@ -3,7 +3,7 @@ package com.quadrictech.airqualitynow.presenter.util;
 import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.ReportingArea;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ForecastArrayAdapter extends ArrayAdapter<Forecast> {
+public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 	static class ViewHolder{
 		TextView cityTextView;
 		TextView todayTextView;
@@ -21,9 +21,9 @@ public class ForecastArrayAdapter extends ArrayAdapter<Forecast> {
 	
 	ViewHolder mViewHolder;
 	
-	public ForecastArrayAdapter(Context context, int layoutId,
-			List<Forecast> forecasts) {
-		super(context, layoutId, forecasts);
+	public ReportingAreaArrayAdapter(Context context, int layoutId,
+			List<ReportingArea> areas) {
+		super(context, layoutId, areas);
 		
 	}
 	
@@ -47,12 +47,12 @@ public class ForecastArrayAdapter extends ArrayAdapter<Forecast> {
 			mViewHolder = (ViewHolder)convertView.getTag();
 		}
 		
-		mViewHolder.cityTextView.setText(((Forecast)this.getItem(position)).ReportingArea);
-		int today = ((Forecast)this.getItem(position)).AQI;
+		//mViewHolder.cityTextView.setText(((ReportingArea)this.getItem(position)).ReportingArea);
+		int today = ((ReportingArea)this.getItem(position)).ObservedAQI;
 		mViewHolder.todayTextView.setText(today + "");
 		mViewHolder.todayTextView.setBackgroundResource(getAirQualityColor(today));
 		
-		int tomorrow = ((Forecast)this.getItem(position)).AQI;
+		int tomorrow = ((ReportingArea)this.getItem(position)).ForecastAQI;
 		mViewHolder.tomorrowTextView.setText(tomorrow + "");
 		mViewHolder.tomorrowTextView.setBackgroundResource(getAirQualityColor(tomorrow));
 		
