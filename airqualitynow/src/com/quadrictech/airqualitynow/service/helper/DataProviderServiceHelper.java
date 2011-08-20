@@ -2,7 +2,6 @@ package com.quadrictech.airqualitynow.service.helper;
 
 import java.util.List;
 
-import roboguice.event.EventManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import com.quadrictech.airqualitynow.command.CommandGetForecastById;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
-import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
@@ -28,7 +26,6 @@ import com.quadrictech.airqualitynow.service.IDataProviderService;
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
 	private Context mContext;
 	private boolean mServiceBound;
-	private EventManager mEventManager;
 	private static DataProviderServiceHelper mDataProviderServiceHelper;
 	private IDataProviderService mDataServiceProvider;
 	DataAsyncTask<?> task;
@@ -51,12 +48,6 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		mDataServiceProvider = dataProviderService;
 	}
 	
-	public DataProviderServiceHelper(Context context, EventManager eventManager){
-		mContext = context;
-		mEventManager = eventManager;
-		doBindService();
-	}
-
 	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
@@ -80,7 +71,7 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
 	}
 
-	public void insertReportingArea(ReportingArea reportingArea) {
+	public void insertReportingArea(ReportingArea reportingArea, IGuiRunnable<?> guiUpdateRunnable) {
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
 		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
@@ -97,15 +88,18 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	
 	public void onServiceConnected(ComponentName className, IBinder service) {
 		mDataServiceProvider = ((DataProviderService.LocalBinder)service).getService();
-		mEventManager.fire(mContext, new BindedToServiceEvent(DataProviderServiceHelper.this));
 	}
 
 	public void onServiceDisconnected(ComponentName className) {
 		mDataServiceProvider = null;			
 	}
 
-	public void doBindService() {
-		mServiceBound = mContext.bindService(new Intent(mContext, DataProviderService.class), this, Context.BIND_AUTO_CREATE);
+	public void doBindService(Context context) {
+		mContext = context;
+		
+		if(!mServiceBound){
+			mServiceBound = mContext.bindService(new Intent(mContext, DataProviderService.class), this, Context.BIND_AUTO_CREATE);
+		}
 	}
 
 	public void doUnBindService() {
