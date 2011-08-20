@@ -17,8 +17,9 @@ public class Observed {
 	public String HourObserved;
 	@DatabaseField
 	public String LocalTimeZone;
+	@DatabaseField(canBeNull = false, foreign = true)
+	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
-	@DatabaseField
 	public String StateCode;
 	@DatabaseField
 	public double Latitude;
@@ -32,6 +33,4 @@ public class Observed {
 	public int CategoryNumber;
 	@DatabaseField
 	public String CategoryName;
-	@DatabaseField
-	public String ZipCode;
 }

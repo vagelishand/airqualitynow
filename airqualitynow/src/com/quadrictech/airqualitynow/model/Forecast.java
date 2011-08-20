@@ -10,13 +10,14 @@ public class Forecast {
 	public Forecast(){}
 	
 	@DatabaseField(id = true)
-	public int id;
+	public int Id;
 	@DatabaseField
 	public Date DateIssue;
 	@DatabaseField
 	public String DateForecast;
+	@DatabaseField(canBeNull = false, foreign = true)
+	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
-	@DatabaseField
 	public String StateCode;
 	@DatabaseField
 	public double Latitude;
@@ -34,6 +35,4 @@ public class Forecast {
 	public boolean ActionDay;
 	@DatabaseField
 	public String Discussion;
-	@DatabaseField
-	public String ZipCode;
 }
