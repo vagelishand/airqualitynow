@@ -12,6 +12,7 @@ import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 public class ForecastPresenter implements IForecastPresenter<IForecastView<View>> {
@@ -32,7 +33,7 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 	public void initialize(PresenterInitializeParameter parameterObject) {
 		mContext = parameterObject.view.getView().getContext();
 		mForecastView = parameterObject.view;
-		mRemoteDataProviderServiceHelper = parameterObject.remoteDataProviderServiceHelper;
+		mRemoteDataProviderServiceHelper = RemoteDataProviderServiceHelper.getInstance();
 	}
 	
 	public void initializeTable(@Observes BindedToServiceEvent event){
