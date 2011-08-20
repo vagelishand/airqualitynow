@@ -2,6 +2,12 @@ package com.quadrictech.airqualitynow;
 
 import com.quadrictech.airqualitynow.forecast.AQIForecastActivity;
 import com.quadrictech.airqualitynow.reportingarea.ReportingAreaListActivity;
+import com.quadrictech.airqualitynow.service.DataProviderService;
+import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
+import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -15,17 +21,46 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     /** Called when the activity is first created. */
 	@InjectView(R.id.mainTableObservedForecastButton) Button mButton;
 	@InjectView(R.id.mainTableForecastListButton)		Button mFButton;
+	private IDataProviderServiceHelper mDataProviderServiceHelper;
+	private IRemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        Intent intent = new Intent(this.getBaseContext(), DataProviderService.class);
+        startService(intent);
+        mDataProviderServiceHelper = DataProviderServiceHelper.getInstance();
+        mDataProviderServiceHelper.doBindService(this.getApplicationContext());
+        
+        intent = new Intent(this.getBaseContext(), RemoteDataProviderService.class);
+        startService(intent);
+        mRemoteDataProviderServiceHelper = RemoteDataProviderServiceHelper.getInstance();
+        mRemoteDataProviderServiceHelper.doBindService(this.getApplicationContext());
         
         mButton.setOnClickListener(this);
         mFButton.setOnClickListener(this);
     }
     
     @Override
+    public void onPause(){
+    	mDataProviderServiceHelper.doUnBindService();
+    	mRemoteDataProviderServiceHelper.doUnBindService();
+    	super.onPause();
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	mDataProviderServiceHelper.doBindService(this.getApplicationContext());
+    	mRemoteDataProviderServiceHelper.doBindService(this.getApplicationContext());
+    }
+    
+    @Override
     public void onDestroy(){
+    	mDataProviderServiceHelper.doUnBindService();
+    	mRemoteDataProviderServiceHelper.doUnBindService();
     	super.onDestroy();
     }
 
