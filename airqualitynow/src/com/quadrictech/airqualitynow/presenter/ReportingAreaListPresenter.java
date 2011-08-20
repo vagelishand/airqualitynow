@@ -2,22 +2,24 @@ package com.quadrictech.airqualitynow.presenter;
 
 import java.util.List;
 
-import roboguice.event.Observes;
-
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
-import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
+import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
 public class ReportingAreaListPresenter implements IReportingAreaListPresenter<IReportingAreaListView<ListView>>{
@@ -27,7 +29,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	private ReportingAreaArrayAdapter mAdapter;
 	private List<ReportingArea> mReportingAreas;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
-	
+	private IRemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
+	private String mZipCode;
 	/***
 	 * REquired for roboguice parameter injection
 	 */
@@ -44,13 +47,12 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	public void initialize(PresenterInitializeParameter parameterObject) {
 		mContext = parameterObject.listView.getView().getContext();
 		mForecastListView = parameterObject.listView;
-		mDataProviderServiceHelper = parameterObject.dataProviderServiceHelper;
+		mDataProviderServiceHelper = DataProviderServiceHelper.getInstance();
+		initializeList();
 	}
 
-	public void initializeList(@Observes BindedToServiceEvent event){
-		if(mDataProviderServiceHelper != null){
-			mDataProviderServiceHelper.getAllReportingAreas(new HandleGetReportingAreas());
-		}
+	public void initializeList(){
+		mDataProviderServiceHelper.getAllReportingAreas(new HandleGetReportingAreas());
 	}
 
 	public void handleGetReportingAreas(ILocalRequestCallback<ReportingArea> callback){
@@ -81,12 +83,11 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 	public void handleInsertReportingAreaCallback(ILocalRequestCallback<ReportingArea> callback){
 		if(callback.getErrorStatus()){
-			
+			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
 		}
 		else{
 			ReportingArea area = callback.getList().get(0);
-			int index = (mAdapter.getCount() == 0) ? 0:mAdapter.getCount() - 1;
-			//mAdapter.insert(area, index);
+			mAdapter.add(area);
 		}
 	}
 	
@@ -94,7 +95,29 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		ILocalRequestCallback<ReportingArea> callback;
 		
 		public void run() {
-			// TODO Auto-generated method stub
+			handleInsertReportingAreaCallback(callback);
+		}
+
+		@SuppressWarnings("unchecked")
+		public void setCallback(ILocalRequestCallback<?> callback) {
+			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		}
+	}
+	
+	public void handleGetReportingAreaByZipCode(ILocalRequestCallback<ReportingArea> callback){
+		
+	}
+	
+	class HandleGetReportingAreaByZipCode implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
+		ILocalRequestCallback<ReportingArea> callback;
+		
+		public void run() {
+			//if not found locally search remotely
+			if(!callback.getErrorStatus() && callback.getList().size() == 0){
+				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, this);
+			}
+
+			handleGetReportingAreaByZipCode(callback);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -137,11 +160,42 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 
 	public void onAddReportingAreaClick() {
-		/*for(int i=0; i < mAdapter.getCount(); i++){
+		boolean foundInArray = false;
+		
+		for(int i=0; i < mAdapter.getCount(); i++){
 			if(mAdapter.getItem(i).ZipCode == mForecastListView.getEditTextString()){
 				Toast.makeText(mContext, "found match", Toast.LENGTH_SHORT).show();
+				foundInArray = true;
 			}
-		}*/
-		Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
+		}
+		
+		if(!foundInArray){
+			AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+	
+			alert.setTitle("Add Reporting Area");
+			alert.setMessage("Enter Zip Code");
+	
+			// Set an EditText view to get user input 
+			final EditText input = new EditText(mContext);
+			input.setInputType(2);
+			input.requestFocus();
+			alert.setView(input);
+	
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+			  mZipCode = input.getText().toString();
+			  mDataProviderServiceHelper.getReportingAreaByZipCode(mZipCode, new HandleInsertReportingAreaCallback());
+			  }
+			});
+	
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			  public void onClick(DialogInterface dialog, int whichButton) {
+			    // Canceled.
+			  }
+			});
+	
+			alert.show();
+		}
+			Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
 	}
 }
