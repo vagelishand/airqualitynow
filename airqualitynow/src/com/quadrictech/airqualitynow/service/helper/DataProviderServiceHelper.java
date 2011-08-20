@@ -14,6 +14,7 @@ import android.os.IBinder;
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllForecasts;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
+import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
@@ -77,11 +78,11 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
-		//TODO finish method
 	}
 
 	public void insertReportingArea(ReportingArea reportingArea) {
-		
+		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
 
 	public void insertObserved(List<Observed> observedList) {
@@ -124,9 +125,10 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		protected ILocalRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
 			callback = (ILocalRequestCallback<?>) arg0[0].execute();
 			
-			runnable.setCallback(callback);
-			
-			mGuiHandler.post(runnable);
+			if(runnable != null){
+				runnable.setCallback(callback);
+				mGuiHandler.post(runnable);
+			}
 			
 			return callback;
 		}

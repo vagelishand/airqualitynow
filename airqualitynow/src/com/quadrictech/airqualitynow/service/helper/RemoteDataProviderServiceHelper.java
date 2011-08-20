@@ -70,7 +70,7 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 					ReportingArea area = new ReportingArea();
 					area.Name = observed.ReportingArea;
 					area.State = observed.StateCode;
-					area.ZipCode = observed.ZipCode;
+					//area.ZipCode = observed.ZipCode;
 				}
 				
 			}
