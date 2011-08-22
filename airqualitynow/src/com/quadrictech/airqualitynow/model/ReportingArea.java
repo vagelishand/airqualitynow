@@ -7,6 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class ReportingArea {
+	@DatabaseField(id = true)
+	public String Id;
 	@DatabaseField(unique = true)	
 	public String Name;
 	@DatabaseField
