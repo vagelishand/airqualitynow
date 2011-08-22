@@ -2,13 +2,18 @@ package com.quadrictech.airqualitynow.inet.callback;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 
 public class ReportingAreaRemoteRequestCallback implements IRemoteRequestCallback<ReportingArea> {
-	ReportingAreaWrapper mReportingAreaWrapper;
+	IReportingAreaWrapper mReportingAreaWrapper;
 	ReportingArea mReportingArea;
 	Throwable mException;
+	
+	public ReportingAreaRemoteRequestCallback(){
+		mReportingAreaWrapper = new ReportingAreaWrapper();
+	}
 	
 	public void onError(Throwable exception) {
 		mException = exception;		
@@ -27,8 +32,7 @@ public class ReportingAreaRemoteRequestCallback implements IRemoteRequestCallbac
 	}
 
 	public void onResponseReceived(List<ReportingArea> response) {
-		// TODO Auto-generated method stub
-		
+		mReportingAreaWrapper.setReportingArea(response);
 	}
 
 }

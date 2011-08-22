@@ -3,12 +3,17 @@ package com.quadrictech.airqualitynow.inet.callback;
 import java.util.List;
 
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
 
 public class ForecastRemoteRequestCallback implements IRemoteRequestCallback<Forecast> {
 	IForecastWrapper mForecastWrapper;
 	Forecast mForecast;
 	Throwable mException;
+	
+	public ForecastRemoteRequestCallback(){
+		mForecastWrapper = new ForecastWrapper();
+	}
 	
 	public void onError(Throwable exception) {
 		mException = exception;		
@@ -31,7 +36,7 @@ public class ForecastRemoteRequestCallback implements IRemoteRequestCallback<For
 	}
 
 	public void onResponseReceived(List<Forecast> response) {
-				
+		mForecastWrapper.setForecast(response);
 	}
 
 }

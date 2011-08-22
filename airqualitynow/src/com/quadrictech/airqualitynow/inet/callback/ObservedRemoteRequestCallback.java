@@ -4,11 +4,16 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.model.IObservedWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.ObservedWrapper;
 
 public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Observed> {
 	IObservedWrapper mWrapper;
 	Throwable mException;
 	Observed mObserved;
+	
+	public ObservedRemoteRequestCallback(){
+		mWrapper = new ObservedWrapper();
+	}
 	
 	public void onError(Throwable exception) {
 		mException = exception;
@@ -27,6 +32,6 @@ public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Obs
 	}
 
 	public void onResponseReceived(List<Observed> response) {
-		// TODO Auto-generated method stub
+		mWrapper.setObserved(response);
 	}
 }
