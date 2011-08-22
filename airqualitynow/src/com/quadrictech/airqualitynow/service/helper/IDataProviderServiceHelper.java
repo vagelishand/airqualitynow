@@ -15,8 +15,8 @@ public interface IDataProviderServiceHelper extends IServiceHelper {
 	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable);
 	public void getReportingAreaByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable);
 	public void insertReportingArea(ReportingArea reportingArea, IGuiRunnable<?> guiUpdateRunnable);
-	public void insertObserved(List<Observed> observedList);
-	public void insertForecast(List<Forecast> forecasts);
+	public void insertObserved(ReportingArea reportingArea, List<Observed> observedList, IGuiRunnable<?> guiUpdateRunnable);
+	public void insertForecast(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable);
 	public void doBindService(Context context);
 	public void doUnBindService();
 }

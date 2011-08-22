@@ -40,7 +40,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	private IForecastRepository mForecastRepository;
 	private IReportingAreaRepository mReportingAreaRepository;
 	private IObservedRepository mObservedRepository;
-		
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
@@ -162,5 +162,42 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
+	public IDataRequestCallback<Observed> insertObserved(List<Observed> observedList) {
+		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
+		
+		try{
+			if(mObservedRepository == null){
+				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
+			}
+			
+			for(Observed o: observedList){
+				mObservedRepository.insert(o);
+			}
+		}
+		catch(SQLException e){
+			callback.onError(e);
+		}
+		
+		return callback;
+	}
+
+	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts) {
+		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
+		
+		try {
+			if(mForecastRepository == null){
+				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
+			}
+			
+			for(Forecast f: forecasts){
+				mForecastRepository.insert(f);
+			}
+			
+		} catch (SQLException e) {
+			callback.onError(e);
+		}
+		
+		return callback;	
+	}
 	
 }

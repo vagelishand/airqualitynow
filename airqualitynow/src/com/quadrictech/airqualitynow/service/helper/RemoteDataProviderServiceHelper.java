@@ -2,11 +2,10 @@ package com.quadrictech.airqualitynow.service.helper;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.command.CommandGetForecastByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
@@ -17,7 +16,6 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 
 public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServiceHelper, ServiceConnection{
 	private RemoteDataProviderService mRemoteDataProviderService;
@@ -26,6 +24,7 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	private static RemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
 	RemoteAsyncTask task;
 	IGuiRunnable<?> runnable;
+	
 	private final Handler mGuiHandler = new Handler();
 	
 	//TODO implement AsyncTask for remote calls
@@ -40,33 +39,19 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		return mRemoteDataProviderServiceHelper;
 	}
 
-	public void getForecastByZipCode(String zipCode) {
-		IDataRequestCallback<Forecast> callback = mRemoteDataProviderService.onGetForecastByZipCode(zipCode);
-		List<Forecast>forecasts = callback.getList();
-		
-		for(Forecast f: forecasts){
-			Log.d(this.getClass().getName(), f.ReportingArea);
-		}
+	public void getForecastByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
+		task = new RemoteAsyncTask(guiUpdateRunnable);
+		task.execute(new CommandGetForecastByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 
-	public void getObservedByZipCode(final String zipCode) {
-		new Thread(new Runnable(){
-			public void run(){
-				IDataRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
-				
-				List<Observed>observed = callback.getList();
-				
-				for(Observed o: observed){
-					Log.d(this.getClass().getName(), o.CategoryName);
-				}
-			}
-		}).start();
+	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
+		task = new RemoteAsyncTask(guiUpdateRunnable);
+		task.execute(new CommandGetObservedByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 	
-	public void getReportingAreaByZipCode(final String zipCode, final IGuiRunnable<?> guiUpdateRunnable) {
-		runnable = guiUpdateRunnable;
-		task = new RemoteAsyncTask();
-		task.execute(new CommandGetObservedByZipCodeRemote(zipCode, mRemoteDataProviderService));
+	public void getReportingAreaByZipCode(String zipCode, List<IGuiRunnable<?>> guiUpdateRunnable) {
+		getObservedByZipCode(zipCode, guiUpdateRunnable.get(0));
+		getForecastByZipCode(zipCode, guiUpdateRunnable.get(1));
 	}
 
 	public void onServiceConnected(ComponentName className, IBinder service) {
@@ -74,7 +59,6 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	}
 
 	public void onServiceDisconnected(ComponentName className) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -95,13 +79,21 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	
 	class RemoteAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, IDataRequestCallback<?>>{
 		IDataRequestCallback<?> callback;
+		IGuiRunnable<?> mRunnable;
+		
+		public RemoteAsyncTask(){}
+		
+		public RemoteAsyncTask(IGuiRunnable<?> runnable){
+			mRunnable = runnable;
+		}
+		
 		@Override
 		protected IDataRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
 			callback = (IDataRequestCallback<?>) arg0[0].execute();
 			
-			if(runnable != null){
-				runnable.setCallback(callback);
-				mGuiHandler.post(runnable);
+			if(mRunnable != null){
+				mRunnable.setCallback(callback);
+				mGuiHandler.post(mRunnable);
 			}
 			
 			return callback;

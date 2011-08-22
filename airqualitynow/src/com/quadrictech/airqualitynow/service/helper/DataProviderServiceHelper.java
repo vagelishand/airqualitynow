@@ -14,6 +14,8 @@ import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
+import com.quadrictech.airqualitynow.command.CommandInsertForecast;
+import com.quadrictech.airqualitynow.command.CommandInsertObserved;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
@@ -27,21 +29,21 @@ import com.quadrictech.airqualitynow.service.IDataProviderService;
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
 	private Context mContext;
 	private boolean mServiceBound;
-	private static DataProviderServiceHelper mDataProviderServiceHelper;
 	private IDataProviderService mDataServiceProvider;
 	DataAsyncTask<?> task;
 	IGuiRunnable<?> runnable;
 	public final Handler mGuiHandler = new Handler();
 	
-	public static DataProviderServiceHelper getInstance(){
-		if(mDataProviderServiceHelper == null){
-			mDataProviderServiceHelper = new DataProviderServiceHelper();
-		}
-		
-		return mDataProviderServiceHelper;
+	private static class SingletonHolder
+    {
+		private final static DataProviderServiceHelper INSTANCE = new DataProviderServiceHelper();
+    }
+
+	public static synchronized DataProviderServiceHelper getInstance(){
+		return SingletonHolder.INSTANCE;
 	}
 	
-	public DataProviderServiceHelper(){
+	private DataProviderServiceHelper(){
 		
 	}
 	
@@ -79,14 +81,16 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
 
-	public void insertObserved(List<Observed> observedList) {
-		// TODO Auto-generated method stub
-		
+	public void insertObserved(ReportingArea reportingArea, List<Observed> observedList, IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
+		task.execute(new CommandInsertObserved(observedList, mDataServiceProvider));
 	}
 
-	public void insertForecast(List<Forecast> forecasts) {
-		// TODO Auto-generated method stub
-		
+	public void insertForecast(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
+		task.execute(new CommandInsertForecast(forecasts, mDataServiceProvider));
 	}
 	
 	public void onServiceConnected(ComponentName className, IBinder service) {
@@ -120,8 +124,9 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		IDataRequestCallback<?> callback;
 		@Override
 		protected IDataRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
-			callback = (IDataRequestCallback<?>) arg0[0].execute();
 			
+			callback = (IDataRequestCallback<?>) arg0[0].execute();
+		
 			if(runnable != null){
 				runnable.setCallback(callback);
 				mGuiHandler.post(runnable);

@@ -1,6 +1,7 @@
 package com.quadrictech.airqualitynow.service;
 
 import java.util.Date;
+import java.util.List;
 
 import com.quadrictech.airqualitynow.db.IForecastRepository;
 import com.quadrictech.airqualitynow.db.IObservedRepository;
@@ -18,4 +19,6 @@ public interface IDataProviderService {
 	public void initialize(IObservedRepository or);
 	public IDataRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea);
 	public IDataRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode);
+	public IDataRequestCallback<Observed> insertObserved(List<Observed> observedList);
+	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts);
 }
