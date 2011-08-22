@@ -2,11 +2,12 @@ package com.quadrictech.airqualitynow.inet.callback;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.IObservedWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ObservedWrapper;
 
-public class ObservedRemoteRequestCallback implements IRemoteRequestCallback<Observed> {
+public class ObservedRemoteRequestCallback implements IDataRequestCallback<Observed> {
 	IObservedWrapper mWrapper;
 	Throwable mException;
 	Observed mObserved;

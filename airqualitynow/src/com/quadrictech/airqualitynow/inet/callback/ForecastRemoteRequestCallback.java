@@ -5,8 +5,9 @@ import java.util.List;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 
-public class ForecastRemoteRequestCallback implements IRemoteRequestCallback<Forecast> {
+public class ForecastRemoteRequestCallback implements IDataRequestCallback<Forecast>{
 	IForecastWrapper mForecastWrapper;
 	Forecast mForecast;
 	Throwable mException;

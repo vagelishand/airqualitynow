@@ -5,8 +5,9 @@ import java.util.List;
 import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 
-public class ReportingAreaRemoteRequestCallback implements IRemoteRequestCallback<ReportingArea> {
+public class ReportingAreaRemoteRequestCallback implements IDataRequestCallback<ReportingArea> {
 	IReportingAreaWrapper mReportingAreaWrapper;
 	ReportingArea mReportingArea;
 	Throwable mException;

@@ -5,11 +5,8 @@ import java.util.List;
 import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
-import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
-import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
@@ -44,7 +41,7 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	}
 
 	public void getForecastByZipCode(String zipCode) {
-		IRemoteRequestCallback<Forecast> callback = mRemoteDataProviderService.onGetForecastByZipCode(zipCode);
+		IDataRequestCallback<Forecast> callback = mRemoteDataProviderService.onGetForecastByZipCode(zipCode);
 		List<Forecast>forecasts = callback.getList();
 		
 		for(Forecast f: forecasts){
@@ -55,9 +52,7 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	public void getObservedByZipCode(final String zipCode) {
 		new Thread(new Runnable(){
 			public void run(){
-				IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
-				ObservedDataRetrieved retrieved = new ObservedDataRetrieved();
-				retrieved.mRemoteRequestCallback = callback;
+				IDataRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
 				
 				List<Observed>observed = callback.getList();
 				

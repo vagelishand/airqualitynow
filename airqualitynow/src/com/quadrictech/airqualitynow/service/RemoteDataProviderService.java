@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.quadrictech.airqualitynow.R;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.ForecastRemoteRequestCallback;
-import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.IRestRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.ObservedRemoteRequestCallback;
 import com.quadrictech.airqualitynow.inet.rest.AirNowUrl;
@@ -61,7 +61,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return START_NOT_STICKY;
 	}
 
-	public IRemoteRequestCallback<Forecast> onGetForecastByZipCode(String zipCode){
+	public IDataRequestCallback<Forecast> onGetForecastByZipCode(String zipCode){
 		Time now = new Time();
 		now.setToNow();
 		
@@ -73,7 +73,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		
 		mForecastJsonProvider = new ForecastJsonProvider();
 		
-		IRemoteRequestCallback<Forecast> callback = null;
+		IDataRequestCallback<Forecast> callback = null;
 		
 		try {
 			callback = new ForecastRemoteRequestCallback();
@@ -96,7 +96,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return  callback;
 	}
 
-	public IRemoteRequestCallback<Observed> onGetObservedbyZipCode(String zipCode) {
+	public IDataRequestCallback<Observed> onGetObservedbyZipCode(String zipCode) {
 		Time now = new Time();
 		now.setToNow();
 		mAirNowUrlParameter = new AirNowUrlParameter(mContext.getString(R.string.airnowgatewayobservedbyzipcode),
@@ -107,7 +107,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		
 		mObservedJsonProvider = new ObservedJsonProvider();
 		
-		IRemoteRequestCallback<Observed> callback = null;
+		IDataRequestCallback<Observed> callback = null;
 		
 		try {
 			callback = new ObservedRemoteRequestCallback();
