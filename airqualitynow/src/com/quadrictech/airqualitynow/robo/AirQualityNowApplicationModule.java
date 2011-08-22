@@ -17,10 +17,6 @@ import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.ForecastPresenter;
 import com.quadrictech.airqualitynow.presenter.IReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
-import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 import com.quadrictech.airqualitynow.view.ForecastView;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
@@ -30,8 +26,6 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 
 	@Override
 	protected void configure() {
-		bind(IRemoteDataProviderServiceHelper.class).to((Class<? extends IRemoteDataProviderServiceHelper>) RemoteDataProviderServiceHelper.class);
-		bind(IDataProviderServiceHelper.class).to(DataProviderServiceHelper.class);
 		bind(IReportingAreaJsonProvider.class).to(ReportingAreaJsonProvider.class);
 		bind(IReportingAreaWrapper.class).to(ReportingAreaWrapper.class);
 		bind(IForecastJsonProvider.class).to(ForecastJsonProvider.class);
