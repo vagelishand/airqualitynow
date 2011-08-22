@@ -16,7 +16,7 @@ import com.quadrictech.airqualitynow.command.CommandGetForecastById;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
@@ -51,31 +51,31 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	
 	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task = new DataAsyncTask<IDataRequestCallback<ReportingArea>>();
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
 	}
 	
 	public void getForecastById(int id, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<Forecast>>();
+		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
 		task.execute(new CommandGetForecastById(id, mDataServiceProvider));
 	}
 
 	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<Observed>>();
+		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
 		//TODO finish method
 	}
 	
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task = new DataAsyncTask<IDataRequestCallback<ReportingArea>>();
 		task.execute(new CommandGetReportingAreaByZipCode(zipCode, mDataServiceProvider));
 	}
 
 	public void insertReportingArea(ReportingArea reportingArea, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task = new DataAsyncTask<IDataRequestCallback<ReportingArea>>();
 		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
 
@@ -116,11 +116,11 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		doUnBindService();		
 	}
 	
-	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, ILocalRequestCallback<?>>{
-		ILocalRequestCallback<?> callback;
+	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, IDataRequestCallback<?>>{
+		IDataRequestCallback<?> callback;
 		@Override
-		protected ILocalRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
-			callback = (ILocalRequestCallback<?>) arg0[0].execute();
+		protected IDataRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
+			callback = (IDataRequestCallback<?>) arg0[0].execute();
 			
 			if(runnable != null){
 				runnable.setCallback(callback);

@@ -7,7 +7,7 @@ import com.quadrictech.airqualitynow.model.IObservedWrapper;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ObservedWrapper;
 
-public class ObservedRequestCallback implements ILocalRequestCallback<Observed> {
+public class ObservedRequestCallback implements IDataRequestCallback<Observed> {
 	private IObservedWrapper mObservedWrapper;
 	private Throwable mException;
 	

@@ -16,7 +16,7 @@ import com.quadrictech.airqualitynow.db.IForecastRepository;
 import com.quadrictech.airqualitynow.db.IObservedRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
@@ -61,8 +61,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return START_NOT_STICKY;
 	}
 	
-	public ILocalRequestCallback<ReportingArea> onGetAllReportingAreas(){
-		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
+	public IDataRequestCallback<ReportingArea> onGetAllReportingAreas(){
+		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		try {
 			if(mReportingAreaRepository == null){
 				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
@@ -79,8 +79,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public ILocalRequestCallback<Forecast> onGetAllForecasts(){
-		ILocalRequestCallback<Forecast> callback = new ForecastRequestCallback();
+	public IDataRequestCallback<Forecast> onGetAllForecasts(){
+		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
 			if(mForecastRepository == null){
@@ -97,8 +97,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public ILocalRequestCallback<Observed> onGetObservedByDate(Date date) {
-		ILocalRequestCallback<Observed> callback = new ObservedRequestCallback();
+	public IDataRequestCallback<Observed> onGetObservedByDate(Date date) {
+		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
 		
 		try {
 			if(mObservedRepository == null){
@@ -126,8 +126,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		mObservedRepository = or;		
 	}
 
-	public ILocalRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea) {
-		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
+	public IDataRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea) {
+		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		
 		try {
 			if(mReportingAreaRepository == null){
@@ -144,8 +144,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 
-	public ILocalRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode) {
-		ILocalRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
+	public IDataRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode) {
+		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		
 		try {
 			if(mReportingAreaRepository == null){

@@ -6,7 +6,7 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
 
-public class ForecastRequestCallback implements ILocalRequestCallback<Forecast> {
+public class ForecastRequestCallback implements IDataRequestCallback<Forecast> {
 	private IForecastWrapper mForecastWrapper;
 	private Throwable       mException;
 	

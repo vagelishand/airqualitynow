@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
@@ -57,7 +57,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		mDataProviderServiceHelper.getAllReportingAreas(new HandleGetReportingAreas());
 	}
 
-	public void handleGetReportingAreas(ILocalRequestCallback<ReportingArea> callback){
+	public void handleGetReportingAreas(IDataRequestCallback<ReportingArea> callback){
 		
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();			
@@ -70,20 +70,20 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 	}	
 
-	class HandleGetReportingAreas implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
-		ILocalRequestCallback<ReportingArea> callback;
+	class HandleGetReportingAreas implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
+		IDataRequestCallback<ReportingArea> callback;
 		
 		public void run() {
 			handleGetReportingAreas(callback);			
 		}
 
 		@SuppressWarnings("unchecked")
-		public void setCallback(ILocalRequestCallback<?> callback) {
-			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		public void setCallback(IDataRequestCallback<?> callback) {
+			this.callback = (IDataRequestCallback<ReportingArea>) callback;
 		}
 	}
 	
-	public void handleInsertReportingAreaCallback(ILocalRequestCallback<ReportingArea> callback){
+	public void handleInsertReportingAreaCallback(IDataRequestCallback<ReportingArea> callback){
 		if(callback.getErrorStatus()){
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
 		}
@@ -93,25 +93,25 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 	}
 	
-	class HandleInsertReportingAreaCallback implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
-		ILocalRequestCallback<ReportingArea> callback;
+	class HandleInsertReportingAreaCallback implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
+		IDataRequestCallback<ReportingArea> callback;
 		
 		public void run() {
 			handleInsertReportingAreaCallback(callback);
 		}
 
 		@SuppressWarnings("unchecked")
-		public void setCallback(ILocalRequestCallback<?> callback) {
-			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		public void setCallback(IDataRequestCallback<?> callback) {
+			this.callback = (IDataRequestCallback<ReportingArea>) callback;
 		}
 	}
 	
-	public void handleGetReportingAreaByZipCode(ILocalRequestCallback<ReportingArea> callback){
+	public void handleGetReportingAreaByZipCode(IDataRequestCallback<ReportingArea> callback){
 		Toast.makeText(mContext, "function", Toast.LENGTH_SHORT).show();
 	}
 	
-	class HandleGetReportingAreaByZipCode implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
-		ILocalRequestCallback<ReportingArea> callback;
+	class HandleGetReportingAreaByZipCode implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
+		IDataRequestCallback<ReportingArea> callback;
 		
 		public void run() {
 			if(callback.getErrorStatus()){
@@ -127,13 +127,13 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 
 		@SuppressWarnings("unchecked")
-		public void setCallback(ILocalRequestCallback<?> callback) {
-			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		public void setCallback(IDataRequestCallback<?> callback) {
+			this.callback = (IDataRequestCallback<ReportingArea>) callback;
 		}
 	}
 	
-	class HandleGetObservedByZipCodeRemote implements IGuiRunnable<ILocalRequestCallback<Observed>>{
-		ILocalRequestCallback<Observed> callback;
+	class HandleGetObservedByZipCodeRemote implements IGuiRunnable<IDataRequestCallback<Observed>>{
+		IDataRequestCallback<Observed> callback;
 		
 		public void run() {
 			if(callback.getErrorStatus()){
@@ -151,7 +151,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			}
 		}
 
-		public void setCallback(ILocalRequestCallback<?> callback) {
+		public void setCallback(IDataRequestCallback<?> callback) {
 			// TODO Auto-generated method stub
 			
 		}

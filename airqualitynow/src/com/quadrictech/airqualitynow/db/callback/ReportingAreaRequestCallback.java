@@ -6,7 +6,7 @@ import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 
-public class ReportingAreaRequestCallback implements ILocalRequestCallback<ReportingArea>{
+public class ReportingAreaRequestCallback implements IDataRequestCallback<ReportingArea>{
 	private IReportingAreaWrapper mReportingAreaWrapper;
 	private Throwable       	  mException;
 

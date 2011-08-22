@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
@@ -98,11 +98,11 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		}
 	}
 	
-	class RemoteAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, ILocalRequestCallback<?>>{
-		ILocalRequestCallback<?> callback;
+	class RemoteAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, IDataRequestCallback<?>>{
+		IDataRequestCallback<?> callback;
 		@Override
-		protected ILocalRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
-			callback = (ILocalRequestCallback<?>) arg0[0].execute();
+		protected IDataRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
+			callback = (IDataRequestCallback<?>) arg0[0].execute();
 			
 			if(runnable != null){
 				runnable.setCallback(callback);
