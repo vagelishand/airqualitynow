@@ -114,6 +114,10 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 			mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 			String json = mRestRequestCallback.getResponse().parseAsString();
 			
+			if(json.compareTo("{\"observed\": \"\"}") == 0){
+				throw new IOException("No results found for zip code: " + zipCode);
+			}
+			
 			IObservedWrapper wrapper = mObservedJsonProvider.parseJson(new ObjectMapper(), json);
 			 
 			callback.onResponseReceived(wrapper.getObserved());

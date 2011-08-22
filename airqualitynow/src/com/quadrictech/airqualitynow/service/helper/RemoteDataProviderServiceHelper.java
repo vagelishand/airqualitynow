@@ -2,6 +2,9 @@ package com.quadrictech.airqualitynow.service.helper;
 
 import java.util.List;
 
+import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
+import com.quadrictech.airqualitynow.command.IDaoCommand;
+import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
 import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
 import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
@@ -14,6 +17,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -22,6 +27,10 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	private boolean mServiceBound;
 	private Context mContext;
 	private static RemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
+	RemoteAsyncTask task;
+	IGuiRunnable<?> runnable;
+	private final Handler mGuiHandler = new Handler();
+	
 	//TODO implement AsyncTask for remote calls
 	public RemoteDataProviderServiceHelper(){
 		
@@ -60,23 +69,9 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	}
 	
 	public void getReportingAreaByZipCode(final String zipCode, final IGuiRunnable<?> guiUpdateRunnable) {
-		new Thread(new Runnable(){
-			public void run(){
-				IRemoteRequestCallback<Observed> callback = mRemoteDataProviderService.onGetObservedbyZipCode(zipCode);
-				
-				if(!callback.getErrorStatus() && callback.getList().size() > 0){
-					Observed observed = callback.getList().get(0);
-					ReportingArea area = new ReportingArea();
-					area.Name = observed.ReportingArea;
-					area.State = observed.StateCode;
-					area.ObservedAQI = observed.AQI;
-					
-					DataProviderServiceHelper.getInstance().insertReportingArea(area, guiUpdateRunnable);
-				}
-				
-			}
-		}).start();
-		
+		runnable = guiUpdateRunnable;
+		task = new RemoteAsyncTask();
+		task.execute(new CommandGetObservedByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 
 	public void onServiceConnected(ComponentName className, IBinder service) {
@@ -102,4 +97,19 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 			mServiceBound = false;
 		}
 	}
+	
+	class RemoteAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, ILocalRequestCallback<?>>{
+		ILocalRequestCallback<?> callback;
+		@Override
+		protected ILocalRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
+			callback = (ILocalRequestCallback<?>) arg0[0].execute();
+			
+			if(runnable != null){
+				runnable.setCallback(callback);
+				mGuiHandler.post(runnable);
+			}
+			
+			return callback;
+		}
+	}	
 }

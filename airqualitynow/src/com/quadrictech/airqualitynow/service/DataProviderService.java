@@ -1,6 +1,7 @@
 package com.quadrictech.airqualitynow.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -133,6 +134,9 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
 			}
 			mReportingAreaRepository.insert(reportingArea);
+			List<ReportingArea> areas = new ArrayList<ReportingArea>(1);
+			areas.add(reportingArea);
+			callback.onResponseReceived(areas);
 		} catch (SQLException e) {
 			callback.onError(new Throwable("Unable to insert Reporting Area"));
 		}

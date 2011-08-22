@@ -13,6 +13,7 @@ import android.os.IBinder;
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
+import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
@@ -69,9 +70,11 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
+		task.execute(new CommandGetReportingAreaByZipCode(zipCode, mDataServiceProvider));
 	}
 
 	public void insertReportingArea(ReportingArea reportingArea, IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<ILocalRequestCallback<ReportingArea>>();
 		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
