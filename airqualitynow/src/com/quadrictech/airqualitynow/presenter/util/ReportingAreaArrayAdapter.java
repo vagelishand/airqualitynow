@@ -47,7 +47,7 @@ public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 			mViewHolder = (ViewHolder)convertView.getTag();
 		}
 		
-		//mViewHolder.cityTextView.setText(((ReportingArea)this.getItem(position)).ReportingArea);
+		mViewHolder.cityTextView.setText(((ReportingArea)this.getItem(position)).Name);
 		int today = ((ReportingArea)this.getItem(position)).ObservedAQI;
 		mViewHolder.todayTextView.setText(today + "");
 		mViewHolder.todayTextView.setBackgroundResource(getAirQualityColor(today));
