@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
+import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
@@ -86,8 +88,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
 		}
 		else{
-			ReportingArea area = callback.getList().get(0);
-			mAdapter.add(area);
+				ReportingArea area = callback.getList().get(0);
+				mAdapter.add(area);
 		}
 	}
 	
@@ -105,24 +107,53 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 	
 	public void handleGetReportingAreaByZipCode(ILocalRequestCallback<ReportingArea> callback){
-		
+		Toast.makeText(mContext, "function", Toast.LENGTH_SHORT).show();
 	}
 	
 	class HandleGetReportingAreaByZipCode implements IGuiRunnable<ILocalRequestCallback<ReportingArea>>{
 		ILocalRequestCallback<ReportingArea> callback;
 		
 		public void run() {
-			//if not found locally search remotely
-			if(!callback.getErrorStatus() && callback.getList().size() == 0){
-				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, this);
+			if(callback.getErrorStatus()){
+				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
 			}
-
-			handleGetReportingAreaByZipCode(callback);
+			//if not found locally search remotely
+			else if(!callback.getErrorStatus() && callback.getList().size() == 0){
+				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, new HandleGetObservedByZipCodeRemote ());
+			}
+			else{
+				handleGetReportingAreaByZipCode(callback);
+			}
 		}
 
 		@SuppressWarnings("unchecked")
 		public void setCallback(ILocalRequestCallback<?> callback) {
 			this.callback = (ILocalRequestCallback<ReportingArea>) callback;
+		}
+	}
+	
+	class HandleGetObservedByZipCodeRemote implements IGuiRunnable<ILocalRequestCallback<Observed>>{
+		ILocalRequestCallback<Observed> callback;
+		
+		public void run() {
+			if(callback.getErrorStatus()){
+				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
+			}
+			else{
+				ReportingArea area = new ReportingArea();
+				Observed observed = callback.getList().get(0);
+				area.Name = observed.ReportingArea;
+				area.ZipCode = mZipCode;
+				area.ObservedAQI = observed.AQI;
+				area.State = observed.StateCode;
+				
+				DataProviderServiceHelper.getInstance().insertReportingArea(area, new HandleInsertReportingAreaCallback());
+			}
+		}
+
+		public void setCallback(ILocalRequestCallback<?> callback) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	
@@ -160,16 +191,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 
 	public void onAddReportingAreaClick() {
-		boolean foundInArray = false;
 		
-		for(int i=0; i < mAdapter.getCount(); i++){
-			if(mAdapter.getItem(i).ZipCode == mForecastListView.getEditTextString()){
-				Toast.makeText(mContext, "found match", Toast.LENGTH_SHORT).show();
-				foundInArray = true;
-			}
-		}
-		
-		if(!foundInArray){
 			AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 	
 			alert.setTitle("Add Reporting Area");
@@ -183,8 +205,15 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-			  mZipCode = input.getText().toString();
-			  mDataProviderServiceHelper.getReportingAreaByZipCode(mZipCode, new HandleInsertReportingAreaCallback());
+				  mZipCode = input.getText().toString();
+
+				for(int i=0; i < mAdapter.getCount(); i++){
+					if(mAdapter.getItem(i).ZipCode.compareTo(mZipCode) == 0){
+						Toast.makeText(mContext, mZipCode + " already exists.", Toast.LENGTH_SHORT).show();
+						return;
+					}
+				}
+			  mDataProviderServiceHelper.getReportingAreaByZipCode(mZipCode, new HandleGetReportingAreaByZipCode());
 			  }
 			});
 	
@@ -195,7 +224,6 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			});
 	
 			alert.show();
-		}
 			Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
 	}
 }
