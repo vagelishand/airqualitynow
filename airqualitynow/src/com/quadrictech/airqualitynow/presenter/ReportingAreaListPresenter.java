@@ -1,10 +1,12 @@
 package com.quadrictech.airqualitynow.presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,14 +15,13 @@ import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.inet.callback.IRemoteRequestCallback;
+import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
@@ -31,7 +32,6 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	private ReportingAreaArrayAdapter mAdapter;
 	private List<ReportingArea> mReportingAreas;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
-	private IRemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
 	private String mZipCode;
 	/***
 	 * REquired for roboguice parameter injection
@@ -119,7 +119,10 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			}
 			//if not found locally search remotely
 			else if(!callback.getErrorStatus() && callback.getList().size() == 0){
-				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, new HandleGetObservedByZipCodeRemote ());
+				List<IGuiRunnable<?>> runnables = new ArrayList<IGuiRunnable<?>>();
+				runnables.add(new HandleGetObservedByZipCodeRemote ());
+				runnables.add(new HandleGetForecastByZipCodeRemote());
+				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, runnables);
 			}
 			else{
 				handleGetReportingAreaByZipCode(callback);
@@ -148,12 +151,47 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 				area.State = observed.StateCode;
 				
 				DataProviderServiceHelper.getInstance().insertReportingArea(area, new HandleInsertReportingAreaCallback());
+				DataProviderServiceHelper.getInstance().insertObserved(area, callback.getList(), null);
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		public void setCallback(IDataRequestCallback<?> callback) {
+			this.callback = (IDataRequestCallback<Observed>) callback;			
+		}
+	}
+	
+	class HandleGetForecastByZipCodeRemote implements IGuiRunnable<IDataRequestCallback<Forecast>>{
+		IDataRequestCallback<Forecast> callback;
+		
+		public void run() {
+			if(callback.getErrorStatus()){
+				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
+				Log.d("presenter", callback.getErrorMessage());
+			}
+			else{
+				DataProviderServiceHelper.getInstance().insertForecast(null, callback.getList(), new HandleDmoInsertion());
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		public void setCallback(IDataRequestCallback<?> callback) {
+			this.callback = (IDataRequestCallback<Forecast>) callback;			
+		}
+	}
+	
+	class HandleDmoInsertion implements IGuiRunnable<IDataRequestCallback<?>>{
+		private IDataRequestCallback<?> callback;
+		
+		public void run() {
+			if(callback.getErrorStatus()){
+				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
+				Log.d("presenter", callback.getErrorMessage());
 			}
 		}
 
 		public void setCallback(IDataRequestCallback<?> callback) {
-			// TODO Auto-generated method stub
-			
+			this.callback = callback;
 		}
 	}
 	
@@ -208,8 +246,9 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 				  mZipCode = input.getText().toString();
 
 				for(int i=0; i < mAdapter.getCount(); i++){
-					if(mAdapter.getItem(i).ZipCode.compareTo(mZipCode) == 0){
-						Toast.makeText(mContext, mZipCode + " already exists.", Toast.LENGTH_SHORT).show();
+					ReportingArea area = mAdapter.getItem(i);
+					if(area.ZipCode.compareTo(mZipCode) == 0){
+						Toast.makeText(mContext, mZipCode + " is reported via " + area.Name, Toast.LENGTH_SHORT).show();
 						return;
 					}
 				}
