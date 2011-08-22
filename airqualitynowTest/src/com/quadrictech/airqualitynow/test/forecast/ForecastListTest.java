@@ -9,12 +9,12 @@ import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.presenter.ForecastListPresenter;
+import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ForecastListTest extends RoboUnitTestCase<AirQualityNowApplication>{
 	
-	@UsesMocks(ForecastListPresenter.class)
+	@UsesMocks(ReportingAreaListPresenter.class)
 	@MediumTest
 	public void testGetAllReportingAreas(){
 	}
