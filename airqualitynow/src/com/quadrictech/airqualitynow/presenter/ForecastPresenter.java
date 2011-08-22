@@ -1,16 +1,7 @@
 package com.quadrictech.airqualitynow.presenter;
 
-import java.util.List;
-
-import roboguice.event.Observes;
-
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
-
-import com.quadrictech.airqualitynow.event.BindedToServiceEvent;
-import com.quadrictech.airqualitynow.event.ObservedDataRetrieved;
-import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
@@ -36,8 +27,7 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 		mRemoteDataProviderServiceHelper = RemoteDataProviderServiceHelper.getInstance();
 	}
 	
-	public void initializeTable(@Observes BindedToServiceEvent event){
-		Toast.makeText(mContext,"retrieving observd", Toast.LENGTH_SHORT).show();
+	public void initializeTable(){
 		mRemoteDataProviderServiceHelper.getObservedByZipCode("92401");
 	} 
 
@@ -45,10 +35,8 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 		mForecastView.onDestroy();		
 	}
 	
-	public void setForecastTableValues(@Observes ObservedDataRetrieved data){
-		List<Observed> observedList = data.mRemoteRequestCallback.getList();
+	public void setForecastTableValues(){
 		
-		mForecastView.setObservedTableValues(observedList);
 	}
 	
 	
