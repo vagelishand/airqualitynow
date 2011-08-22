@@ -5,13 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
-	public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss a";
+	//public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss a";
+	public static final String DATE_FORMAT = "M/dd/yyyy HH:mm:ss a";
 	
 	public static SimpleDateFormat getDateFormat(String dateFormat){
 		return new SimpleDateFormat(dateFormat);
 	}
 	
-	public static Date getDate(String date, String format) throws ParseException{
+	public static Date getDate(final String date, final String format) throws ParseException{
 		return getDateFormat(format).parse(date);
 	}
 	
