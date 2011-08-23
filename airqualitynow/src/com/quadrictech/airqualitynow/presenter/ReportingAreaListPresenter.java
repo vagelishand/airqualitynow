@@ -1,6 +1,5 @@
 package com.quadrictech.airqualitynow.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -15,8 +14,7 @@ import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.inet.callback.RemoteCallbackData;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
@@ -83,29 +81,6 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 	}
 	
-	public void handleInsertReportingAreaCallback(IDataRequestCallback<ReportingArea> callback){
-		if(callback.getErrorStatus()){
-			Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-		}
-		else{
-				ReportingArea area = callback.getList().get(0);
-				mAdapter.add(area);
-		}
-	}
-	
-	class HandleInsertReportingAreaCallback implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
-		IDataRequestCallback<ReportingArea> callback;
-		
-		public void run() {
-			handleInsertReportingAreaCallback(callback);
-		}
-
-		@SuppressWarnings("unchecked")
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<ReportingArea>) callback;
-		}
-	}
-	
 	public void handleGetReportingAreaByZipCode(IDataRequestCallback<ReportingArea> callback){
 		Toast.makeText(mContext, "function", Toast.LENGTH_SHORT).show();
 	}
@@ -119,10 +94,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			}
 			//if not found locally search remotely
 			else if(!callback.getErrorStatus() && callback.getList().size() == 0){
-				List<IGuiRunnable<?>> runnables = new ArrayList<IGuiRunnable<?>>();
-				runnables.add(new HandleGetObservedByZipCodeRemote ());
-				runnables.add(new HandleGetForecastByZipCodeRemote());
-				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, runnables);
+				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, new HandleRemote());
 			}
 			else{
 				handleGetReportingAreaByZipCode(callback);
@@ -135,49 +107,29 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 	}
 	
-	class HandleGetObservedByZipCodeRemote implements IGuiRunnable<IDataRequestCallback<Observed>>{
-		IDataRequestCallback<Observed> callback;
+	class HandleRemote implements IGuiRunnable<IDataRequestCallback<RemoteCallbackData>>{
+		private IDataRequestCallback<RemoteCallbackData> callback;
 		
 		public void run() {
 			if(callback.getErrorStatus()){
 				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
 			}
 			else{
-				ReportingArea area = new ReportingArea();
-				Observed observed = callback.getList().get(0);
-				area.Name = observed.ReportingArea;
-				area.ZipCode = mZipCode;
-				area.ObservedAQI = observed.AQI;
-				area.State = observed.StateCode;
+				List<RemoteCallbackData> list = callback.getList();
+				RemoteCallbackData data = list.get(0);
+				ReportingArea area = data.reportingArea;
+				mAdapter.add(area);
 				
-				DataProviderServiceHelper.getInstance().insertReportingArea(area, new HandleInsertReportingAreaCallback());
-				DataProviderServiceHelper.getInstance().insertObserved(area, callback.getList(), null);
+				DataProviderServiceHelper.getInstance().insertObserved(area, data.observed, new HandleDmoInsertion());
+				DataProviderServiceHelper.getInstance().insertForecast(area, data.forecasts, new HandleDmoInsertion());
 			}
 		}
 
 		@SuppressWarnings("unchecked")
 		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<Observed>) callback;			
+			this.callback = (IDataRequestCallback<RemoteCallbackData>) callback;			
 		}
-	}
-	
-	class HandleGetForecastByZipCodeRemote implements IGuiRunnable<IDataRequestCallback<Forecast>>{
-		IDataRequestCallback<Forecast> callback;
 		
-		public void run() {
-			if(callback.getErrorStatus()){
-				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-				Log.d("presenter", callback.getErrorMessage());
-			}
-			else{
-				DataProviderServiceHelper.getInstance().insertForecast(null, callback.getList(), new HandleDmoInsertion());
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<Forecast>) callback;			
-		}
 	}
 	
 	class HandleDmoInsertion implements IGuiRunnable<IDataRequestCallback<?>>{
