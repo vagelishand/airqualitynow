@@ -9,9 +9,14 @@ import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 import roboguice.activity.RoboActivity;
 import roboguice.event.EventManager;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 public class ReportingAreaListActivity extends RoboActivity {
-	@Inject private ReportingAreaListView mForecastListView;
+	@Inject private ReportingAreaListView mReportingAreaListView;
 	@Inject private ReportingAreaListPresenter mForecastListPresenter;
 	@Inject protected EventManager mEventManager;
 	
@@ -21,18 +26,38 @@ public class ReportingAreaListActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reportingarealist);
         
-        mForecastListView.initialize();
-    	mForecastListView.mPresenter = mForecastListPresenter;
+        mReportingAreaListView.initialize();
+    	mReportingAreaListView.mPresenter = mForecastListPresenter;
+    	registerForContextMenu(mReportingAreaListView.getView());
     }
     
     @Override
     public void onStart(){
-    	mForecastListPresenter.initialize(new PresenterInitializeParameter(mForecastListView,  mEventManager));
+    	super.onStart();
+    	mForecastListPresenter.mListActivity = this;
+    	mForecastListPresenter.initialize(new PresenterInitializeParameter(mReportingAreaListView,  mEventManager));
+    }
+    
+    /**
+	 * This is the menu that appears when a listItem is long clicked/pressed
+	 */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
+    	
+    	menu.setHeaderTitle("Menu");
+    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecast");
+    	forecastMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
+    	
+    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observed");
+    	observedMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
+    	
+    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Delete");
+    	deleteMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
     }
     
     @Override
     public void onDestroy(){
-    	mForecastListView.onDestroy();
+    	mReportingAreaListView.onDestroy();
     	mForecastListPresenter.onDestroy();
     	super.onDestroy();
     }
