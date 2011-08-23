@@ -13,7 +13,7 @@ public class CommandGetObservedByZipCodeRemote extends RemoteDaoCommand<IDataReq
 	}
 	
 	public IDataRequestCallback<Observed> execute() {
-		return this.mRemoteDataProviderService.onGetObservedbyZipCode(mZipCode);
+		return null;
 	}
 
 }
