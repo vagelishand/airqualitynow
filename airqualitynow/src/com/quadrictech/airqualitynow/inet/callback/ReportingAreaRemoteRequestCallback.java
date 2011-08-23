@@ -2,26 +2,23 @@ package com.quadrictech.airqualitynow.inet.callback;
 
 import java.util.List;
 
-import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
-import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 
-public class ReportingAreaRemoteRequestCallback implements IDataRequestCallback<ReportingArea> {
-	IReportingAreaWrapper mReportingAreaWrapper;
-	ReportingArea mReportingArea;
+public class ReportingAreaRemoteRequestCallback implements IDataRequestCallback<RemoteCallbackData> {
+	List<RemoteCallbackData> mRemoteCallbackData;
 	Throwable mException;
 	
 	public ReportingAreaRemoteRequestCallback(){
-		mReportingAreaWrapper = new ReportingAreaWrapper();
+		
 	}
 	
 	public void onError(Throwable exception) {
 		mException = exception;		
 	}
 
-	public List<ReportingArea> getList() {
-		return mReportingAreaWrapper.getReportingArea();
+	public List<RemoteCallbackData> getList() {
+		//return mReportingAreaWrapper.getReportingArea();
+		return mRemoteCallbackData;
 	}
 
 	public boolean getErrorStatus() {
@@ -32,8 +29,7 @@ public class ReportingAreaRemoteRequestCallback implements IDataRequestCallback<
 		return mException.getLocalizedMessage();
 	}
 
-	public void onResponseReceived(List<ReportingArea> response) {
-		mReportingAreaWrapper.setReportingArea(response);
+	public void onResponseReceived(List<RemoteCallbackData> response) {
+		mRemoteCallbackData = response;
 	}
-
 }
