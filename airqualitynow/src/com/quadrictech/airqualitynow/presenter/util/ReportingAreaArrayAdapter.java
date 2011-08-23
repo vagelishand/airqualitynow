@@ -32,14 +32,14 @@ public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 		
 		if(convertView == null){
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService("layout_inflater"); 
-			convertView = inflater.inflate(R.layout.forecastlistrow, parent, false);
+			convertView = inflater.inflate(R.layout.reportingarealistrow, parent, false);
 			
 			mViewHolder = new ViewHolder();
-			mViewHolder.cityTextView = (TextView)convertView.findViewById(R.id.forecastListCityTextView);
+			mViewHolder.cityTextView = (TextView)convertView.findViewById(R.id.reportingAreaListCityTextView);
 			
-			mViewHolder.todayTextView = (TextView)convertView.findViewById(R.id.forecastListTodayTextView);
+			mViewHolder.todayTextView = (TextView)convertView.findViewById(R.id.reportingAreaListTodayTextView);
 			
-			mViewHolder.tomorrowTextView = (TextView)convertView.findViewById(R.id.forecastListTomorrowTextView);
+			mViewHolder.tomorrowTextView = (TextView)convertView.findViewById(R.id.reportingAreaListTomorrowTextView);
 			
 			convertView.setTag(mViewHolder);
 		}

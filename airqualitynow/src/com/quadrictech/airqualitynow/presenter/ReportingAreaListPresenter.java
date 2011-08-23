@@ -62,7 +62,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 		else{
 			mReportingAreas =  (List<ReportingArea>) callback.getList();
-			mAdapter = new ReportingAreaArrayAdapter(mContext, R.layout.forecastlistrow, mReportingAreas);
+			mAdapter = new ReportingAreaArrayAdapter(mContext, R.layout.reportingarealistrow, mReportingAreas);
 			
 			mForecastListView.setAdapter(mAdapter);
 		}

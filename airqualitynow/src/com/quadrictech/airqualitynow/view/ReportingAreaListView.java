@@ -16,12 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ReportingAreaListView implements IReportingAreaListView<ListView>, OnItemClickListener, OnClickListener  {
-	@InjectView(R.id.forecastAreasList) 				private ListView mView;
-	@InjectView(R.id.forecastListTableSearchEditText) 	private EditText mSearchEditText;
-	@InjectView(R.id.forecastListTableSearchButton)		private Button   mSearchButton;
-	@InjectView(R.id.forecastListTableAddButton)		private Button   mAddButton;
-	@InjectView(R.id.forecastListTableGuideButton)		private Button   mGuideButton;
-	@Inject 											public ReportingAreaListPresenter mPresenter;
+	@InjectView(R.id.reportingAreasList) 					private ListView mView;
+	@InjectView(R.id.reportingAreaListTableSearchEditText) 	private EditText mSearchEditText;
+	@InjectView(R.id.reportingAreaListTableSearchButton)	private Button   mSearchButton;
+	@InjectView(R.id.reportingAreaListTableAddButton)		private Button   mAddButton;
+	@InjectView(R.id.reportingAreaListTableGuideButton)		private Button   mGuideButton;
+	@Inject 												public ReportingAreaListPresenter mPresenter;
 	
 	public ReportingAreaListView(){
 		
@@ -44,13 +44,13 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 	}
 
 	public void onClick(View v) {
-		if(v.getId() == R.id.forecastListTableSearchButton){
+		if(v.getId() == R.id.reportingAreaListTableSearchButton){
 			
 		}
-		else if(v.getId() == R.id.forecastListTableAddButton){
+		else if(v.getId() == R.id.reportingAreaListTableAddButton){
 			mPresenter.onAddReportingAreaClick();
 		}
-		else if(v.getId() == R.id.forecastListTableGuideButton){
+		else if(v.getId() == R.id.reportingAreaListTableGuideButton){
 			mPresenter.onPollutantGuideButtonClick();
 		}
 	}

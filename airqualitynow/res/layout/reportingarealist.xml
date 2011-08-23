@@ -6,21 +6,21 @@
        android:padding="5dp"
        android:background="@drawable/sky">
        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/forecastListTableActionMenu"
+		android:id="@+id/reportingAreaListTableActionMenu"
 		   android:orientation="vertical"
 		   android:layout_width="fill_parent"
 		   android:layout_height="wrap_content"
 		   >
          	<TableRow android:layout_margin="2dip">
          		<EditText
-			  		android:id="@+id/forecastListTableSearchEditText"
+			  		android:id="@+id/reportingAreaListTableSearchEditText"
 			          android:layout_width="0px"
 			          android:layout_weight=".45"
 			          android:layout_height="wrap_content"
 			          android:inputType="number"
 			       />
 			    <Button
-			  		android:id="@+id/forecastListTableSearchButton"
+			  		android:id="@+id/reportingAreaListTableSearchButton"
 			          android:layout_width="0px"
 			          android:layout_weight=".20"
 			          android:layout_height="wrap_content"
@@ -28,14 +28,14 @@
 			       />
 			    
 	         	<Button
-		  			android:id="@+id/forecastListTableAddButton"
+		  			android:id="@+id/reportingAreaListTableAddButton"
 		          	android:layout_width="0px"
 			          android:layout_weight=".20"
 		          	android:layout_height="wrap_content"
 		          	android:drawableLeft="@drawable/ic_menu_add"
 	       		/>
 	       		<Button
-		  			android:id="@+id/forecastListTableGuideButton"
+		  			android:id="@+id/reportingAreaListTableGuideButton"
 		          	android:layout_width="0px"
 			          android:layout_weight=".15"
 		          	android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
          	</TableRow>
          	<TableRow android:layout_margin="1dip">
          	    <TextView
-         	    	android:id="@+id/forecastListTableReportingAreaTextView" 
+         	    	android:id="@+id/reportingAreaListTableReportingAreaTextView" 
 				    android:layout_width="0px"
 			          android:layout_weight=".45"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -57,7 +57,7 @@
 				    android:text="@string/reportingAreaHeader"
 				/>
 				<TextView
-					android:id="@+id/forecastListTableTodayTextView" 
+					android:id="@+id/reportingAreaListTableTodayTextView" 
 				    android:layout_width="0px"
 				          android:layout_weight=".25"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
@@ -68,7 +68,7 @@
 				    android:text="@string/todayHeader"
 				/>
 			    <TextView
-			    	android:id="@+id/forecastListTableTomorrowTextView" 
+			    	android:id="@+id/reportingAreaListTableTomorrowTextView" 
 				    android:layout_width="0px"
 				          android:layout_weight=".3"
 				    android:layout_height="wrap_content"
@@ -81,6 +81,6 @@
 				/>
      </TableRow>    	
    </TableLayout>
-   <ListView android:id="@+id/forecastAreasList" android:layout_width="fill_parent"
+   <ListView android:id="@+id/reportingAreasList" android:layout_width="fill_parent"
        android:layout_height="0dip" android:layout_weight="1"  />
 </LinearLayout>

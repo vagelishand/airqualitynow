@@ -23,6 +23,10 @@ public class ReportingAreaListActivity extends RoboActivity {
         
         mForecastListView.initialize();
     	mForecastListView.mPresenter = mForecastListPresenter;
+    }
+    
+    @Override
+    public void onStart(){
     	mForecastListPresenter.initialize(new PresenterInitializeParameter(mForecastListView,  mEventManager));
     }
     
