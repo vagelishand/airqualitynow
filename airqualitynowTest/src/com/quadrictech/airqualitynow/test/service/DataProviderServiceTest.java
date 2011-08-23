@@ -8,7 +8,7 @@ import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
 import com.quadrictech.airqualitynow.db.IObservedRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
@@ -51,7 +51,7 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 	@UsesMocks(IForecastRepository.class)
 	@MediumTest
 	public void testGetForecasts(){
-		ILocalRequestCallback<Forecast> forecastRequest = null;
+		IDataRequestCallback<Forecast> forecastRequest = null;
 		mForecastRepository = AndroidMock.createMock(IForecastRepository.class);
 		IBinder binder = bindService(startIntent);
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
@@ -69,7 +69,7 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 	@UsesMocks(IReportingAreaRepository.class)
 	@MediumTest
 	public void testGetReportingArea(){
-		ILocalRequestCallback<ReportingArea> reportingAreaRequest = null;
+		IDataRequestCallback<ReportingArea> reportingAreaRequest = null;
 		mReportingAreaRepository = AndroidMock.createMock(IReportingAreaRepository.class);
 		IBinder binder = bindService(startIntent);
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
@@ -86,7 +86,7 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 	@UsesMocks(IObservedRepository.class)
 	@MediumTest
 	public void testGetObservedByDate() throws ParseException{
-		ILocalRequestCallback<Observed> observedRequest = null;
+		IDataRequestCallback<Observed> observedRequest = null;
 		mObservedRepository = AndroidMock.createMock(IObservedRepository.class);
 		IBinder binder = bindService(startIntent);
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();

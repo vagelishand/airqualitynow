@@ -7,13 +7,13 @@ import roboguice.test.RoboUnitTestCase;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
-import com.quadrictech.airqualitynow.db.callback.ILocalRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
-	private ILocalRequestCallback<Observed> callback;
+	private IDataRequestCallback<Observed> callback;
 	
 	@Override
 	public void setUp()throws Exception{
