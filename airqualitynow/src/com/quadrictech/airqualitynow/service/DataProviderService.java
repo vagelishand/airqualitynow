@@ -204,6 +204,12 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	public ReportingArea insertReportArea(ReportingArea reportingArea)throws SQLException {
 		ReportingArea area = reportingArea;
 		Dao<ReportingArea, Integer> dao = getHelper().getReportingAreaDAO();
+		List<ReportingArea>areas = dao.queryForEq("Name", area.Name);
+		
+		if(areas.size() > 0){
+			throw new SQLException(area.ZipCode + " data available via " + area.Name);
+		}
+		
 		dao.create(area);
 		
 		return area;
