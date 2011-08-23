@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Observed {
 	public Observed(){}
 	
-	@DatabaseField(id=true)
+	@DatabaseField(generatedId=true)
 	public int Id;
 	@DatabaseField
 	public Date DateObserved;
@@ -21,9 +21,7 @@ public class Observed {
 	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
 	public String StateCode;
-	@DatabaseField
 	public double Latitude;
-	@DatabaseField
 	public double Longitude;
 	@DatabaseField
 	public String ParameterName;
@@ -31,6 +29,5 @@ public class Observed {
 	public int AQI;
 	@DatabaseField
 	public int CategoryNumber;
-	@DatabaseField
 	public String CategoryName;
 }

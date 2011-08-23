@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Forecast {
 	public Forecast(){}
 	
-	@DatabaseField(id = true)
+	@DatabaseField(generatedId = true)
 	public int Id;
 	@DatabaseField
 	public Date DateIssue;
@@ -19,9 +19,7 @@ public class Forecast {
 	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
 	public String StateCode;
-	@DatabaseField
 	public double Latitude;
-	@DatabaseField
 	public double Longitude;
 	@DatabaseField
 	public String ParameterName;
@@ -29,7 +27,6 @@ public class Forecast {
 	public int AQI; //-1 is no forecast
 	@DatabaseField
 	public int CategoryNumber;
-	@DatabaseField
 	public String CategoryName;
 	@DatabaseField
 	public boolean ActionDay;

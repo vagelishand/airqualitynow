@@ -21,6 +21,10 @@ public class ReportingArea {
 	public String State;
 	@DatabaseField(index = true)
 	public String ZipCode;
+	@DatabaseField
+	public int Latitude;
+	@DatabaseField
+	public int Longitude;
 	
 	public ReportingArea(){
 		
