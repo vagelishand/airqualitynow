@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.quadrictech.airqualitynow.ForecastActivity;
 import com.quadrictech.airqualitynow.R;
+import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.RemoteCallbackData;
 import com.quadrictech.airqualitynow.model.ReportingArea;
@@ -31,6 +34,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	private List<ReportingArea> mReportingAreas;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
 	private String mZipCode;
+	public ReportingAreaListActivity mListActivity;
 	/***
 	 * REquired for roboguice parameter injection
 	 */
@@ -216,5 +220,16 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 			alert.show();
 			Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
+	}
+
+	public void onViewForecast(int id) {
+		Intent intent = new Intent(mListActivity, ForecastActivity.class);
+		intent.putExtra("areaId", id);
+		mListActivity.startActivity(intent);
+	}
+
+	public void onViewObserved(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 }
