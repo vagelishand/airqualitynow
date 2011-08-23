@@ -12,20 +12,22 @@
 	  >
   	<TableRow>
   		<TextView
-       	    android:id="@+id/fourdayforecastTableAreaTextView" 
-		   	android:layout_width="fill_parent"
+       	    android:id="@+id/fourDayForecastTableAreaTextView" 
+		   	android:layout_width="0px"
+        	android:layout_weight="1"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="center"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Reporting Area"
 			/>    
   	</TableRow>
   	<TableRow>
 		<TextView
-       	    android:id="@+id/fourdayForecastTableDayTextView" 
+       	    android:id="@+id/fourDayForecastTableDayTextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".8"
+        	android:layout_weight=".24"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -35,60 +37,65 @@
 		<TextView
        	    	android:id="@+id/fourDayForecastTableDay1TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		   android:text="Day 1"
 			/>
 		<TextView
        	    	android:id="@+id/fourDayForecastTableDay2TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Day 2"
 			/>
 		<TextView
        	    android:id="@+id/fourDayForecastTableDay3TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Day 3"
 			/>
 		<TextView
-       	    android:id="@+id/fourDayforecastTableDay4TextView" 
+       	    android:id="@+id/fourDayForecastTableDay4TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Day 4"
 			/>	
   		
   	</TableRow>
   	<TableRow>
 		<TextView
-       	    android:id="@+id/fourdayForecastTablePM10TextView" 
+       	    android:id="@+id/fourDayForecastTablePM10TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".8"
+        	android:layout_weight=".24"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="PM10"
 			/>
 		<TextView
        	    	android:id="@+id/fourDayForecastTablePM101TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -98,7 +105,7 @@
 		<TextView
        	    	android:id="@+id/fourDayForecastTablePM102TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -108,7 +115,7 @@
 		<TextView
        	    android:id="@+id/fourDayForecastTablePM103TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -116,9 +123,9 @@
 		    android:layout_margin="1dip"
 			/>
 		<TextView
-       	    android:id="@+id/fourDayforecastTablePM104TextView" 
+       	    android:id="@+id/fourDayForecastTablePM104TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -129,19 +136,20 @@
   	</TableRow>
   	<TableRow>
 		<TextView
-       	    android:id="@+id/fourdayForecastTablePM25TextView" 
+       	    android:id="@+id/fourDayForecastTablePM25TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".8"
+        	android:layout_weight=".24"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="PM25"
 			/>
 		<TextView
        	    	android:id="@+id/fourDayForecastTablePM251TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -151,7 +159,7 @@
 		<TextView
        	    	android:id="@+id/fourDayForecastTablePM252TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -161,7 +169,7 @@
 		<TextView
        	    android:id="@+id/fourDayForecastTablePM253TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -169,9 +177,9 @@
 		    android:layout_margin="1dip"
 			/>
 		<TextView
-       	    android:id="@+id/fourDayforecastTablePM254TextView" 
+       	    android:id="@+id/fourDayForecastTablePM254TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -182,19 +190,20 @@
   	</TableRow>
   	<TableRow>
 		<TextView
-       	    android:id="@+id/fourdayForecastTableOzoneTextView" 
+       	    android:id="@+id/fourDayForecastTableOzoneTextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".8"
+        	android:layout_weight=".24"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Ozone"
 			/>
 		<TextView
        	    	android:id="@+id/fourDayForecastTableOzone1TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -204,7 +213,7 @@
 		<TextView
        	    	android:id="@+id/fourDayForecastTableOzone2TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -214,7 +223,7 @@
 		<TextView
        	    android:id="@+id/fourDayForecastTableOzone3TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -222,9 +231,9 @@
 		    android:layout_margin="1dip"
 			/>
 		<TextView
-       	    android:id="@+id/fourDayforecastTableOzone4TextView" 
+       	    android:id="@+id/fourDayForecastTableOzone4TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -235,19 +244,20 @@
   	</TableRow>
   	<TableRow>
 		<TextView
-       	    android:id="@+id/fourdayForecastTableActionDayTextView" 
+       	    android:id="@+id/fourDayForecastTableActionDayTextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".8"
+        	android:layout_weight=".24"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
 		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    android:text="Action Day"
 			/>
 		<TextView
        	    	android:id="@+id/fourDayForecastTableActionDay1TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -257,7 +267,7 @@
 		<TextView
        	    	android:id="@+id/fourDayForecastTableActionDay2TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -267,7 +277,7 @@
 		<TextView
        	    android:id="@+id/fourDayForecastTableActionDay3TextView" 
 		   	android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
@@ -275,9 +285,9 @@
 		    android:layout_margin="1dip"
 			/>
 		<TextView
-       	    android:id="@+id/fourDayforecastTableActionDay4TextView" 
+       	    android:id="@+id/fourDayForecastTableActionDay4TextView" 
 		    android:layout_width="0px"
-        	android:layout_weight=".23"
+        	android:layout_weight=".19"
 		    android:textAppearance="?android:attr/textAppearanceMedium"
 		    android:gravity="left"
 		    android:singleLine="true"
