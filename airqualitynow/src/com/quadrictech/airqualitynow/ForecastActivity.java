@@ -1,4 +1,4 @@
-package com.quadrictech.airqualitynow.forecast;
+package com.quadrictech.airqualitynow;
 
 import com.google.inject.Inject;
 
@@ -21,7 +21,7 @@ public class ForecastActivity extends RoboActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forecast);
+        setContentView(R.layout.fourdayforecast);
         
         mForecastView.initialize(mForecastPresenter);
     	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, mEventManager));

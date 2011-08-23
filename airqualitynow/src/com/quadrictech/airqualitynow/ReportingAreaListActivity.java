@@ -1,4 +1,4 @@
-package com.quadrictech.airqualitynow.reportingarea;
+package com.quadrictech.airqualitynow;
 
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;

@@ -13,14 +13,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".reportingarea.ReportingAreaListActivity" 
+        <activity android:name=".ReportingAreaListActivity" 
 			      android:label="Air Quality Forecast List"
 			      >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".forecast.ForecastActivity" 
+        <activity android:name=".ForecastActivity" 
 			      android:label="Air Quality Forecast"
 			      >
             <intent-filter>

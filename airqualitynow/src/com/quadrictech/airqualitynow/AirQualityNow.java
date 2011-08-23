@@ -1,7 +1,5 @@
 package com.quadrictech.airqualitynow;
 
-import com.quadrictech.airqualitynow.forecast.ForecastActivity;
-import com.quadrictech.airqualitynow.reportingarea.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
