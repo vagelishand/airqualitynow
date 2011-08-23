@@ -1,40 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             >
+    <TableRow  android:layout_margin="1dip">
     <TextView 
-	    android:id="@+id/reportingAreaListCityTextView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="26dip"
-	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:gravity="left"
-	    android:paddingLeft="5dip"
-	    android:singleLine="true"
-	/>
-	<TextView 
-	    android:id="@+id/reportingAreaListTodayTextView"
-	    android:layout_width="fill_parent"
-	    android:layout_height="26dip"
-	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:gravity="left"
-	    android:paddingLeft="5dip"
-	    android:singleLine="true"
-	    android:ellipsize="end"
-	    android:layout_toRightOf="@+id/reportingAreaListCityTextView"
-	    android:layout_alignTop="@+id/reportingAreaListCityTextView"
-	/>
+            android:id="@+id/reportingAreaListCityTextView"
+            android:layout_width="0px"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="left"
+            android:paddingLeft="5dip"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:layout_margin="1dip"
+            android:layout_weight=".45"
+        />
+        <TextView 
+            android:id="@+id/reportingAreaListTodayTextView"
+            android:layout_width="0px"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:layout_margin="1dip"
+            android:layout_weight=".25"
+        />
     <TextView 
-	    android:id="@+id/reportingAreaListTomorrowTextView"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:textAppearance="?android:attr/textAppearanceSmall"
-	    android:gravity="left"
-	    android:paddingLeft="5dip"
-	    android:singleLine="true"
-	   	android:ellipsize="end"
-	   	android:layout_toRightOf="@+id/reportingAreaListToday"
-	    android:layout_below="@+id/reportingAreaListToday"
-	/>
-</RelativeLayout>
+            android:id="@+id/reportingAreaListTomorrowTextView"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:layout_margin="1dip"
+            android:layout_weight=".30"
+        />
+        </TableRow>
+</TableLayout>
