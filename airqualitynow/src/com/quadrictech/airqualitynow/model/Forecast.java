@@ -14,7 +14,7 @@ public class Forecast {
 	@DatabaseField
 	public Date DateIssue;
 	@DatabaseField
-	public String DateForecast;
+	public Date DateForecast;
 	@DatabaseField(canBeNull = false, foreign = true)
 	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
