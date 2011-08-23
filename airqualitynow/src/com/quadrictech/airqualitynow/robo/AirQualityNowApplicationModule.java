@@ -7,12 +7,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
-import com.quadrictech.airqualitynow.json.IReportingAreaJsonProvider;
-import com.quadrictech.airqualitynow.json.ReportingAreaJsonProvider;
 import com.quadrictech.airqualitynow.model.ForecastWrapper;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
-import com.quadrictech.airqualitynow.model.IReportingAreaWrapper;
-import com.quadrictech.airqualitynow.model.ReportingAreaWrapper;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.ForecastPresenter;
 import com.quadrictech.airqualitynow.presenter.IReportingAreaListPresenter;
@@ -26,8 +22,6 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 
 	@Override
 	protected void configure() {
-		bind(IReportingAreaJsonProvider.class).to(ReportingAreaJsonProvider.class);
-		bind(IReportingAreaWrapper.class).to(ReportingAreaWrapper.class);
 		bind(IForecastJsonProvider.class).to(ForecastJsonProvider.class);
 		bind(IForecastWrapper.class).to(ForecastWrapper.class);
 		bind(new TypeLiteral <IForecastPresenter<View>>(){}).to((Class<? extends IForecastPresenter<View>>) ForecastPresenter.class);
