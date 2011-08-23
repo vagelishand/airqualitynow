@@ -10,6 +10,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseService;
+import com.j256.ormlite.dao.Dao;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
@@ -198,6 +199,14 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		}
 		
 		return callback;	
+	}
+
+	public ReportingArea insertReportArea(ReportingArea reportingArea)throws SQLException {
+		ReportingArea area = reportingArea;
+		Dao<ReportingArea, Integer> dao = getHelper().getReportingAreaDAO();
+		dao.create(area);
+		
+		return area;
 	}
 	
 }

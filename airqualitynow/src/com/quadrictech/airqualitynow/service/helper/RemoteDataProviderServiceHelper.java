@@ -1,9 +1,8 @@
 package com.quadrictech.airqualitynow.service.helper;
 
-import java.util.List;
-
 import com.quadrictech.airqualitynow.command.CommandGetForecastByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
+import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
@@ -49,9 +48,9 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		task.execute(new CommandGetObservedByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 	
-	public void getReportingAreaByZipCode(String zipCode, List<IGuiRunnable<?>> guiUpdateRunnable) {
-		getObservedByZipCode(zipCode, guiUpdateRunnable.get(0));
-		getForecastByZipCode(zipCode, guiUpdateRunnable.get(1));
+	public void getReportingAreaByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
+		task = new RemoteAsyncTask(guiUpdateRunnable);
+		task.execute(new CommandGetReportingAreaByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 
 	public void onServiceConnected(ComponentName className, IBinder service) {

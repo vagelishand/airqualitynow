@@ -1,5 +1,6 @@
 package com.quadrictech.airqualitynow.service;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface IDataProviderService {
 	public void initialize(IForecastRepository fr);
 	public void initialize(IReportingAreaRepository rar);
 	public void initialize(IObservedRepository or);
+	public ReportingArea insertReportArea(ReportingArea reportingArea)throws SQLException;
 	public IDataRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea);
 	public IDataRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode);
 	public IDataRequestCallback<Observed> insertObserved(List<Observed> observedList);

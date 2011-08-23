@@ -1,5 +1,6 @@
 package com.quadrictech.airqualitynow.service.helper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import android.content.ComponentName;
@@ -33,6 +34,7 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	DataAsyncTask<?> task;
 	IGuiRunnable<?> runnable;
 	public final Handler mGuiHandler = new Handler();
+	public final Handler mDmoHandler = new Handler();
 	
 	private static class SingletonHolder
     {
@@ -55,7 +57,7 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<ReportingArea>>();
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
-	}
+	}	
 	
 	public void getForecastById(int id, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
@@ -83,12 +85,22 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 
 	public void insertObserved(ReportingArea reportingArea, List<Observed> observedList, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
+		
+		for(Observed o: observedList){
+			o.ReportingAreaObject = reportingArea;
+		}
+		
 		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
 		task.execute(new CommandInsertObserved(observedList, mDataServiceProvider));
 	}
 
 	public void insertForecast(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
+		
+		for(Forecast f: forecasts){
+			f.ReportingAreaObject = reportingArea;
+		}
+		
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
 		task.execute(new CommandInsertForecast(forecasts, mDataServiceProvider));
 	}
@@ -135,5 +147,9 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 			return callback;
 		}
 		
+	}
+
+	public ReportingArea insertReportingArea(ReportingArea reportingArea) throws SQLException {
+		return mDataServiceProvider.insertReportArea(reportingArea);
 	}
 }
