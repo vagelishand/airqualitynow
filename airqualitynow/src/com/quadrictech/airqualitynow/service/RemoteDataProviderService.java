@@ -89,6 +89,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		}
 		
 		IForecastWrapper wrapper = mForecastJsonProvider.parseJson(new ObjectMapper(),json);
+		
 		return wrapper.getForecast();
 	}
 
@@ -149,6 +150,8 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		area.ForecastAQI = forecast.AQI;
 		area.State = observed.StateCode;
 		area.ZipCode = zipCode;
+		area.Latitude = (int) (observed.Latitude * 1E6);
+		area.Longitude = (int) (observed.Longitude * 1E6);
 		
 		try {
 			area = DataProviderServiceHelper.getInstance().insertReportingArea(area);
