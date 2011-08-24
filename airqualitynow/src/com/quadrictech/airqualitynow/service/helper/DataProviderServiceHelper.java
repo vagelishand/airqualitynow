@@ -66,18 +66,18 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
 	}	
 	
-	public void getForecastById(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
 		task.execute(new CommandGetForecastById(id, issueDate, mDataServiceProvider));
 	}
-
-	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
-		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
-		//TODO finish method
-	}
 	
+	public void getObservedByReportingAreaId(int id, Date issueDate,
+			IGuiRunnable<?> guiUpdateRunnable) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<ReportingArea>>();
