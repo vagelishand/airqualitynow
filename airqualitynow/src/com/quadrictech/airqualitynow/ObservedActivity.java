@@ -2,6 +2,8 @@ package com.quadrictech.airqualitynow;
 
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.presenter.IObservedPresenter;
+import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
+import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IObservedView;
 
 import android.os.Bundle;
@@ -18,6 +20,15 @@ public class ObservedActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.observedwforecast);
         
+        DataProviderServiceHelper.getInstance().setWindowContext(this);
         
+        mObservedView.initialize(mObservedPresenter, getIntent().getStringExtra("areaName"));
+        mObservedPresenter.initialize(new PresenterInitializeParameter(mObservedView, getIntent().getIntExtra("areaId", 0)));
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	DataProviderServiceHelper.getInstance().setWindowContext(this);
     }
 }
