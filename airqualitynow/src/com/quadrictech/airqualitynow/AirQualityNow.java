@@ -64,7 +64,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 
 	public void onClick(View view) {
 		if(view.getId() == R.id.mainTableObservedForecastButton){
-			Intent intent = new Intent(AirQualityNow.this, ForecastActivity.class);
+			Intent intent = new Intent(AirQualityNow.this, ObservedActivity.class);
 			startActivity(intent);
 		}
 		else if(view.getId() == R.id.mainTableForecastListButton){
