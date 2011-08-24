@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.ForecastActivity;
+import com.quadrictech.airqualitynow.ObservedActivity;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
@@ -230,7 +231,10 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 
 	public void onViewObserved(ReportingArea area) {
-		// TODO Auto-generated method stub
+		Intent intent = new Intent(mListActivity, ObservedActivity.class);
+		intent.putExtra("areaId", area.Id);
+		intent.putExtra("areaName", area.Name);
+		mListActivity.startActivity(intent);
 		
 	}
 }
