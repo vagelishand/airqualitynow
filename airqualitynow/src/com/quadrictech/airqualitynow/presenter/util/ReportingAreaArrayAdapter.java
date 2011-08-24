@@ -16,8 +16,8 @@ import android.widget.TextView;
 public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 	static class ViewHolder{
 		TextView cityTextView;
-		TextView todayTextView;
-		TextView tomorrowTextView;
+		TextView currentTextView;
+		TextView forecastTextView;
 	}
 	
 	ViewHolder mViewHolder;
@@ -38,9 +38,9 @@ public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 			mViewHolder = new ViewHolder();
 			mViewHolder.cityTextView = (TextView)convertView.findViewById(R.id.reportingAreaListCityTextView);
 			
-			mViewHolder.todayTextView = (TextView)convertView.findViewById(R.id.reportingAreaListTodayTextView);
+			mViewHolder.currentTextView = (TextView)convertView.findViewById(R.id.reportingAreaListCurrentTextView);
 			
-			mViewHolder.tomorrowTextView = (TextView)convertView.findViewById(R.id.reportingAreaListTomorrowTextView);
+			mViewHolder.forecastTextView = (TextView)convertView.findViewById(R.id.reportingAreaListForecastTextView);
 			
 			convertView.setTag(mViewHolder);
 		}
@@ -50,12 +50,12 @@ public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 		
 		mViewHolder.cityTextView.setText(((ReportingArea)this.getItem(position)).Name);
 		int today = ((ReportingArea)this.getItem(position)).ObservedAQI;
-		mViewHolder.todayTextView.setText(today + "");
-		mViewHolder.todayTextView.setBackgroundResource(ColorUtil.getAirQualityColor(today));
+		mViewHolder.currentTextView.setText((today == -1) ? "n/a" : today + "");
+		mViewHolder.currentTextView.setBackgroundResource(ColorUtil.getAirQualityColor(today));
 		
 		int tomorrow = ((ReportingArea)this.getItem(position)).ForecastAQI;
-		mViewHolder.tomorrowTextView.setText(tomorrow + "");
-		mViewHolder.tomorrowTextView.setBackgroundResource(ColorUtil.getAirQualityColor(tomorrow));
+		mViewHolder.forecastTextView.setText((tomorrow == -1) ? "n/a" :tomorrow + "");
+		mViewHolder.forecastTextView.setBackgroundResource(ColorUtil.getAirQualityColor(tomorrow));
 		
 		return convertView;
 	}
