@@ -1,8 +1,10 @@
 package com.quadrictech.airqualitynow.service.helper;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
 
 public class DataProviderServiceHelper implements IDataProviderServiceHelper, ServiceConnection, IDisposable{
+	private Context mServiceContext;
 	private Context mContext;
 	private boolean mServiceBound;
 	private IDataProviderService mDataServiceProvider;
@@ -49,6 +52,10 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		
 	}
 	
+	public void setWindowContext(Context context){
+		mContext = context;
+	}
+	
 	public DataProviderServiceHelper(IDataProviderService dataProviderService){
 		mDataServiceProvider = dataProviderService;
 	}
@@ -59,10 +66,10 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
 	}	
 	
-	public void getForecastById(int id, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getForecastById(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
-		task.execute(new CommandGetForecastById(id, mDataServiceProvider));
+		task.execute(new CommandGetForecastById(id, issueDate, mDataServiceProvider));
 	}
 
 	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
@@ -114,16 +121,15 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	}
 
 	public void doBindService(Context context) {
-		mContext = context;
-		
 		if(!mServiceBound){
-			mServiceBound = mContext.bindService(new Intent(mContext, DataProviderService.class), this, Context.BIND_AUTO_CREATE);
+			mServiceContext = context;
+			mServiceBound = mServiceContext.bindService(new Intent(mServiceContext, DataProviderService.class), this, Context.BIND_AUTO_CREATE);
 		}
 	}
 
 	public void doUnBindService() {
 		if(mServiceBound){
-			mContext.unbindService(this);
+			mServiceContext.unbindService(this);
 			mServiceBound = false;
 		}
 	}
@@ -134,6 +140,15 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	
 	class DataAsyncTask<T> extends AsyncTask<IDaoCommand<?>, Integer, IDataRequestCallback<?>>{
 		IDataRequestCallback<?> callback;
+		ProgressDialog dialog;
+		
+		protected void onPreExecute(){
+			dialog = new ProgressDialog(mContext);
+			dialog.setTitle("Processing...");
+			dialog.setMessage("Please be patient...");
+			dialog.show();
+		}
+		
 		@Override
 		protected IDataRequestCallback<?> doInBackground(IDaoCommand<?>... arg0) {
 			
@@ -147,6 +162,9 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 			return callback;
 		}
 		
+		protected void onPostExecute(IDataRequestCallback<?> callback){
+			dialog.dismiss();
+		}
 	}
 
 	public ReportingArea insertReportingArea(ReportingArea reportingArea) throws SQLException {
