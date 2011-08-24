@@ -3,6 +3,8 @@ package com.quadrictech.airqualitynow.db;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
 public abstract class GenericRepository<T> implements IGenericRepository<T> {
@@ -38,4 +40,11 @@ public abstract class GenericRepository<T> implements IGenericRepository<T> {
 		return mDao.queryForEq(fieldName, value);
 	}
 
+	public QueryBuilder<T, Integer> getQueryBuilder(){
+		return mDao.queryBuilder();
+	}
+	
+	public List<T> getQueryResults(PreparedQuery<T> preparedQuery) throws SQLException{
+		return mDao.query(preparedQuery);
+	}
 }
