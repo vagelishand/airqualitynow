@@ -4,6 +4,7 @@ import roboguice.inject.InjectView;
 
 import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
+import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
@@ -27,7 +28,7 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 	@InjectView(R.id.reportingAreaListTableAddButton)		private Button   mAddButton;
 	@InjectView(R.id.reportingAreaListTableGuideButton)		private Button   mGuideButton;
 	@Inject 												public ReportingAreaListPresenter mPresenter;
-	
+	public ReportingAreaListActivity mListActivity;
 	
 	public ReportingAreaListView(){
 		
@@ -51,7 +52,7 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 
 	public void onClick(View v) {
 		if(v.getId() == R.id.reportingAreaListTableSearchButton){
-			
+			mPresenter.onViewForecast(mListActivity.getIntent().getIntExtra("areaId", 0));
 		}
 		else if(v.getId() == R.id.reportingAreaListTableAddButton){
 			mPresenter.onAddReportingAreaClick();
@@ -74,6 +75,7 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 	}
 
 	public boolean onMenuItemClick(MenuItem item) {
+		boolean returnValue = false;
 		AdapterView.AdapterContextMenuInfo info;
 		
 		try {
@@ -87,19 +89,19 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 		switch (item.getItemId()) {
 	    	case Menu.FIRST: {
 	    		mPresenter.onViewForecast(area.Id);
-	    		return true;
+	    		return returnValue = true;
 	    		}
 	    	case 2:{
 	    		mPresenter.onViewObserved(0);
-	    		return true;
+	    		return returnValue = true;
 	    	}
 	    	case 3:{
 	    		Toast.makeText(mView.getContext(), "three", Toast.LENGTH_SHORT).show();
-	    		return true;
+	    		return returnValue = true;
 	    	}
 		}
 	
-		return false;
+		return returnValue;
 
 	}
 

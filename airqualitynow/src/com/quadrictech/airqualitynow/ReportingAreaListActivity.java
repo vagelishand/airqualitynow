@@ -7,7 +7,6 @@ import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 
 import roboguice.activity.RoboActivity;
-import roboguice.event.EventManager;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,8 +16,7 @@ import android.view.View;
 
 public class ReportingAreaListActivity extends RoboActivity {
 	@Inject private ReportingAreaListView mReportingAreaListView;
-	@Inject private ReportingAreaListPresenter mForecastListPresenter;
-	@Inject protected EventManager mEventManager;
+	@Inject private ReportingAreaListPresenter mReportingAreaListPresenter;
 	
     /** Called when the activity is first created. */
     @Override
@@ -27,15 +25,11 @@ public class ReportingAreaListActivity extends RoboActivity {
         setContentView(R.layout.reportingarealist);
         
         mReportingAreaListView.initialize();
-    	mReportingAreaListView.mPresenter = mForecastListPresenter;
+    	mReportingAreaListView.mPresenter = mReportingAreaListPresenter;
+    	mReportingAreaListPresenter.mListActivity = this;
+    	mReportingAreaListView.mListActivity = this; 
+    	mReportingAreaListPresenter.initialize(new PresenterInitializeParameter(mReportingAreaListView));
     	registerForContextMenu(mReportingAreaListView.getView());
-    }
-    
-    @Override
-    public void onStart(){
-    	super.onStart();
-    	mForecastListPresenter.mListActivity = this;
-    	mForecastListPresenter.initialize(new PresenterInitializeParameter(mReportingAreaListView,  mEventManager));
     }
     
     /**
@@ -58,7 +52,7 @@ public class ReportingAreaListActivity extends RoboActivity {
     @Override
     public void onDestroy(){
     	mReportingAreaListView.onDestroy();
-    	mForecastListPresenter.onDestroy();
+    	mReportingAreaListPresenter.onDestroy();
     	super.onDestroy();
     }
 }

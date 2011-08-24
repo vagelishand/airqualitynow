@@ -219,7 +219,6 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			});
 	
 			alert.show();
-			Toast.makeText(mContext, this.mForecastListView.getEditTextString(), Toast.LENGTH_SHORT).show();
 	}
 
 	public void onViewForecast(int id) {
