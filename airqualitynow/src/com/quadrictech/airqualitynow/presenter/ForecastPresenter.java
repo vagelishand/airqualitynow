@@ -30,8 +30,8 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 	}
 	
 	public void initialize(PresenterInitializeParameter parameterObject) {
-		mContext = parameterObject.view.getView().getContext();
-		mForecastView = parameterObject.view;
+		mContext = parameterObject.forecastView.getView().getContext();
+		mForecastView = parameterObject.forecastView;
 		mCurrentReportingAreaId = parameterObject.reportingAreaId;
 		initializeTable();
 	}
