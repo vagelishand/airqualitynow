@@ -14,7 +14,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReportingAreaListActivity" 
-			      android:label="Air Quality Forecast List"
+			      android:label="Air Quality Reporting Area List"
 			      >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
