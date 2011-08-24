@@ -17,7 +17,7 @@ public class CommandGetForecastById extends DaoCommand<IDataRequestCallback<Fore
 	}
 	
 	public IDataRequestCallback<Forecast> execute() {
-		return mDataProviderService.onGetForecastByReportingAreaId(mForecastId, mIssueDate);
+		return mDataProviderService.getForecastsByReportingAreaId(mForecastId, mIssueDate);
 	}
 
 }

@@ -11,7 +11,7 @@ public class CommandGetAllReportingAreas extends DaoCommand<IDataRequestCallback
 	}
 	
 	public IDataRequestCallback<ReportingArea> execute() {
-		 return mDataProviderService.onGetAllReportingAreas();
+		 return mDataProviderService.getAllReportingAreas();
 	}
 
 }
