@@ -27,6 +27,13 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".ObservedActivity" 
+			      android:label="Air Quality Current"
+			      >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 		<service android:name="com.quadrictech.airqualitynow.service.DataProviderService"/>
 		<service android:name="com.quadrictech.airqualitynow.service.RemoteDataProviderService"/>
     </application>
