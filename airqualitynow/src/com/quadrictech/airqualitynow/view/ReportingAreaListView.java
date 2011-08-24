@@ -9,6 +9,8 @@ import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -88,11 +90,11 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 		
 		switch (item.getItemId()) {
 	    	case Menu.FIRST: {
-	    		mPresenter.onViewForecast(area.Id);
+	    		mPresenter.onViewForecast(area);
 	    		return returnValue = true;
 	    		}
 	    	case 2:{
-	    		mPresenter.onViewObserved(0);
+	    		mPresenter.onViewObserved(area);
 	    		return returnValue = true;
 	    	}
 	    	case 3:{
@@ -102,10 +104,31 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 		}
 	
 		return returnValue;
-
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
 		return false;
+	}
+
+	public void handleOnCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info = null;
+		
+		try {
+            info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+       } catch (ClassCastException e) {
+          
+       }
+		
+		ReportingArea area = (ReportingArea)mView.getAdapter().getItem(info.position);
+		
+		menu.setHeaderTitle("Menu");
+    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecast for " + area.Name);
+    	forecastMenuItem.setOnMenuItemClickListener(this);
+    	
+    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observed for " + area.Name);
+    	observedMenuItem.setOnMenuItemClickListener(this);
+    	
+    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Delete");
+    	deleteMenuItem.setOnMenuItemClickListener(this);				
 	}
 }
