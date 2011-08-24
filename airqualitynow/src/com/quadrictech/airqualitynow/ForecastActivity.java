@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
+import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 import roboguice.activity.RoboActivity;
@@ -22,9 +23,11 @@ public class ForecastActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fourdayforecast);
                 
-        mForecastView.initialize(mForecastPresenter);
+        DataProviderServiceHelper.getInstance().setWindowContext(this);
+        mForecastView.initialize(mForecastPresenter, getIntent().getStringExtra("areaName"));
         
-    	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, getIntent().getIntExtra("areaId", 0)));
+    	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, 
+    			                                                       getIntent().getIntExtra("areaId", 0)));
     }
     
     @Override
@@ -35,6 +38,7 @@ public class ForecastActivity extends RoboActivity {
     @Override
     public void onResume(){
     	super.onResume();
+    	DataProviderServiceHelper.getInstance().setWindowContext(this);
     }
     
     @Override
