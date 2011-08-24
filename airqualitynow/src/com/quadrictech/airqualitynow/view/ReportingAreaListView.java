@@ -52,7 +52,7 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 
 	public void onClick(View v) {
 		if(v.getId() == R.id.reportingAreaListTableSearchButton){
-			mPresenter.onViewForecast(mListActivity.getIntent().getIntExtra("areaId", 0));
+			
 		}
 		else if(v.getId() == R.id.reportingAreaListTableAddButton){
 			mPresenter.onAddReportingAreaClick();
