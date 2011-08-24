@@ -16,6 +16,7 @@ import android.os.IBinder;
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
+import com.quadrictech.airqualitynow.command.CommandGetObservedAndForecastByReportingArea;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
 import com.quadrictech.airqualitynow.command.CommandInsertForecast;
 import com.quadrictech.airqualitynow.command.CommandInsertObserved;
@@ -25,6 +26,7 @@ import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
@@ -72,10 +74,10 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetForecastById(id, issueDate, mDataServiceProvider));
 	}
 	
-	public void getObservedByReportingAreaId(int id, Date issueDate,
-			IGuiRunnable<?> guiUpdateRunnable) {
-		// TODO Auto-generated method stub
-		
+	public void getObservedAndForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<IDataRequestCallback<ObservedAndForecast>>();
+		task.execute(new CommandGetObservedAndForecastByReportingArea(id, issueDate, mDataServiceProvider));
 	}
 
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
