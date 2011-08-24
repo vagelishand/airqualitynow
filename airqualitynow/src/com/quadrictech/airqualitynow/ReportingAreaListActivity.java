@@ -4,14 +4,13 @@ import com.google.inject.Inject;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
+import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 
 import roboguice.activity.RoboActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class ReportingAreaListActivity extends RoboActivity {
@@ -23,6 +22,8 @@ public class ReportingAreaListActivity extends RoboActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reportingarealist);
+        
+        DataProviderServiceHelper.getInstance().setWindowContext(this);
         
         mReportingAreaListView.initialize();
     	mReportingAreaListView.mPresenter = mReportingAreaListPresenter;
@@ -37,16 +38,13 @@ public class ReportingAreaListActivity extends RoboActivity {
 	 */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
-    	
-    	menu.setHeaderTitle("Menu");
-    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecast");
-    	forecastMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
-    	
-    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observed");
-    	observedMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
-    	
-    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Delete");
-    	deleteMenuItem.setOnMenuItemClickListener(mReportingAreaListView);
+    	mReportingAreaListView.handleOnCreateContextMenu(menu, view, menuInfo);    	
+    }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	DataProviderServiceHelper.getInstance().setWindowContext(this);
     }
     
     @Override
