@@ -6,6 +6,7 @@ import java.util.List;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
+import com.quadrictech.airqualitynow.utils.ColorUtil;
 
 import roboguice.inject.InjectView;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class ForecastView implements IForecastView<View>, OnClickListener {
-	@InjectView(R.id.forecastLinearLayout)	private View mView;
+	@InjectView(R.id.fourDayForecastLinearLayout)	private View mView;
 	@InjectView(R.id.fourDayForecastTableAreaTextView)			TextView areaTextView;
 	
 	@InjectView(R.id.fourDayForecastTableDay1TextView)  		TextView day1TextView;
@@ -62,8 +63,9 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		}
 		
 		//SimpleDateFormat sdf = new SimpleDateFormat("M/d");
+		
 		List<Forecast> pm10Forecasts = getForecastByParticle(forecasts, "PM10");
-		List<Forecast> pm25Forecasts = getForecastByParticle(forecasts, "PM25");
+		List<Forecast> pm25Forecasts = getForecastByParticle(forecasts, "PM2.5");
 		List<Forecast> ozoneForecasts = getForecastByParticle(forecasts, "OZONE");
 		
 		setPM10ForecastData(pm10Forecasts);
@@ -72,56 +74,85 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	}
 	
 	private void setPM10ForecastData(List<Forecast> forecasts){
+		int aqi;
+		
 		if(forecasts.size() > 0){
-			pm101TextView.setText(forecasts.get(0).AQI);
+			aqi = forecasts.get(0).AQI;
+			pm101TextView.setText((forecasts.get(0).AQI == -1) ? "N/A" : aqi + "");
+			pm101TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 1){
-			pm101TextView.setText(forecasts.get(1).AQI);
+			aqi = forecasts.get(1).AQI;
+			pm102TextView.setText((forecasts.get(1).AQI == -1) ? "N/A" : aqi + "");
+			pm102TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 2){
-			pm101TextView.setText(forecasts.get(2).AQI);
+			aqi = forecasts.get(2).AQI;
+			pm103TextView.setText((forecasts.get(2).AQI == -1) ? "N/A" : forecasts.get(2).AQI + "");
+			pm103TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}		
 		
 		if(forecasts.size() > 3){
-			pm101TextView.setText(forecasts.get(3).AQI);
+			aqi = forecasts.get(3).AQI;
+			pm104TextView.setText((forecasts.get(3).AQI == -1) ? "N/A" : forecasts.get(3).AQI + "");
+			pm104TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 	}
 
 	private void setPM25ForecastData(List<Forecast> forecasts){
+		int aqi;
 		if(forecasts.size() > 0){
-			pm251TextView.setText(forecasts.get(0).AQI);
+			aqi = forecasts.get(0).AQI;
+			pm251TextView.setText((forecasts.get(0).AQI == -1) ? "N/A" : forecasts.get(0).AQI + "");
+			pm251TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 1){
-			pm251TextView.setText(forecasts.get(1).AQI);
+			aqi = forecasts.get(1).AQI;
+			pm252TextView.setText((forecasts.get(1).AQI == -1) ? "N/A" : forecasts.get(1).AQI + "");
+			pm252TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 2){
-			pm251TextView.setText(forecasts.get(2).AQI);
+			aqi = forecasts.get(2).AQI;
+			pm253TextView.setText((forecasts.get(2).AQI == -1) ? "N/A" : forecasts.get(2).AQI + "");
+			pm253TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}		
 		
 		if(forecasts.size() > 3){
-			pm251TextView.setText(forecasts.get(3).AQI);
+			aqi = forecasts.get(3).AQI;
+			pm254TextView.setText((forecasts.get(3).AQI == -1) ? "N/A" : forecasts.get(3).AQI + "");
+			pm254TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 	}
 	
 	private void setOzoneForecastData(List<Forecast> forecasts){
+		int aqi;
+		
 		if(forecasts.size() > 0){
-			ozone1TextView.setText(forecasts.get(0).AQI);
+			aqi = forecasts.get(0).AQI;
+			ozone1TextView.setText((forecasts.get(0).AQI == -1) ? "N/A" : forecasts.get(0).AQI + "");
+			ozone1TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 1){
-			ozone2TextView.setText(forecasts.get(1).AQI);
+			aqi = forecasts.get(1).AQI;
+			ozone2TextView.setText((forecasts.get(1).AQI == -1) ? "N/A" : forecasts.get(1).AQI + "");
+			ozone2TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 		
 		if(forecasts.size() > 2){
-			ozone3TextView.setText(forecasts.get(2).AQI);
+			aqi = forecasts.get(2).AQI;
+			ozone3TextView.setText((forecasts.get(2).AQI == -1) ? "N/A" : forecasts.get(2).AQI + "");
+			ozone3TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}		
 		
 		if(forecasts.size() > 3){
-			ozone4TextView.setText(forecasts.get(3).AQI);
+			aqi = forecasts.get(3).AQI;
+			ozone4TextView.setText((forecasts.get(3).AQI == -1) ? "N/A" : forecasts.get(3).AQI + "");
+			ozone4TextView.setBackgroundResource(ColorUtil.getAirQualityColor(aqi));
 		}
 	}	
 	

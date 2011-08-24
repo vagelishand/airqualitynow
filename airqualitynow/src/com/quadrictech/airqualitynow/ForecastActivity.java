@@ -8,23 +8,23 @@ import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 import roboguice.activity.RoboActivity;
-import roboguice.event.EventManager;
 import android.os.Bundle;
 import android.view.View;
 
 public class ForecastActivity extends RoboActivity {
 	@Inject private IForecastView<View> mForecastView;
 	@Inject private IForecastPresenter<View> mForecastPresenter;
-	@Inject private EventManager mEventManager; 
+	
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fourdayforecast);
-        
+                
         mForecastView.initialize(mForecastPresenter);
-    	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, mEventManager));
+        
+    	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, getIntent().getIntExtra("areaId", 0)));
     }
     
     @Override
@@ -40,7 +40,5 @@ public class ForecastActivity extends RoboActivity {
     @Override
     public void onDestroy(){
     	super.onDestroy();
-    	mForecastView.onDestroy();
-    	mForecastPresenter.onDestroy();
     }
 }
