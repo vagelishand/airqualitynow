@@ -1,6 +1,5 @@
 package com.quadrictech.airqualitynow.test.utils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,9 +15,19 @@ public class DateUtilsTest extends RoboUnitTestCase<AirQualityNowApplication>{
 	@MediumTest
 	public void testMMddyyyyFormat() throws ParseException{
 		Date date = new Date();
-	    SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy hh:mm:ss aaa");
-	    //Date date = sdf.parse("6/10/2010 5:40:30 p.m.");
+	    //SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy hh:mm:ss aaa");
+		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
+	    Date newDate = sdf.parse(sdf.format(date));
 	    
-	    assertEquals("", sdf.format(date));
+	    assertEquals("", sdf.format(newDate));
+	}
+	
+	@MediumTest
+	public void testGetObservedDate() throws ParseException{
+		Date date = DateUtil.getForecastIssueDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
+		
+		assertNotNull(date);
+		assertEquals("", sdf.format(date));
 	}
 }

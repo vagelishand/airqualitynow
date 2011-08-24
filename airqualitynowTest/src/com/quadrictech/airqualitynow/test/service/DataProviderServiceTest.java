@@ -57,10 +57,10 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
 		service.initialize(mForecastRepository);
 		
-		AndroidMock.expect(service.onGetAllForecasts()).andReturn(forecastRequest);
+		AndroidMock.expect(service.getAllForecasts()).andReturn(forecastRequest);
 		AndroidMock.replay(mForecastRepository);
 		
-		service.onGetAllForecasts();
+		service.getAllForecasts();
 		
 		AndroidMock.verify(mForecastRepository);
 		
@@ -75,10 +75,10 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
 		service.initialize(mReportingAreaRepository);
 		
-		AndroidMock.expect(service.onGetAllReportingAreas()).andReturn(reportingAreaRequest);
+		AndroidMock.expect(service.getAllReportingAreas()).andReturn(reportingAreaRequest);
 		AndroidMock.replay(mReportingAreaRepository);
 		
-		service.onGetAllReportingAreas();
+		service.getAllReportingAreas();
 		
 		AndroidMock.verify(mReportingAreaRepository);
 	}
@@ -93,10 +93,10 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 		service.initialize(mObservedRepository);
 		Date date = DateUtil.getDate("04/05/2010", "dd/MM/yyyy");
 		
-		AndroidMock.expect(service.onGetObservedByDate(date)).andReturn(observedRequest);
+		//AndroidMock.expect(service.getObservedByReportingAreaId(date)).andReturn(observedRequest);
 		AndroidMock.replay(mObservedRepository);
 		
-		service.onGetObservedByDate(date);
+		//service.getObservedByReportingAreaId(date);
 		AndroidMock.verify(mObservedRepository);
 	}
 	
