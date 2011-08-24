@@ -27,15 +27,15 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Intent intent = new Intent(this.getBaseContext(), DataProviderService.class);
+        Intent intent = new Intent(this, DataProviderService.class);
         startService(intent);
         mDataProviderServiceHelper = DataProviderServiceHelper.getInstance();
-        mDataProviderServiceHelper.doBindService(this.getApplicationContext());
+        mDataProviderServiceHelper.doBindService(this);
         
         intent = new Intent(this.getBaseContext(), RemoteDataProviderService.class);
         startService(intent);
         mRemoteDataProviderServiceHelper = RemoteDataProviderServiceHelper.getInstance();
-        mRemoteDataProviderServiceHelper.doBindService(this.getApplicationContext());
+        mRemoteDataProviderServiceHelper.doBindService(this);
         
         mButton.setOnClickListener(this);
         mFButton.setOnClickListener(this);
@@ -51,8 +51,8 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     @Override
     public void onResume(){
     	super.onResume();
-    	mDataProviderServiceHelper.doBindService(this.getApplicationContext());
-    	mRemoteDataProviderServiceHelper.doBindService(this.getApplicationContext());
+    	mDataProviderServiceHelper.doBindService(this);
+    	mRemoteDataProviderServiceHelper.doBindService(this);
     }
     
     @Override
