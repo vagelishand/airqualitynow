@@ -1,12 +1,14 @@
 package com.quadrictech.airqualitynow.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 import com.quadrictech.airqualitynow.utils.ColorUtil;
+import com.quadrictech.airqualitynow.utils.DateUtil;
 
 import roboguice.inject.InjectView;
 import android.view.View;
@@ -38,9 +40,16 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	@InjectView(R.id.fourDayForecastTableOzone4TextView)		TextView ozone4TextView;
 	
 	public IForecastPresenter<View> mPresenter;
+	public String mReportingAreaName;
 	
 	public void initialize() {
 		// TODO Auto-generated method stubthis.
+	}
+	
+	public void initialize(IForecastPresenter<View> presenter, String reportingAreaName) {
+		mPresenter = presenter;
+		mReportingAreaName = reportingAreaName;
+		areaTextView.setText(mReportingAreaName);
 	}
 
 	public View getView() {
@@ -71,6 +80,15 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		setPM10ForecastData(pm10Forecasts);
 		setPM25ForecastData(pm25Forecasts);
 		setOzoneForecastData(ozoneForecasts);
+	}
+	
+	public void setForecastDates(Date initialDate){
+		List<String> dates = DateUtil.getNextThreeMonthDayNumberDates(initialDate);
+		
+		day1TextView.setText(dates.get(0));
+		day2TextView.setText(dates.get(1));
+		day3TextView.setText(dates.get(2));
+		day4TextView.setText(dates.get(3));
 	}
 	
 	private void setPM10ForecastData(List<Forecast> forecasts){
@@ -166,9 +184,6 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		}
 		
 		return returnList;
-	}
-
-	public void initialize(IForecastPresenter<View> presenter) {
 	}
 }
 
