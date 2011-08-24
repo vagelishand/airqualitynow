@@ -215,7 +215,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return area;
 	}
 
-	public IDataRequestCallback<Forecast> onGetForecastByReportingAreaId(int id) {
+	public IDataRequestCallback<Forecast> onGetForecastByReportingAreaId(int id, Date issueDate) {
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
@@ -223,7 +223,11 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 			}
 			
-			List<Forecast> forecasts = mForecastRepository.getByFieldEquals("ReportingAreaObject_id", id);
+			List<Forecast> forecasts = mForecastRepository.getQueryResults(
+				mForecastRepository.getQueryBuilder().where().
+			    eq("ReportingAreaObject_id", id).
+			    and().
+			    ge("DateIssue", issueDate).prepare());
 			
 			callback.onResponseReceived(forecasts);
 			
