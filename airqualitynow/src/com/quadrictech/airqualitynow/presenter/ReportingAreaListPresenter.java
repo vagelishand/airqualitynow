@@ -52,6 +52,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		mContext = parameterObject.listView.getView().getContext();
 		mForecastListView = parameterObject.listView;
 		mDataProviderServiceHelper = DataProviderServiceHelper.getInstance();
+		DataProviderServiceHelper.getInstance().setWindowContext(mContext);
 		initializeList();
 	}
 
@@ -221,13 +222,14 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			alert.show();
 	}
 
-	public void onViewForecast(int id) {
+	public void onViewForecast(ReportingArea area) {
 		Intent intent = new Intent(mListActivity, ForecastActivity.class);
-		intent.putExtra("areaId", id);
+		intent.putExtra("areaId", area.Id);
+		intent.putExtra("areaName", area.Name);
 		mListActivity.startActivity(intent);
 	}
 
-	public void onViewObserved(int id) {
+	public void onViewObserved(ReportingArea area) {
 		// TODO Auto-generated method stub
 		
 	}

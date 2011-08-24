@@ -10,6 +10,6 @@ public interface IReportingAreaListPresenter<T> extends IPresenter<T>{
 	public void onSearchAreaClick();
 	public void onAddReportingAreaClick();
 	public void handleGetReportingAreas(IDataRequestCallback<ReportingArea> callback);
-	public void onViewForecast(int id);
-	public void onViewObserved(int id);
+	public void onViewForecast(ReportingArea reportingArea);
+	public void onViewObserved(ReportingArea reportingArea);
 }
