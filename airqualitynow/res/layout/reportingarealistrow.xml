@@ -17,7 +17,7 @@
             android:layout_weight=".45"
         />
         <TextView 
-            android:id="@+id/reportingAreaListTodayTextView"
+            android:id="@+id/reportingAreaListCurrentTextView"
             android:layout_width="0px"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="right"
@@ -27,7 +27,7 @@
             android:layout_weight=".25"
         />
     <TextView 
-            android:id="@+id/reportingAreaListTomorrowTextView"
+            android:id="@+id/reportingAreaListForecastTextView"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
