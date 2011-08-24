@@ -5,8 +5,8 @@
     <string name="todayHi">Today\'s Hi</string>
     <string name="tomorrowHi">Tomorrow\'s Hi</string>
     <string name="reportingAreaHeader">ReportingArea</string>
-    <string name="todayHeader">Today</string>
-    <string name="tomorrowHeader">Tomorrow</string>
+    <string name="todayHeader">Current</string>
+    <string name="tomorrowHeader">Forecast</string>
     <string name="currentConditions">Current Conditions</string>
     <string name="dataNotAvailable">Data not Available</string>
     <string name="fourdayForecastTableDay">Day</string>
