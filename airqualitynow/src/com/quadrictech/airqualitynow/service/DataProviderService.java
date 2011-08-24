@@ -62,7 +62,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return START_NOT_STICKY;
 	}
 	
-	public IDataRequestCallback<ReportingArea> onGetAllReportingAreas(){
+	public IDataRequestCallback<ReportingArea> getAllReportingAreas(){
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		try {
 			if(mReportingAreaRepository == null){
@@ -80,7 +80,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Forecast> onGetAllForecasts(){
+	public IDataRequestCallback<Forecast> getAllForecasts(){
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
@@ -98,7 +98,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Observed> onGetObservedByDate(Date date) {
+	public IDataRequestCallback<Observed> getObservedByReportingAreaId(int id, Date date) {
 		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
 		
 		try {
@@ -215,7 +215,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return area;
 	}
 
-	public IDataRequestCallback<Forecast> onGetForecastByReportingAreaId(int id, Date issueDate) {
+	public IDataRequestCallback<Forecast> getForecastsByReportingAreaId(int id, Date issueDate) {
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
@@ -237,5 +237,6 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		
 		return callback;
 	}
+	
 	
 }
