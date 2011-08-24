@@ -11,6 +11,7 @@ import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 
 public interface IDataProviderService {
 	public IDataRequestCallback<ReportingArea> getAllReportingAreas();
@@ -24,4 +25,5 @@ public interface IDataProviderService {
 	public IDataRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode);
 	public IDataRequestCallback<Observed> insertObserved(List<Observed> observedList);
 	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts);
+	public IDataRequestCallback<ObservedAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate);
 }

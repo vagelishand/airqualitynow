@@ -18,12 +18,14 @@ import com.quadrictech.airqualitynow.db.IObservedRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.ObservedAndForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.model.State;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 
 public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> implements IDataProviderService {
 	/**
@@ -62,6 +64,18 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return START_NOT_STICKY;
 	}
 	
+	public void initialize(IForecastRepository fr) {
+		mForecastRepository = fr;
+	}
+	
+	public void initialize( IReportingAreaRepository rar){
+		mReportingAreaRepository = rar;
+	}
+
+	public void initialize(IObservedRepository or) {
+		mObservedRepository = or;		
+	}
+
 	public IDataRequestCallback<ReportingArea> getAllReportingAreas(){
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		try {
@@ -98,35 +112,6 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Observed> getObservedByReportingAreaId(int id, Date date) {
-		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
-		
-		try {
-			if(mObservedRepository == null){
-				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
-			}
-			
-			List<Observed> observed = mObservedRepository.getByFieldEquals("DateObserved", date);
-			callback.onResponseReceived(observed);
-		} catch (SQLException e) {
-			callback.onError(e);
-		} 
-		
-		return callback;
-	}
-
-	public void initialize(IForecastRepository fr) {
-		mForecastRepository = fr;
-	}
-	
-	public void initialize( IReportingAreaRepository rar){
-		mReportingAreaRepository = rar;
-	}
-
-	public void initialize(IObservedRepository or) {
-		mObservedRepository = or;		
-	}
-
 	public IDataRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea) {
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		
@@ -238,5 +223,58 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	
+	public IDataRequestCallback<Observed> getObservedByReportingAreaId(int id, Date date) {
+		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
+		
+		try {
+			if(mObservedRepository == null){
+				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
+			}
+			
+			List<Observed> observed = mObservedRepository.getQueryResults(
+				mObservedRepository.getQueryBuilder().where().
+				eq("ReportingAreaObject_id", id).
+				and().
+				eq("DateObserved", date).prepare());
+			
+			callback.onResponseReceived(observed);
+		} catch (SQLException e) {
+			callback.onError(e);
+		} 
+		
+		return callback;
+	}
+
+	public IDataRequestCallback<ObservedAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate) {
+		IDataRequestCallback<Observed> oCallback = new ObservedRequestCallback();
+		IDataRequestCallback<Forecast> fCallback = new ForecastRequestCallback();
+		
+		IDataRequestCallback<ObservedAndForecast> ofCallback = new ObservedAndForecastRequestCallback();
+		
+		if(oCallback.getErrorStatus()){
+			ofCallback.onError(new Throwable(oCallback.getErrorMessage()));
+			
+			return ofCallback;
+		}
+		
+		if(fCallback.getErrorStatus()){
+			ofCallback.onError(new Throwable(fCallback.getErrorMessage()));
+			
+			return ofCallback;
+		}
+		
+		oCallback = this.getObservedByReportingAreaId(id, observedDate);
+		fCallback = this.getForecastsByReportingAreaId(id, observedDate);
+		
+		ObservedAndForecast o = new ObservedAndForecast();
+		o.Forecasts = fCallback.getList();
+		o.ObservedList = oCallback.getList();
+		
+		List<ObservedAndForecast> list= new ArrayList<ObservedAndForecast>();
+		list.add(o);
+		
+		ofCallback.onResponseReceived(list);
+		
+		return ofCallback;
+	}	
 }
