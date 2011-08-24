@@ -15,6 +15,7 @@ import com.quadrictech.airqualitynow.model.ReportingArea;
 public interface IDataProviderService {
 	public IDataRequestCallback<ReportingArea> onGetAllReportingAreas();
 	public IDataRequestCallback<Observed> onGetObservedByDate(Date date);
+	public IDataRequestCallback<Forecast> onGetForecastByReportingAreaId(int id);
 	public void initialize(IForecastRepository fr);
 	public void initialize(IReportingAreaRepository rar);
 	public void initialize(IObservedRepository or);

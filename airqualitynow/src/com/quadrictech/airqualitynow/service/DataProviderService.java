@@ -214,5 +214,24 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		
 		return area;
 	}
+
+	public IDataRequestCallback<Forecast> onGetForecastByReportingAreaId(int id) {
+		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
+		
+		try {
+			if(mForecastRepository == null){
+				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
+			}
+			
+			List<Forecast> forecasts = mForecastRepository.getByFieldEquals("ReportingAreaObject_id", id);
+			
+			callback.onResponseReceived(forecasts);
+			
+		} catch (SQLException e) {
+			callback.onError(e);
+		}
+		
+		return callback;
+	}
 	
 }
