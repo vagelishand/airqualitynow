@@ -33,6 +33,12 @@ public class DateUtil {
 		return result;
 	}
 	
+	public static Date getDateObserved() throws ParseException{
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		return sdf.parse(sdf.format(now));
+	}
+	
 	public static List<String> getNextThreeMonthDayNumberDates(Date initialDate){
 		List<String> dates = new ArrayList<String>();
 		dates.add(getDateFormat("M/dd").format(initialDate));
