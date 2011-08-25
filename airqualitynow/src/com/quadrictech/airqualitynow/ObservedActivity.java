@@ -18,7 +18,7 @@ public class ObservedActivity extends RoboActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.observedwforecast);
+        setContentView(R.layout.observed);
         
         DataProviderServiceHelper.getInstance().setWindowContext(this);
         
