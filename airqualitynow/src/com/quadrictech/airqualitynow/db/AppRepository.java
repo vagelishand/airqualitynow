@@ -8,21 +8,13 @@ public class AppRepository implements IAppRepository {
 	ConnectionSource mConnectionSource;
 	IForecastRepository mForecastRepository;
 	IReportingAreaRepository mReportingAreaRepository;
-	IStateRepository mStateRepository;
 	IObservedRepository mObservedRepository;
+	IPollutantRepository mPollutantRepository;
 		
 	public AppRepository(ConnectionSource connectionSource){
 		mConnectionSource = connectionSource;
 	}
 	
-	public IStateRepository StateRepository() throws SQLException{
-		if(mStateRepository == null){
-			mStateRepository = new StateRepository(mConnectionSource);
-		}
-		
-		return mStateRepository;
-	}
-
 	public IForecastRepository ForecastRepository() throws SQLException {
 		if(mForecastRepository == null){
 			mForecastRepository = new ForecastRepository(mConnectionSource);
@@ -44,5 +36,13 @@ public class AppRepository implements IAppRepository {
 		}
 		
 		return mObservedRepository;
+	}
+
+	public IPollutantRepository PollutantRepository() throws SQLException {
+		if(mPollutantRepository == null){
+			mPollutantRepository = new PollutantRepository(mConnectionSource);
+		}
+		
+		return mPollutantRepository;
 	}
 }
