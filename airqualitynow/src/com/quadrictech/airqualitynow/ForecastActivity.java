@@ -21,7 +21,7 @@ public class ForecastActivity extends RoboActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fourdayforecast);
+        setContentView(R.layout.forecast);
                 
         DataProviderServiceHelper.getInstance().setWindowContext(this);
         mForecastView.initialize(mForecastPresenter, getIntent().getStringExtra("areaName"));
