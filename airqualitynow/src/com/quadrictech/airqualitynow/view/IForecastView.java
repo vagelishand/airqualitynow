@@ -11,5 +11,4 @@ import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 public interface IForecastView<T> extends IView<T> {
 	public void initialize(IForecastPresenter<View> presenter, String reportingAreaName);
 	public void setForecastTableValues(List<Forecast> forecast);
-	public void setForecastDates(Date initialDate);
 }
