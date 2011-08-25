@@ -43,26 +43,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		
 		Pollutant p = new Pollutant();
 		p.Name = "CO";
+		p.FullName = "Carbon Monoxide";
 		pDao.create(p);
 		
 		p = new Pollutant();
 		p.Name = "NO2";
+		p.FullName = "Nitrogen Dioxide";
 		pDao.create(p);
 		
 		p = new Pollutant();
 		p.Name = "OZONE";
+		p.FullName = "Ozone";
 		pDao.create(p);
 		
 		p = new Pollutant();
 		p.Name = "PM10";
+		p.FullName = "Particles(PM10)";
 		pDao.create(p);
 		
 		p = new Pollutant();
 		p.Name = "PM2.5";
+		p.FullName = "Particles(PM2.5)";
 		pDao.create(p);
 		
 		p = new Pollutant();
 		p.Name = "SO2";
+		p.FullName = "Sulfur Dioxide";
 		pDao.create(p);
 				
 	}
