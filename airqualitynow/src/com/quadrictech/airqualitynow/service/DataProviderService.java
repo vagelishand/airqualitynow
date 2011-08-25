@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import com.j256.ormlite.dao.Dao;
@@ -15,6 +16,7 @@ import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
 import com.quadrictech.airqualitynow.db.IObservedRepository;
+import com.quadrictech.airqualitynow.db.IPollutantRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
@@ -23,8 +25,8 @@ import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.State;
 import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 
 public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> implements IDataProviderService {
@@ -43,6 +45,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	private IForecastRepository mForecastRepository;
 	private IReportingAreaRepository mReportingAreaRepository;
 	private IObservedRepository mObservedRepository;
+	private IPollutantRepository mPollutantRepository;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -51,15 +54,6 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-		State state = new State();
-		state.Name = "TX";
-		
-		try{
-			getHelper().getStateDAO().create(state);
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-		}
 		
 		return START_NOT_STICKY;
 	}
@@ -157,6 +151,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			}
 			
 			for(Observed o: observedList){
+				o.Pollutant = getPollutantByName(o.ParameterName);
 				mObservedRepository.insert(o);
 			}
 		}
@@ -169,18 +164,21 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 
 	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts) {
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
-		
+		Forecast f1 = new Forecast();
 		try {
 			if(mForecastRepository == null){
 				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 			}
 			
 			for(Forecast f: forecasts){
+				f1.ParameterName = f.ParameterName;
+				f.Pollutant = getPollutantByName(f.ParameterName);
 				mForecastRepository.insert(f);
 			}
 			
 		} catch (SQLException e) {
 			callback.onError(e);
+			Log.d("service", f1.ParameterName);
 		}
 		
 		return callback;	
@@ -276,5 +274,20 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		ofCallback.onResponseReceived(list);
 		
 		return ofCallback;
+	}
+
+	public Pollutant getPollutantByName(String name) throws SQLException {
+		if(mPollutantRepository == null){
+			mPollutantRepository = new AppRepository(getHelper().getConnectionSource()).PollutantRepository();
+		}
+		
+		Pollutant pollutant = null;
+		
+		List<Pollutant> pollutants = mPollutantRepository.getByFieldEquals("Name", name);
+		if(pollutants.size() > 0){
+			pollutant = pollutants.get(0);
+		}
+		
+		return pollutant;
 	}	
 }
