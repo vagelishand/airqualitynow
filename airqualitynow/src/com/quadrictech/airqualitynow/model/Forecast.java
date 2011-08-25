@@ -21,7 +21,8 @@ public class Forecast {
 	public String StateCode;
 	public double Latitude;
 	public double Longitude;
-	@DatabaseField
+	@DatabaseField(canBeNull = false, foreign = true)
+	public Pollutant Pollutant;
 	public String ParameterName;
 	@DatabaseField
 	public int AQI; //-1 is no forecast
