@@ -17,6 +17,7 @@ import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
 import com.quadrictech.airqualitynow.command.CommandGetObservedAndForecastByReportingArea;
+import com.quadrictech.airqualitynow.command.CommandGetObservedById;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
 import com.quadrictech.airqualitynow.command.CommandInsertForecast;
 import com.quadrictech.airqualitynow.command.CommandInsertObserved;
@@ -72,6 +73,12 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
 		task.execute(new CommandGetForecastById(id, issueDate, mDataServiceProvider));
+	}
+	
+	public void getObservedByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+		runnable = guiUpdateRunnable;
+		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
+		task.execute(new CommandGetObservedById(id, issueDate, mDataServiceProvider));
 	}
 	
 	public void getObservedAndForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {

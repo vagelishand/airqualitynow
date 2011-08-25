@@ -14,6 +14,7 @@ import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 public interface IDataProviderServiceHelper extends IServiceHelper {
 	public void getAllReportingAreas(IGuiRunnable<?> guiUpdateRunnable);	
 	public void getForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable);
+	public void getObservedByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable);
 	public void getObservedAndForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable);
 	public void getReportingAreaByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable);
 	public ReportingArea insertReportingArea(ReportingArea reportingArea) throws SQLException;
