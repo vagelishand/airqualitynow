@@ -11,8 +11,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.State;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
@@ -26,15 +26,45 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase sqlLiteDatabase, ConnectionSource connectionSource) {
 		try {
-			TableUtils.createTable(connectionSource, State.class);
 			TableUtils.createTable(connectionSource, ReportingArea.class);
 			TableUtils.createTable(connectionSource, Forecast.class);
 			TableUtils.createTable(connectionSource, Observed.class);
+			TableUtils.createTable(connectionSource, Pollutant.class);
 			
+			createPollutantData();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	private void createPollutantData() throws SQLException{
+		Dao<Pollutant, Integer> pDao = getDao(Pollutant.class);
+		
+		Pollutant p = new Pollutant();
+		p.Name = "CO";
+		pDao.create(p);
+		
+		p = new Pollutant();
+		p.Name = "NO2";
+		pDao.create(p);
+		
+		p = new Pollutant();
+		p.Name = "OZONE";
+		pDao.create(p);
+		
+		p = new Pollutant();
+		p.Name = "PM10";
+		pDao.create(p);
+		
+		p = new Pollutant();
+		p.Name = "PM2.5";
+		pDao.create(p);
+		
+		p = new Pollutant();
+		p.Name = "SO2";
+		pDao.create(p);
+				
 	}
 
 	@Override
@@ -42,16 +72,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			int arg3) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	private Dao<State, Integer> stateDAO;
-	
-	public Dao<State, Integer> getStateDAO() throws SQLException{
-		if(stateDAO == null){
-			stateDAO = getDao(State.class);
-		}
-		
-		return stateDAO;
 	}
 	
 	private Dao<ReportingArea, Integer> reportingAreaDAO;
