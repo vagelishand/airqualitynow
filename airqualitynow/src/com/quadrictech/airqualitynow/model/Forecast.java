@@ -21,7 +21,7 @@ public class Forecast {
 	public String StateCode;
 	public double Latitude;
 	public double Longitude;
-	@DatabaseField(canBeNull = false, foreign = true)
+	@DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true)
 	public Pollutant Pollutant;
 	public String ParameterName;
 	@DatabaseField
