@@ -1,7 +1,6 @@
 package com.quadrictech.airqualitynow.presenter;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import android.content.Context;
 import android.view.View;
@@ -39,7 +38,6 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 	public void initializeTable(){
 		
 		try {
-			this.mForecastView.setForecastDates(new Date());
 			DataProviderServiceHelper.getInstance().getForecastByReportingAreaId(mCurrentReportingAreaId, DateUtil.getForecastIssueDate(), new HandleGetForecastsById());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
