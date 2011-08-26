@@ -10,7 +10,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 
@@ -28,7 +28,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, ReportingArea.class);
 			TableUtils.createTable(connectionSource, Forecast.class);
-			TableUtils.createTable(connectionSource, Observed.class);
+			TableUtils.createTable(connectionSource, Observation.class);
 			TableUtils.createTable(connectionSource, Pollutant.class);
 			
 			createPollutantData();

@@ -8,7 +8,7 @@ public class AppRepository implements IAppRepository {
 	ConnectionSource mConnectionSource;
 	IForecastRepository mForecastRepository;
 	IReportingAreaRepository mReportingAreaRepository;
-	IObservedRepository mObservedRepository;
+	IObservationRepository mObservationRepository;
 	IPollutantRepository mPollutantRepository;
 		
 	public AppRepository(ConnectionSource connectionSource){
@@ -30,12 +30,12 @@ public class AppRepository implements IAppRepository {
 		return mReportingAreaRepository;
 	}
 	
-	public IObservedRepository ObservedRepository() throws SQLException{
-		if(mObservedRepository == null){
-			mObservedRepository = new ObservedRepository(mConnectionSource);
+	public IObservationRepository ObservationRepository() throws SQLException{
+		if(mObservationRepository == null){
+			mObservationRepository = new ObservationRepository(mConnectionSource);
 		}
 		
-		return mObservedRepository;
+		return mObservationRepository;
 	}
 
 	public IPollutantRepository PollutantRepository() throws SQLException {
