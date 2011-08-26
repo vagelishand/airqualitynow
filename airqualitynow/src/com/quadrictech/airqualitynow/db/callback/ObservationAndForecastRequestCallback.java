@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 
-public class ObservedAndForecastRequestCallback implements	IDataRequestCallback<ObservedAndForecast> {
+public class ObservationAndForecastRequestCallback implements	IDataRequestCallback<ObservedAndForecast> {
 	private List<ObservedAndForecast> list;
 	private Throwable mException;
 	
