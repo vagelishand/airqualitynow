@@ -1,18 +1,18 @@
 package com.quadrictech.airqualitynow;
 
 import com.google.inject.Inject;
-import com.quadrictech.airqualitynow.presenter.IObservedPresenter;
+import com.quadrictech.airqualitynow.presenter.IObservationPresenter;
 import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
-import com.quadrictech.airqualitynow.view.IObservedView;
+import com.quadrictech.airqualitynow.view.IObservationView;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ListView;
 import roboguice.activity.RoboActivity;
 
-public class ObservedActivity extends RoboActivity {
-	@Inject IObservedView<View> mObservedView;
-	@Inject IObservedPresenter<View> mObservedPresenter;
+public class ObservationActivity extends RoboActivity {
+	@Inject IObservationView<ListView> mObservedView;
+	@Inject IObservationPresenter<ListView> mObservedPresenter;
 	
 	/** Called when the activity is first created. */
     @Override

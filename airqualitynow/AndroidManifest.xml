@@ -27,7 +27,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ObservedActivity" 
+        <activity android:name=".ObservationActivity" 
 			      android:label="Air Quality Current"
 			      >
             <intent-filter>
