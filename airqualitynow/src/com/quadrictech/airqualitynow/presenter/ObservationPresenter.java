@@ -51,7 +51,7 @@ public class ObservationPresenter implements IObservationPresenter<IObservationV
 			else{
 				try{
 					if(callback.getList().size() > 0){
-						mObservedView.setObservedTableValues(callback.getList().get(0));
+						onSetObservationTableValues(callback.getList().get(0));
 					}
 					mArrayAdapter = new ObservedArrayAdapter(mContext, R.id.observationList, callback.getList());
 					
@@ -75,5 +75,9 @@ public class ObservationPresenter implements IObservationPresenter<IObservationV
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void onSetObservationTableValues(Observation observation) throws ParseException {
+		mObservedView.setObservationTableValues(observation);
 	}
 }

@@ -60,7 +60,7 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 
 	}
 
-	public void setObservedTableValues(Observation observation) throws ParseException {
+	public void setObservationTableValues(Observation observation) throws ParseException {
 		
 		currentAQITimeDescTextView.setText(DateUtil.getDateString(observation.DateObserved, "M/dd/yyyy HH:mm a").replace("00:00 AM", "12:00 AM"));
 		
@@ -78,7 +78,7 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Observation observation = mAdapter.getItem(position);
 		try {
-			setObservedTableValues(observation);
+			setObservationTableValues(observation);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

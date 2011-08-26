@@ -10,6 +10,6 @@ import com.quadrictech.airqualitynow.presenter.util.ObservedArrayAdapter;
 
 public interface IObservationView<T> extends IView<T> {
 	public void initialize(IObservationPresenter<ListView> presenter, String reportingAreaName);
-	public void setObservedTableValues(Observation observed) throws ParseException;
+	public void setObservationTableValues(Observation observation) throws ParseException;
 	public void setAdapter(ObservedArrayAdapter observedArrayAdapter);
 }
