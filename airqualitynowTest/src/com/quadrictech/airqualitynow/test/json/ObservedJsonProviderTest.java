@@ -12,14 +12,14 @@ import roboguice.test.RoboUnitTestCase;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
-import com.quadrictech.airqualitynow.json.IObservedJsonProvider;
-import com.quadrictech.airqualitynow.json.ObservedJsonProvider;
-import com.quadrictech.airqualitynow.model.IObservedWrapper;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.json.IObservationJsonProvider;
+import com.quadrictech.airqualitynow.json.ObservationJsonProvider;
+import com.quadrictech.airqualitynow.model.IObservationWrapper;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ObservedJsonProviderTest extends RoboUnitTestCase<AirQualityNowApplication>{
-	private IObservedJsonProvider mJsonProvider;
+	private IObservationJsonProvider mJsonProvider;
 	private String mJson;
 	
 	@Override
@@ -29,12 +29,12 @@ public class ObservedJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 		"{\"DateObserved\":\"1/15/2010 12:00:00 AM\",\"HourObserved\":\"0\",\"LocalTimeZone\":\"PST\",\"ReportingArea\":\"Napa\",\"StateCode\":\"CA\",\"Latitude\":\"38.3300\",\"Longitude\":\"-122.2800\",\"ParameterName\":\"PM2.5\",\"AQI\":\"62\",\"CategoryNumber\":\"2\",\"CategoryName\":\"Moderate\"}" + 
 		"]}";
 		
-		mJsonProvider = new ObservedJsonProvider();
+		mJsonProvider = new ObservationJsonProvider();
 	}
 	
 	@MediumTest
 	public void testParseObservedWrapper() throws JsonParseException, JsonMappingException, IOException{
-		IObservedWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
+		IObservationWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
 		assertNotNull(wrapper);
 		assertEquals(2, wrapper.getObserved().size());
@@ -42,8 +42,8 @@ public class ObservedJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 	
 	@MediumTest
 	public void testParseWrapperObserved() throws JsonParseException, JsonMappingException, IOException{
-		IObservedWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
-		Observed observed = wrapper.getObserved().get(0);
+		IObservationWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
+		Observation observed = wrapper.getObserved().get(0);
 		
 		assertEquals("10", observed.HourObserved);
 		assertEquals("Napa", observed.ReportingArea);

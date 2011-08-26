@@ -8,26 +8,26 @@ import roboguice.test.RoboUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.db.callback.ObservationRequestCallback;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
 public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
-	private IDataRequestCallback<Observed> callback;
+	private IDataRequestCallback<Observation> callback;
 	
 	@Override
 	public void setUp()throws Exception{
 		super.setUp();
-		callback = new ObservedRequestCallback();
+		callback = new ObservationRequestCallback();
 	}
 	
 	@MediumTest
 	public void testOnResponseReceived(){
-		List<Observed> observed = new ArrayList<Observed>(){
+		List<Observation> observed = new ArrayList<Observation>(){
 			private static final long serialVersionUID = 1L;
 			{
-				add(new  Observed());
-				add(new  Observed());
+				add(new  Observation());
+				add(new  Observation());
 			}
 		};
 		

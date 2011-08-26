@@ -6,11 +6,11 @@ import java.util.Date;
 import com.google.android.testing.mocking.AndroidMock;
 import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
-import com.quadrictech.airqualitynow.db.IObservedRepository;
+import com.quadrictech.airqualitynow.db.IObservationRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.utils.DateUtil;
@@ -25,7 +25,7 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 	private Intent startIntent;
 	private IForecastRepository  mForecastRepository;
 	private IReportingAreaRepository mReportingAreaRepository;
-	private IObservedRepository mObservedRepository;
+	private IObservationRepository mObservedRepository;
 	
 	public DataProviderServiceTest() {
 		super(DataProviderService.class);
@@ -83,11 +83,11 @@ public class DataProviderServiceTest extends ServiceTestCase<DataProviderService
 		AndroidMock.verify(mReportingAreaRepository);
 	}
 	
-	@UsesMocks(IObservedRepository.class)
+	@UsesMocks(IObservationRepository.class)
 	@MediumTest
 	public void testGetObservedByDate() throws ParseException{
-		IDataRequestCallback<Observed> observedRequest = null;
-		mObservedRepository = AndroidMock.createMock(IObservedRepository.class);
+		IDataRequestCallback<Observation> observedRequest = null;
+		mObservedRepository = AndroidMock.createMock(IObservationRepository.class);
 		IBinder binder = bindService(startIntent);
 		DataProviderService service = ((DataProviderService.LocalBinder)binder).getService();
 		service.initialize(mObservedRepository);
