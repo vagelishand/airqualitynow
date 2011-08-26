@@ -126,8 +126,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 				ReportingArea area = data.reportingArea;
 				mAdapter.add(area);
 				
-				DataProviderServiceHelper.getInstance().insertObserved(area, data.observed, new HandleDmoInsertion());
-				DataProviderServiceHelper.getInstance().insertForecast(area, data.forecasts, new HandleDmoInsertion());
+				DataProviderServiceHelper.getInstance().insertObservations(area, data.observations, new HandleDmoInsertion());
+				DataProviderServiceHelper.getInstance().insertForecasts(area, data.forecasts, new HandleDmoInsertion());
 			}
 		}
 
