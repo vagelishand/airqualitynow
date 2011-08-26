@@ -2,18 +2,18 @@ package com.quadrictech.airqualitynow.model;
 
 import java.util.List;
 
-public class ObservationWrapper implements IObservedWrapper {
-	List<Observation> mObserved;
+public class ObservationWrapper implements IObservationWrapper {
+	List<Observation> mObservation;
 	
 	public ObservationWrapper(){
 	}
 	
 	public List<Observation> getObserved() {
-		return mObserved;
+		return mObservation;
 	}
 
 	public void setObserved(List<Observation> observed) {
-		mObserved = observed;
+		mObservation = observed;
 	}
 
 }
