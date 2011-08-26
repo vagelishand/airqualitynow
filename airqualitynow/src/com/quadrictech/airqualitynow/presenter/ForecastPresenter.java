@@ -38,7 +38,7 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 	public void initializeTable(){
 		
 		try {
-			DataProviderServiceHelper.getInstance().getForecastByReportingAreaId(mCurrentReportingAreaId, DateUtil.getForecastIssueDate(), new HandleGetForecastsById());
+			DataProviderServiceHelper.getInstance().getForecastsByReportingAreaId(mCurrentReportingAreaId, DateUtil.getForecastIssueDate(), new HandleGetForecastsById());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
