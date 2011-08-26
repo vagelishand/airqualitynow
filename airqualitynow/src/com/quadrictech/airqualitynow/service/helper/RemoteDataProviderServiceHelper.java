@@ -1,7 +1,7 @@
 package com.quadrictech.airqualitynow.service.helper;
 
 import com.quadrictech.airqualitynow.command.CommandGetForecastByZipCodeRemote;
-import com.quadrictech.airqualitynow.command.CommandGetObservedByZipCodeRemote;
+import com.quadrictech.airqualitynow.command.CommandGetObservationByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCodeRemote;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
@@ -38,14 +38,14 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 		return mRemoteDataProviderServiceHelper;
 	}
 
-	public void getForecastByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getForecastsByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
 		task = new RemoteAsyncTask(guiUpdateRunnable);
 		task.execute(new CommandGetForecastByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 
-	public void getObservedByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getObservationsByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {
 		task = new RemoteAsyncTask(guiUpdateRunnable);
-		task.execute(new CommandGetObservedByZipCodeRemote(zipCode, mRemoteDataProviderService));
+		task.execute(new CommandGetObservationByZipCodeRemote(zipCode, mRemoteDataProviderService));
 	}
 	
 	public void getReportingAreaByZipCode(String zipCode, IGuiRunnable<?> guiUpdateRunnable) {

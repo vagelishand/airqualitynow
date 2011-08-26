@@ -15,19 +15,19 @@ import com.j256.ormlite.dao.Dao;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
 import com.quadrictech.airqualitynow.db.IForecastRepository;
-import com.quadrictech.airqualitynow.db.IObservedRepository;
+import com.quadrictech.airqualitynow.db.IObservationRepository;
 import com.quadrictech.airqualitynow.db.IPollutantRepository;
 import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.ObservedAndForecastRequestCallback;
-import com.quadrictech.airqualitynow.db.callback.ObservedRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.ObservationAndForecastRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.ObservationRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservationAndForecast;
 
 public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> implements IDataProviderService {
 	/**
@@ -44,7 +44,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	private final IBinder mBinder = new LocalBinder();
 	private IForecastRepository mForecastRepository;
 	private IReportingAreaRepository mReportingAreaRepository;
-	private IObservedRepository mObservedRepository;
+	private IObservationRepository mObservationRepository;
 	private IPollutantRepository mPollutantRepository;
 	
 	@Override
@@ -66,8 +66,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		mReportingAreaRepository = rar;
 	}
 
-	public void initialize(IObservedRepository or) {
-		mObservedRepository = or;		
+	public void initialize(IObservationRepository or) {
+		mObservationRepository = or;		
 	}
 
 	public IDataRequestCallback<ReportingArea> getAllReportingAreas(){
@@ -142,17 +142,17 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Observed> insertObserved(List<Observed> observedList) {
-		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
+	public IDataRequestCallback<Observation> insertObserved(List<Observation> observedList) {
+		IDataRequestCallback<Observation> callback = new ObservationRequestCallback();
 		
 		try{
-			if(mObservedRepository == null){
-				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
+			if(mObservationRepository == null){
+				mObservationRepository = new AppRepository(getHelper().getConnectionSource()).ObservationRepository();
 			}
 			
-			for(Observed o: observedList){
+			for(Observation o: observedList){
 				o.Pollutant = getPollutantByName(o.ParameterName);
-				mObservedRepository.insert(o);
+				mObservationRepository.insert(o);
 			}
 		}
 		catch(SQLException e){
@@ -221,16 +221,16 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Observed> getObservedByReportingAreaId(int id, Date date) {
-		IDataRequestCallback<Observed> callback = new ObservedRequestCallback();
+	public IDataRequestCallback<Observation> getObservedByReportingAreaId(int id, Date date) {
+		IDataRequestCallback<Observation> callback = new ObservationRequestCallback();
 		
 		try {
-			if(mObservedRepository == null){
-				mObservedRepository = new AppRepository(getHelper().getConnectionSource()).ObservedRepository();
+			if(mObservationRepository == null){
+				mObservationRepository = new AppRepository(getHelper().getConnectionSource()).ObservationRepository();
 			}
 			
-			List<Observed> observed = mObservedRepository.getQueryResults(
-				mObservedRepository.getQueryBuilder().where().
+			List<Observation> observed = mObservationRepository.getQueryResults(
+				mObservationRepository.getQueryBuilder().where().
 				eq("ReportingAreaObject_id", id).
 				and().
 				eq("DateObserved", date).prepare());
@@ -243,11 +243,11 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 
-	public IDataRequestCallback<ObservedAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate) {
-		IDataRequestCallback<Observed> oCallback = new ObservedRequestCallback();
+	public IDataRequestCallback<ObservationAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate) {
+		IDataRequestCallback<Observation> oCallback = new ObservationRequestCallback();
 		IDataRequestCallback<Forecast> fCallback = new ForecastRequestCallback();
 		
-		IDataRequestCallback<ObservedAndForecast> ofCallback = new ObservedAndForecastRequestCallback();
+		IDataRequestCallback<ObservationAndForecast> ofCallback = new ObservationAndForecastRequestCallback();
 		
 		if(oCallback.getErrorStatus()){
 			ofCallback.onError(new Throwable(oCallback.getErrorMessage()));
@@ -264,11 +264,11 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		oCallback = this.getObservedByReportingAreaId(id, observedDate);
 		fCallback = this.getForecastsByReportingAreaId(id, observedDate);
 		
-		ObservedAndForecast o = new ObservedAndForecast();
+		ObservationAndForecast o = new ObservationAndForecast();
 		o.Forecasts = fCallback.getList();
 		o.ObservedList = oCallback.getList();
 		
-		List<ObservedAndForecast> list= new ArrayList<ObservedAndForecast>();
+		List<ObservationAndForecast> list= new ArrayList<ObservationAndForecast>();
 		list.add(o);
 		
 		ofCallback.onResponseReceived(list);

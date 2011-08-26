@@ -16,18 +16,18 @@ import android.os.IBinder;
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;
 import com.quadrictech.airqualitynow.command.CommandGetForecastById;
-import com.quadrictech.airqualitynow.command.CommandGetObservedAndForecastByReportingArea;
-import com.quadrictech.airqualitynow.command.CommandGetObservedById;
+import com.quadrictech.airqualitynow.command.CommandGetObservationAndForecastByReportingArea;
+import com.quadrictech.airqualitynow.command.CommandGetObservationById;
 import com.quadrictech.airqualitynow.command.CommandGetReportingAreaByZipCode;
 import com.quadrictech.airqualitynow.command.CommandInsertForecast;
-import com.quadrictech.airqualitynow.command.CommandInsertObserved;
+import com.quadrictech.airqualitynow.command.CommandInsertObservation;
 import com.quadrictech.airqualitynow.command.CommandInsertReportingArea;
 import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservationAndForecast;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
@@ -69,22 +69,22 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandGetAllReportingAreas(mDataServiceProvider));		
 	}	
 	
-	public void getForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getForecastsByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
 		task.execute(new CommandGetForecastById(id, issueDate, mDataServiceProvider));
 	}
 	
-	public void getObservedByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getObservationsByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
-		task.execute(new CommandGetObservedById(id, issueDate, mDataServiceProvider));
+		task = new DataAsyncTask<IDataRequestCallback<Observation>>();
+		task.execute(new CommandGetObservationById(id, issueDate, mDataServiceProvider));
 	}
 	
-	public void getObservedAndForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
+	public void getObservationAndForecastByReportingAreaId(int id, Date issueDate, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
-		task = new DataAsyncTask<IDataRequestCallback<ObservedAndForecast>>();
-		task.execute(new CommandGetObservedAndForecastByReportingArea(id, issueDate, mDataServiceProvider));
+		task = new DataAsyncTask<IDataRequestCallback<ObservationAndForecast>>();
+		task.execute(new CommandGetObservationAndForecastByReportingArea(id, issueDate, mDataServiceProvider));
 	}
 
 	public void getReportingAreaByZipCode(String zipCode,IGuiRunnable<?> guiUpdateRunnable) {
@@ -99,18 +99,18 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 		task.execute(new CommandInsertReportingArea(mDataServiceProvider, reportingArea));
 	}
 
-	public void insertObserved(ReportingArea reportingArea, List<Observed> observedList, IGuiRunnable<?> guiUpdateRunnable) {
+	public void insertObservations(ReportingArea reportingArea, List<Observation> observations, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		
-		for(Observed o: observedList){
+		for(Observation o: observations){
 			o.ReportingAreaObject = reportingArea;
 		}
 		
-		task = new DataAsyncTask<IDataRequestCallback<Observed>>();
-		task.execute(new CommandInsertObserved(observedList, mDataServiceProvider));
+		task = new DataAsyncTask<IDataRequestCallback<Observation>>();
+		task.execute(new CommandInsertObservation(observations, mDataServiceProvider));
 	}
 
-	public void insertForecast(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable) {
+	public void insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		
 		for(Forecast f: forecasts){

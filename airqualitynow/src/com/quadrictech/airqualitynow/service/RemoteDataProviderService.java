@@ -17,12 +17,12 @@ import com.quadrictech.airqualitynow.inet.rest.AirNowUrlParameter;
 import com.quadrictech.airqualitynow.inet.rest.RestClient;
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
-import com.quadrictech.airqualitynow.json.IObservedJsonProvider;
-import com.quadrictech.airqualitynow.json.ObservedJsonProvider;
+import com.quadrictech.airqualitynow.json.IObservationJsonProvider;
+import com.quadrictech.airqualitynow.json.ObservationJsonProvider;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
-import com.quadrictech.airqualitynow.model.IObservedWrapper;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.IObservationWrapper;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 
@@ -41,7 +41,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 	IRestRequestCallback mRestRequestCallback;
 	Context mContext;
 	IForecastJsonProvider mForecastJsonProvider;
-	IObservedJsonProvider mObservedJsonProvider;
+	IObservationJsonProvider mObservationJsonProvider;
 	/**
      * Class for clients to access.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with
@@ -68,7 +68,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return START_NOT_STICKY;
 	}
 
-	public List<Forecast> onGetForecastByZipCode(String zipCode) throws IOException{
+	public List<Forecast> onGetForecastsByZipCode(String zipCode) throws IOException{
 		Time now = new Time();
 		now.setToNow();
 		
@@ -93,7 +93,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		return wrapper.getForecast();
 	}
 
-	public List<Observed> onGetObservedbyZipCode(String zipCode) throws IOException {
+	public List<Observation> getObservationsbyZipCode(String zipCode) throws IOException {
 		Time now = new Time();
 		now.setToNow();
 		
@@ -103,27 +103,27 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
 		
-		mObservedJsonProvider = new ObservedJsonProvider();
+		mObservationJsonProvider = new ObservationJsonProvider();
 		
 		mRestRequestCallback = RestClient.executeHttpGet(mAirNowUrl);
 		String json = mRestRequestCallback.getResponse().parseAsString();
 		
 		if(json.compareTo("{\"observed\": \"\"}") == 0){
-			throw new IOException("Observed results not available for zip code: " + zipCode);
+			throw new IOException("Observation results not available for zip code: " + zipCode);
 		}
 		
-		IObservedWrapper wrapper = mObservedJsonProvider.parseJson(new ObjectMapper(), json);
+		IObservationWrapper wrapper = mObservationJsonProvider.parseJson(new ObjectMapper(), json);
 		
 		return wrapper.getObserved();
 	}
 
 	public IDataRequestCallback<RemoteCallbackData> onGetReportingAreaByZipCode(String zipCode) {
 		IDataRequestCallback<RemoteCallbackData> callback = new ReportingAreaRemoteRequestCallback();
-		List<Observed> observedList = null;
+		List<Observation> observations = null;
 		StringBuilder errorMsg = new StringBuilder();		
 		
 		try {
-			observedList = onGetObservedbyZipCode(zipCode);
+			observations = getObservationsbyZipCode(zipCode);
 		} catch (IOException e) {
 			errorMsg.append(e.getLocalizedMessage());
 		}
@@ -142,16 +142,16 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		}
 		
 		ReportingArea area = new ReportingArea();
-		Observed observed = observedList.get(0);
+		Observation observation = observations.get(0);
 		Forecast forecast = mForecasts.get(0);
 		
-		area.Name = observed.ReportingArea;
-		area.ObservedAQI = observed.AQI;
+		area.Name = observation.ReportingArea;
+		area.ObservedAQI = observation.AQI;
 		area.ForecastAQI = forecast.AQI;
-		area.State = observed.StateCode;
+		area.State = observation.StateCode;
 		area.ZipCode = zipCode;
-		area.Latitude = (int) (observed.Latitude * 1E6);
-		area.Longitude = (int) (observed.Longitude * 1E6);
+		area.Latitude = (int) (observation.Latitude * 1E6);
+		area.Longitude = (int) (observation.Longitude * 1E6);
 		
 		try {
 			area = DataProviderServiceHelper.getInstance().insertReportingArea(area);
@@ -168,7 +168,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		List<RemoteCallbackData> list = new ArrayList<RemoteCallbackData>();		
 		callbackData.reportingArea = area;
 		callbackData.forecasts = mForecasts;
-		callbackData.observed = observedList;
+		callbackData.observations = observations;
 		list.add(callbackData);
 		
 		callback.onResponseReceived(list);
@@ -196,7 +196,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		public void run(){
 			try {
 				Message msg = Message.obtain();
-				msg.obj = onGetForecastByZipCode(mZipCode);
+				msg.obj = onGetForecastsByZipCode(mZipCode);
 				handler.sendMessage(msg);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
