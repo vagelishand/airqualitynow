@@ -64,7 +64,7 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 		
 		currentAQITimeDescTextView.setText(DateUtil.getDateString(observation.DateObserved, "M/dd/yyyy HH:mm a").replace("00:00 AM", "12:00 AM"));
 		
-		currentAQITextView.setText(observation.AQI + "");
+		currentAQITextView.setText(observation.AQI + " " + AQIUtil.getName(mContext, observation.AQI));
 		currentAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(observation.AQI));
 		currentAQINameTextView.setText(observation.Pollutant.FullName);
 		currentAQIMsgTextView.setText(AQIUtil.getHealthMessage(mContext, observation.AQI));
