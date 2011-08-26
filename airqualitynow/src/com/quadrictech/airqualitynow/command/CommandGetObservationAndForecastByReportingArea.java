@@ -3,11 +3,11 @@ package com.quadrictech.airqualitynow.command;
 import java.util.Date;
 
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservationAndForecast;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
 
 public class CommandGetObservationAndForecastByReportingArea extends
-		DaoCommand <IDataRequestCallback<ObservedAndForecast>> {
+		DaoCommand <IDataRequestCallback<ObservationAndForecast>> {
 	private int mReportingAreaId;
 	private Date mObservationDate;
 	
@@ -17,7 +17,7 @@ public class CommandGetObservationAndForecastByReportingArea extends
 		mDataProviderService = dataProviderService;
 	}
 	
-	public IDataRequestCallback<ObservedAndForecast> execute() {
+	public IDataRequestCallback<ObservationAndForecast> execute() {
 		return this.mDataProviderService.getObservedAndForecastByReportingArea(mReportingAreaId, mObservationDate);
 	}
 

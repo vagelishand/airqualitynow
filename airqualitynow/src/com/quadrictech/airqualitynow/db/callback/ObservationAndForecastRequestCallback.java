@@ -2,10 +2,10 @@ package com.quadrictech.airqualitynow.db.callback;
 
 import java.util.List;
 
-import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
+import com.quadrictech.airqualitynow.model.viewmodel.ObservationAndForecast;
 
-public class ObservationAndForecastRequestCallback implements	IDataRequestCallback<ObservedAndForecast> {
-	private List<ObservedAndForecast> list;
+public class ObservationAndForecastRequestCallback implements	IDataRequestCallback<ObservationAndForecast> {
+	private List<ObservationAndForecast> list;
 	private Throwable mException;
 	
 	public void onError(Throwable exception) {
@@ -20,11 +20,11 @@ public class ObservationAndForecastRequestCallback implements	IDataRequestCallba
 		return mException.getLocalizedMessage();
 	}
 
-	public void onResponseReceived(List<ObservedAndForecast> response) {
+	public void onResponseReceived(List<ObservationAndForecast> response) {
 		list = response;
 	}
 
-	public List<ObservedAndForecast> getList() {
+	public List<ObservationAndForecast> getList() {
 		return list;
 	}
 
