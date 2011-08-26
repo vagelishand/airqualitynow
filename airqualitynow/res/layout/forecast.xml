@@ -73,7 +73,7 @@
 	<TableRow>
 		<TextView
 	      	android:id="@+id/forecastTableTodayMsgTextView" 
-		   	android:layout_width="wrap_content"
+		   	android:layout_width="0px"
 		   	android:layout_weight=".50"
 		   	android:minLines="3"
 		    android:textAppearance="?android:attr/textAppearanceSmall"
@@ -83,7 +83,7 @@
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowMsgTextView" 
-		   	android:layout_width="wrap_content"
+		   	android:layout_width="0px"
 		   	android:layout_weight=".50"
 		   	android:minLines="3"
 		    android:textAppearance="?android:attr/textAppearanceSmall"
@@ -101,261 +101,12 @@
 		    android:gravity="center"
 		    android:singleLine="true"
 		    android:textColor="#000000"
+		    android:background="#eee9e9"
 		    android:layout_margin="1dip"
 		    android:text="AQI - Pollutant Details"
 			/>  
 	</TableRow>
-	<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle1NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle1AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle1NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle1AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>
-	<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle2NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle2AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>		
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle2NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle2AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>
-	<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle3NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle3AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>		
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle3NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle3AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>
-	<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle4NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle4AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>		
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle4NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle4AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>				
-	<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle5NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle5AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>		
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle5NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle5AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>				
-<TableRow>
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle6NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTodayParticle6AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>		
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle6NameTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".35"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>	
-		<TextView
-	      	android:id="@+id/forecastTableTomorrowParticle6AQITextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight=".15"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="right"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
-			/>			
-	</TableRow>				
-					
   </TableLayout>
+<ListView android:id="@+id/forecastsList" android:layout_width="fill_parent"
+       android:layout_height="0dip" android:layout_weight="1"  />  
   </LinearLayout>

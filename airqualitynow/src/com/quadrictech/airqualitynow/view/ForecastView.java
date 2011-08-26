@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.model.Forecast;
+import com.quadrictech.airqualitynow.model.viewmodel.ForecastTodayTomorrow;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
+import com.quadrictech.airqualitynow.presenter.util.ForecastTodayTomorrowArrayAdapter;
 import com.quadrictech.airqualitynow.utils.AQIUtil;
 import com.quadrictech.airqualitynow.utils.ColorUtil;
 
@@ -14,17 +16,18 @@ import roboguice.inject.InjectView;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ForecastView implements IForecastView<View>, OnClickListener {
-	@InjectView(R.id.forecastLinearLayout)						private View mView;
+	@InjectView(R.id.forecastsList)						private ListView mView;
 	@InjectView(R.id.forecastTableTodayAQITextView)				private TextView mTodayAQITextView;
 	@InjectView(R.id.forecastTableTodayMsgTextView)				private TextView mTodayMsgTextView;
 	
 	@InjectView(R.id.forecastTableTomorrowAQITextView)			private TextView mTomorrowAQITextView;
 	@InjectView(R.id.forecastTableTomorrowMsgTextView)			private TextView mTomorrowMsgTextView;
 
-	@InjectView(R.id.forecastTableTodayParticle1AQITextView)	private TextView mTodayParticle1AQITextView;
+	/*@InjectView(R.id.forecastTableTodayParticle1AQITextView)	private TextView mTodayParticle1AQITextView;
 	@InjectView(R.id.forecastTableTodayParticle2AQITextView)	private TextView mTodayParticle2AQITextView;
 	@InjectView(R.id.forecastTableTodayParticle3AQITextView)	private TextView mTodayParticle3AQITextView;
 	@InjectView(R.id.forecastTableTodayParticle4AQITextView)	private TextView mTodayParticle4AQITextView;
@@ -50,11 +53,13 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	@InjectView(R.id.forecastTableTomorrowParticle3NameTextView)	private TextView mTomorrowParticle3NameTextView;
 	@InjectView(R.id.forecastTableTomorrowParticle4NameTextView)	private TextView mTomorrowParticle4NameTextView;
 	@InjectView(R.id.forecastTableTomorrowParticle5NameTextView)	private TextView mTomorrowParticle5NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle6NameTextView)	private TextView mTomorrowParticle6NameTextView;	
+	@InjectView(R.id.forecastTableTomorrowParticle6NameTextView)	private TextView mTomorrowParticle6NameTextView;*/	
 	
 	public IForecastPresenter<View> mPresenter;
 	public String mReportingAreaName;
 	private Context mContext;
+	private List<ForecastTodayTomorrow> mForecastsTT;
+	private ForecastTodayTomorrowArrayAdapter mAdapter;
 	
 	public void initialize() {
 		// TODO Auto-generated method stubthis.
@@ -64,6 +69,8 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		mContext = mView.getContext();
 		mPresenter = presenter;
 		mReportingAreaName = reportingAreaName;
+		mForecastsTT = new ArrayList<ForecastTodayTomorrow>();
+		
 		//areaTextView.setText(mReportingAreaName);
 	}
 
@@ -89,26 +96,41 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		
 		List<Forecast> filteredForecasts = getDateFilteredList(filterDate, forecasts);
 		
+		for(Forecast f: filteredForecasts){
+			ForecastTodayTomorrow fTT = new ForecastTodayTomorrow();
+			fTT.TodayForecast = f;
+			mForecastsTT.add(fTT);
+		}
+		
 		setTodayTextViews(filteredForecasts);
 		
 		if(forecasts.size() > filteredForecasts.size()){
 			filterDate = forecasts.get(filteredForecasts.size()).DateForecast;
 			filteredForecasts = getDateFilteredList(filterDate, forecasts);
 			
+			for(int i = 0; i < filteredForecasts.size(); i++){
+				if(i < mForecastsTT.size()){
+					mForecastsTT.get(i).TomorrowForecast = filteredForecasts.get(i);
+				}
+			}
+			
 			setTomorrowTextViews(filteredForecasts);
 		}
+		
+		mAdapter = new ForecastTodayTomorrowArrayAdapter(mContext, R.id.forecastsList, mForecastsTT);
+		this.setAdapter(mAdapter);
 	}
 	
 	private void setTodayTextViews(List<Forecast> filteredForecasts){
 		int todayHiAQI = -1;
 		
-		int cnt = 1;
+		//int cnt = 1;
 		for(Forecast forecast: filteredForecasts){
 			if(forecast.AQI > todayHiAQI){
 				todayHiAQI = forecast.AQI;
 			}
 			
-			switch(cnt){
+			/*switch(cnt){
 				case 1:
 					mTodayParticle1NameTextView.setText(forecast.Pollutant.Name);
 					mTodayParticle1AQITextView.setText(forecast.AQI + "");
@@ -139,9 +161,9 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 					mTodayParticle6AQITextView.setText(forecast.AQI + "");
 					mTodayParticle6AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
 				break;				
-			}
+			}*/
 			
-			cnt++;
+			//cnt++;
 		}
 		
 		mTodayAQITextView.setText(todayHiAQI + "");		
@@ -152,13 +174,13 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	private void setTomorrowTextViews(List<Forecast> filteredForecasts){
 		int tomorrowHiAQI = -1;
 		
-		int cnt = 1;
+		//int cnt = 1;
 		for(Forecast forecast: filteredForecasts){
 			if(forecast.AQI > tomorrowHiAQI){
 				tomorrowHiAQI = forecast.AQI;
 			}
 			
-			switch(cnt){
+			/*switch(cnt){
 				case 1:
 					mTomorrowParticle1NameTextView.setText(forecast.Pollutant.Name);
 					mTomorrowParticle1AQITextView.setText(forecast.AQI + "");
@@ -191,7 +213,7 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 				break;				
 			}
 			
-			cnt++;
+			cnt++;*/
 		}
 		
 		mTomorrowAQITextView.setText(tomorrowHiAQI + "");		
@@ -210,5 +232,9 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 				
 		
 		return filteredForecasts;
+	}
+
+	public void setAdapter(ForecastTodayTomorrowArrayAdapter adapter) {
+		mView.setAdapter(adapter);
 	}
 }
