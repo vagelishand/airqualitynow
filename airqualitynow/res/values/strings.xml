@@ -7,7 +7,7 @@
     <string name="reportingAreaHeader">ReportingArea</string>
     <string name="todayHeader">Current</string>
     <string name="tomorrowHeader">Forecast</string>
-    <string name="currentConditions">Current Air Quality Index (AQI)</string>
+    <string name="currentConditions">Air Quality Index (AQI)</string>
     <string name="dataNotAvailable">Data not Available</string>
     <string name="fourdayForecastTableDay">Day</string>
     <string name="fourdayForecastPM10">PM10</string>
