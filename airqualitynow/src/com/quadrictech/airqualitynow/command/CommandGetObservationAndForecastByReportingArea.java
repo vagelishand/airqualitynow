@@ -6,19 +6,19 @@ import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.viewmodel.ObservedAndForecast;
 import com.quadrictech.airqualitynow.service.IDataProviderService;
 
-public class CommandGetObservedAndForecastByReportingArea extends
+public class CommandGetObservationAndForecastByReportingArea extends
 		DaoCommand <IDataRequestCallback<ObservedAndForecast>> {
 	private int mReportingAreaId;
-	private Date mObservedDate;
+	private Date mObservationDate;
 	
-	public CommandGetObservedAndForecastByReportingArea(int reportingAreaId, Date observedDate, IDataProviderService dataProviderService){
+	public CommandGetObservationAndForecastByReportingArea(int reportingAreaId, Date observationDate, IDataProviderService dataProviderService){
 		mReportingAreaId = reportingAreaId;
-		mObservedDate = observedDate;
+		mObservationDate = observationDate;
 		mDataProviderService = dataProviderService;
 	}
 	
 	public IDataRequestCallback<ObservedAndForecast> execute() {
-		return this.mDataProviderService.getObservedAndForecastByReportingArea(mReportingAreaId, mObservedDate);
+		return this.mDataProviderService.getObservedAndForecastByReportingArea(mReportingAreaId, mObservationDate);
 	}
 
 }
