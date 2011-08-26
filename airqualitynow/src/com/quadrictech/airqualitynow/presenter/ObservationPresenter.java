@@ -4,20 +4,20 @@ import java.text.ParseException;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.model.Observed;
+import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.presenter.util.ObservedArrayAdapter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.utils.DateUtil;
-import com.quadrictech.airqualitynow.view.IObservedView;
+import com.quadrictech.airqualitynow.view.IObservationView;
 
 import android.content.Context;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ObservationPresenter implements IObservationPresenter<IObservedView<ListView>> {
+public class ObservationPresenter implements IObservationPresenter<IObservationView<ListView>> {
 	private Context mContext;
-	private IObservedView<ListView> mObservedView;
+	private IObservationView<ListView> mObservedView;
 	private int mCurrentReportingAreaId;
 	private ObservedArrayAdapter mArrayAdapter;
 	
@@ -34,15 +34,15 @@ public class ObservationPresenter implements IObservationPresenter<IObservedView
 	
 	public void initializeTable() {
 		try {
-			DataProviderServiceHelper.getInstance().getObservedByReportingAreaId(mCurrentReportingAreaId, DateUtil.getDateObserved(), new HandleGetObservedById());
+			DataProviderServiceHelper.getInstance().getObservationsByReportingAreaId(mCurrentReportingAreaId, DateUtil.getDateObserved(), new HandleGetObservedById());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
 	
-	class HandleGetObservedById implements IGuiRunnable<IDataRequestCallback<Observed>>{
-		IDataRequestCallback<Observed> callback;
+	class HandleGetObservedById implements IGuiRunnable<IDataRequestCallback<Observation>>{
+		IDataRequestCallback<Observation> callback;
 		
 		public void run() {
 			if(callback.getErrorStatus()){
@@ -67,7 +67,7 @@ public class ObservationPresenter implements IObservationPresenter<IObservedView
 
 		@SuppressWarnings("unchecked")
 		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<Observed>) callback;
+			this.callback = (IDataRequestCallback<Observation>) callback;
 		}
 		
 	}

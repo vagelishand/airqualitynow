@@ -3,14 +3,14 @@ package com.quadrictech.airqualitynow.presenter;
 import android.view.View;
 import android.widget.ListView;
 
-import com.quadrictech.airqualitynow.view.IObservedView;
+import com.quadrictech.airqualitynow.view.IObservationView;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 public class PresenterInitializeParameter {
 	public IReportingAreaListView<ListView> listView;
 	public IForecastView<View> forecastView;
-	public IObservedView<View> observedView;
+	public IObservationView<ListView> observedView;
 	public int reportingAreaId;
 	
 	public PresenterInitializeParameter(IReportingAreaListView<ListView> view) {
@@ -22,7 +22,7 @@ public class PresenterInitializeParameter {
 		this.reportingAreaId = reportingAreaId;
 	}
 	
-	public PresenterInitializeParameter(IObservedView<View> observedView, int reportingAreaId){
+	public PresenterInitializeParameter(IObservationView<ListView> observedView, int reportingAreaId){
 		this.observedView = observedView;
 		this.reportingAreaId = reportingAreaId;
 	}

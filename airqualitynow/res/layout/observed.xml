@@ -64,7 +64,6 @@
 		        	android:layout_weight="1"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
-				    android:singleLine="true"
 				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="Observed at"
@@ -97,15 +96,30 @@
 			<TableRow>
 				<TextView
          	    	android:id="@+id/observedTableCurrentAQIMsgTextView" 
+				    android:layout_width="wrap_content"
+				    android:layout_weight="1"
+				    android:textAppearance="?android:attr/textAppearanceMedium"
+				    android:gravity="center"
+				    android:textColor="#000000"
+				    android:layout_margin="1dip"
+				    android:text="Health Message"
+					/>	
+         	</TableRow>
+         	<TableRow>
+         		<TextView
+         	    	android:id="@+id/observedTableObservationsTextView" 
 				    android:layout_width="0px"
 		        	android:layout_weight="1"
 				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
 				    android:singleLine="true"
 				    android:textColor="#000000"
+				    android:background="#eee9e9"
 				    android:layout_margin="1dip"
-				    android:text="Health Message"
-					/>	
+				    android:text="Observations"
+					/>
          	</TableRow>
      </TableLayout>
+	<ListView android:id="@+id/observationList" android:layout_width="fill_parent"
+       android:layout_height="0dip" android:layout_weight="1"  />     
 </LinearLayout>
