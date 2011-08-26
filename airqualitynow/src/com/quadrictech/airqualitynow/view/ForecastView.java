@@ -1,7 +1,6 @@
 package com.quadrictech.airqualitynow.view;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
@@ -16,45 +15,24 @@ import roboguice.inject.InjectView;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ForecastView implements IForecastView<View>, OnClickListener {
-	@InjectView(R.id.forecastsList)						private ListView mView;
-	@InjectView(R.id.forecastTableTodayAQITextView)				private TextView mTodayAQITextView;
-	@InjectView(R.id.forecastTableTodayMsgTextView)				private TextView mTodayMsgTextView;
+public class ForecastView implements IForecastView<View>, OnClickListener, OnItemClickListener {
+	@InjectView(R.id.forecastsList)									private ListView mListView;
+	@InjectView(R.id.forecastTableReportingAreaTextView)			private TextView mAreaTextView;
+	@InjectView(R.id.forecastTableTodayAQITextView)					private TextView mTodayAQITextView;
+	@InjectView(R.id.forecastTableTodayPollutantNameTextView)		private TextView mTodayPollutantNameTextView;
+	@InjectView(R.id.forecastTableTodayAQINameTextView)				private TextView mTodayAQINameTextView;
+	@InjectView(R.id.forecastTableTodayMsgTextView)					private TextView mTodayMsgTextView;
 	
-	@InjectView(R.id.forecastTableTomorrowAQITextView)			private TextView mTomorrowAQITextView;
-	@InjectView(R.id.forecastTableTomorrowMsgTextView)			private TextView mTomorrowMsgTextView;
+	@InjectView(R.id.forecastTableTomorrowAQITextView)				private TextView mTomorrowAQITextView;
+	@InjectView(R.id.forecastTableTomorrowMsgTextView)				private TextView mTomorrowMsgTextView;
+	@InjectView(R.id.forecastTableTomorrowPollutantNameTextView)	private TextView mTomorrowPollutantNameTextView;
+	@InjectView(R.id.forecastTableTomorrowAQINameTextView)			private TextView mTomorrowAQINameTextView;
 
-	/*@InjectView(R.id.forecastTableTodayParticle1AQITextView)	private TextView mTodayParticle1AQITextView;
-	@InjectView(R.id.forecastTableTodayParticle2AQITextView)	private TextView mTodayParticle2AQITextView;
-	@InjectView(R.id.forecastTableTodayParticle3AQITextView)	private TextView mTodayParticle3AQITextView;
-	@InjectView(R.id.forecastTableTodayParticle4AQITextView)	private TextView mTodayParticle4AQITextView;
-	@InjectView(R.id.forecastTableTodayParticle5AQITextView)	private TextView mTodayParticle5AQITextView;
-	@InjectView(R.id.forecastTableTodayParticle6AQITextView)	private TextView mTodayParticle6AQITextView;
-	
-	@InjectView(R.id.forecastTableTodayParticle1NameTextView)	private TextView mTodayParticle1NameTextView;
-	@InjectView(R.id.forecastTableTodayParticle2NameTextView)	private TextView mTodayParticle2NameTextView;
-	@InjectView(R.id.forecastTableTodayParticle3NameTextView)	private TextView mTodayParticle3NameTextView;
-	@InjectView(R.id.forecastTableTodayParticle4NameTextView)	private TextView mTodayParticle4NameTextView;
-	@InjectView(R.id.forecastTableTodayParticle5NameTextView)	private TextView mTodayParticle5NameTextView;
-	@InjectView(R.id.forecastTableTodayParticle6NameTextView)	private TextView mTodayParticle6NameTextView;
-	
-	@InjectView(R.id.forecastTableTomorrowParticle1AQITextView)	private TextView mTomorrowParticle1AQITextView;
-	@InjectView(R.id.forecastTableTomorrowParticle2AQITextView)	private TextView mTomorrowParticle2AQITextView;
-	@InjectView(R.id.forecastTableTomorrowParticle3AQITextView)	private TextView mTomorrowParticle3AQITextView;
-	@InjectView(R.id.forecastTableTomorrowParticle4AQITextView)	private TextView mTomorrowParticle4AQITextView;
-	@InjectView(R.id.forecastTableTomorrowParticle5AQITextView)	private TextView mTomorrowParticle5AQITextView;
-	@InjectView(R.id.forecastTableTomorrowParticle6AQITextView)	private TextView mTomorrowParticle6AQITextView;
-	
-	@InjectView(R.id.forecastTableTomorrowParticle1NameTextView)	private TextView mTomorrowParticle1NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle2NameTextView)	private TextView mTomorrowParticle2NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle3NameTextView)	private TextView mTomorrowParticle3NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle4NameTextView)	private TextView mTomorrowParticle4NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle5NameTextView)	private TextView mTomorrowParticle5NameTextView;
-	@InjectView(R.id.forecastTableTomorrowParticle6NameTextView)	private TextView mTomorrowParticle6NameTextView;*/	
-	
 	public IForecastPresenter<View> mPresenter;
 	public String mReportingAreaName;
 	private Context mContext;
@@ -62,20 +40,20 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 	private ForecastTodayTomorrowArrayAdapter mAdapter;
 	
 	public void initialize() {
-		// TODO Auto-generated method stubthis.
+		
 	}
 	
 	public void initialize(IForecastPresenter<View> presenter, String reportingAreaName) {
-		mContext = mView.getContext();
+		mContext = mListView.getContext();
 		mPresenter = presenter;
 		mReportingAreaName = reportingAreaName;
 		mForecastsTT = new ArrayList<ForecastTodayTomorrow>();
-		
-		//areaTextView.setText(mReportingAreaName);
+		mAreaTextView.setText(mReportingAreaName);
+		mListView.setOnItemClickListener(this);
 	}
 
 	public View getView() {
-		return mView;
+		return mListView;
 	}
 
 	public void onDestroy() {
@@ -92,149 +70,123 @@ public class ForecastView implements IForecastView<View>, OnClickListener {
 		if(forecasts.size() == 0){
 			return;
 		}
-		Date filterDate = forecasts.get(0).DateForecast;
 		
-		List<Forecast> filteredForecasts = getDateFilteredList(filterDate, forecasts);
+		fillTwoDayForecastList(forecasts, "OZONE");
+		fillTwoDayForecastList(forecasts, "PM10");
+		fillTwoDayForecastList(forecasts, "PM2.5");
+		fillTwoDayForecastList(forecasts, "CO");
+		fillTwoDayForecastList(forecasts, "NO2");
+		fillTwoDayForecastList(forecasts, "SO2");
 		
-		for(Forecast f: filteredForecasts){
-			ForecastTodayTomorrow fTT = new ForecastTodayTomorrow();
-			fTT.TodayForecast = f;
-			mForecastsTT.add(fTT);
-		}
-		
-		setTodayTextViews(filteredForecasts);
-		
-		if(forecasts.size() > filteredForecasts.size()){
-			filterDate = forecasts.get(filteredForecasts.size()).DateForecast;
-			filteredForecasts = getDateFilteredList(filterDate, forecasts);
-			
-			for(int i = 0; i < filteredForecasts.size(); i++){
-				if(i < mForecastsTT.size()){
-					mForecastsTT.get(i).TomorrowForecast = filteredForecasts.get(i);
-				}
-			}
-			
-			setTomorrowTextViews(filteredForecasts);
+		if(mForecastsTT.size() > 0){
+			sortTwoDayForecastList();
+			setTodayForecastTableValues(mForecastsTT.get(0).TodayForecast);
+			setTomorrowForecastTableValues(mForecastsTT.get(0).TomorrowForecast);
 		}
 		
 		mAdapter = new ForecastTodayTomorrowArrayAdapter(mContext, R.id.forecastsList, mForecastsTT);
-		this.setAdapter(mAdapter);
+		setAdapter(mAdapter);
 	}
 	
-	private void setTodayTextViews(List<Forecast> filteredForecasts){
-		int todayHiAQI = -1;
+	private void sortTwoDayForecastList(){
+		int n;
 		
-		//int cnt = 1;
-		for(Forecast forecast: filteredForecasts){
-			if(forecast.AQI > todayHiAQI){
-				todayHiAQI = forecast.AQI;
+		n = mForecastsTT.size();
+		Forecast tmpForecast;
+		
+		for(int i = 0; i < n; i++){
+			for(int j=1; j < n; j++){
+				if(mForecastsTT.get(j-1).TodayForecast.AQI < mForecastsTT.get(j).TodayForecast.AQI){
+					tmpForecast = mForecastsTT.get(j-1).TodayForecast;
+					mForecastsTT.get(j-1).TodayForecast = mForecastsTT.get(j).TodayForecast; 
+					mForecastsTT.get(j).TodayForecast = tmpForecast;
+				}
+				
+				if(mForecastsTT.get(j-1).TomorrowForecast.AQI < mForecastsTT.get(j).TomorrowForecast.AQI){
+					tmpForecast = mForecastsTT.get(j-1).TomorrowForecast;
+					mForecastsTT.get(j-1).TomorrowForecast = mForecastsTT.get(j).TomorrowForecast; 
+					mForecastsTT.get(j).TomorrowForecast = tmpForecast;
+				}
 			}
-			
-			/*switch(cnt){
-				case 1:
-					mTodayParticle1NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle1AQITextView.setText(forecast.AQI + "");
-					mTodayParticle1AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 2:
-					mTodayParticle2NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle2AQITextView.setText(forecast.AQI + "");
-					mTodayParticle2AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 3:
-					mTodayParticle3NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle3AQITextView.setText(forecast.AQI + "");
-					mTodayParticle3AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 4:
-					mTodayParticle4NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle4AQITextView.setText(forecast.AQI + "");
-					mTodayParticle4AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 5:
-					mTodayParticle5NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle5AQITextView.setText(forecast.AQI + "");
-					mTodayParticle5AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 6:
-					mTodayParticle6NameTextView.setText(forecast.Pollutant.Name);
-					mTodayParticle6AQITextView.setText(forecast.AQI + "");
-					mTodayParticle6AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;				
-			}*/
-			
-			//cnt++;
 		}
-		
-		mTodayAQITextView.setText(todayHiAQI + "");		
-		mTodayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(todayHiAQI));
-		mTodayMsgTextView.setText(AQIUtil.getHealthMessage(mContext, todayHiAQI));
 	}
 	
-	private void setTomorrowTextViews(List<Forecast> filteredForecasts){
-		int tomorrowHiAQI = -1;
+	private void fillTwoDayForecastList(List<Forecast> forecasts, String particle){
 		
-		//int cnt = 1;
-		for(Forecast forecast: filteredForecasts){
-			if(forecast.AQI > tomorrowHiAQI){
-				tomorrowHiAQI = forecast.AQI;
-			}
-			
-			/*switch(cnt){
-				case 1:
-					mTomorrowParticle1NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle1AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle1AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 2:
-					mTomorrowParticle2NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle2AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle2AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 3:
-					mTomorrowParticle3NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle3AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle3AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 4:
-					mTomorrowParticle4NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle4AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle4AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 5:
-					mTomorrowParticle5NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle5AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle5AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;
-				case 6:
-					mTomorrowParticle6NameTextView.setText(forecast.Pollutant.Name);
-					mTomorrowParticle6AQITextView.setText(forecast.AQI + "");
-					mTomorrowParticle6AQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-				break;				
-			}
-			
-			cnt++;*/
-		}
-		
-		mTomorrowAQITextView.setText(tomorrowHiAQI + "");		
-		mTomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(tomorrowHiAQI));
-		mTomorrowMsgTextView.setText(AQIUtil.getHealthMessage(mContext, tomorrowHiAQI));
-	}
-	
-	private List<Forecast> getDateFilteredList(Date date, List<Forecast> forecasts){
-		List<Forecast> filteredForecasts = new ArrayList<Forecast>();
-		
-		for(Forecast f: forecasts){
-			if(f.DateForecast.compareTo(date) == 0){
-				filteredForecasts.add(f);
-			}
+		if(mForecastsTT == null){
+			mForecastsTT = new ArrayList<ForecastTodayTomorrow>();
 		}
 				
+		List<Forecast> filteredForecasts = new ArrayList<Forecast>();
+		ForecastTodayTomorrow fTT;
 		
-		return filteredForecasts;
+		for(Forecast forecast: forecasts){
+			if(forecast.Pollutant.Name.compareTo(particle) == 0){
+				filteredForecasts.add(forecast);
+			}
+		}
+		
+		int size = (filteredForecasts.size() > 2) ? 2 : filteredForecasts.size();
+		
+		if(size == 1){
+			Forecast f = new Forecast();
+			f.AQI = -1;
+			f.Pollutant = filteredForecasts.get(0).Pollutant;
+			filteredForecasts.add(f);
+			size = 2;
+		}
+		
+		for(int i=0; i < size; i++){
+
+			fTT = new ForecastTodayTomorrow();
+			fTT.TodayForecast = filteredForecasts.get(i);
+			
+			if((i + 1) < size){
+				fTT.TomorrowForecast = filteredForecasts.get(i+1);
+				i++;
+			}
+			
+			mForecastsTT.add(fTT);
+		}
+		
+	}
+	
+	public void setAdapter(ForecastTodayTomorrowArrayAdapter adapter) {
+		mListView.setAdapter(adapter);
 	}
 
-	public void setAdapter(ForecastTodayTomorrowArrayAdapter adapter) {
-		mView.setAdapter(adapter);
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Forecast forecast = mAdapter.getItem(position).TodayForecast;
+		
+		setTodayForecastTableValues(forecast);
+		
+		forecast = mAdapter.getItem(position).TomorrowForecast;
+		
+		setTomorrowForecastTableValues(forecast);
+	}
+
+	public void setTodayForecastTableValues(Forecast forecast) {
+		if(forecast == null){
+			return;
+		}
+		
+		mTodayAQITextView.setText(forecast.AQI + " " + AQIUtil.getName(mContext, forecast.AQI));		
+		mTodayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
+		mTodayPollutantNameTextView.setText(forecast.Pollutant.FullName);
+		mTodayAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
+		mTodayMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));		
+	}
+
+	public void setTomorrowForecastTableValues(Forecast forecast) {
+		if(forecast == null){
+			return;
+		}
+		
+		mTomorrowAQITextView.setText(forecast.AQI + " " +  AQIUtil.getName(mContext, forecast.AQI));		
+		mTomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
+		mTomorrowPollutantNameTextView.setText(forecast.Pollutant.FullName);
+		mTomorrowAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
+		mTomorrowMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));
+		
 	}
 }

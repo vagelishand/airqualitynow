@@ -68,4 +68,12 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 		mForecastView.onDestroy();		
 	}
 
+	public void onSetTodayForecastTableValues(Forecast forecast) {
+		mForecastView.setTodayForecastTableValues(forecast);		
+	}
+
+	public void onSetTomorrowForecastTableValues(Forecast forecast) {
+		mForecastView.setTomorrowForecastTableValues(forecast);		
+	}
+
 }

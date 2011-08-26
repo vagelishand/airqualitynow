@@ -12,4 +12,6 @@ public interface IForecastView<T> extends IView<T> {
 	public void initialize(IForecastPresenter<View> presenter, String reportingAreaName);
 	public void setForecastTableValues(List<Forecast> forecast);
 	public void setAdapter(ForecastTodayTomorrowArrayAdapter adapter);
+	public void setTodayForecastTableValues(Forecast forecast);
+	public void setTomorrowForecastTableValues(Forecast forecast);
 }
