@@ -142,7 +142,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		return callback;
 	}
 	
-	public IDataRequestCallback<Observation> insertObserved(List<Observation> observedList) {
+	public IDataRequestCallback<Observation> insertObservations(ReportingArea reportingArea, List<Observation> observations) {
 		IDataRequestCallback<Observation> callback = new ObservationRequestCallback();
 		
 		try{
@@ -150,35 +150,36 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 				mObservationRepository = new AppRepository(getHelper().getConnectionSource()).ObservationRepository();
 			}
 			
-			for(Observation o: observedList){
+			for(Observation o: observations){
+				o.ReportingAreaObject = reportingArea;
 				o.Pollutant = getPollutantByName(o.ParameterName);
 				mObservationRepository.insert(o);
 			}
 		}
 		catch(SQLException e){
+			Log.d("ERROR", "error " + e.getLocalizedMessage());
 			callback.onError(e);
 		}
 		
 		return callback;
 	}
 
-	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts) {
+	public IDataRequestCallback<Forecast> insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts) {
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
-		Forecast f1 = new Forecast();
+		
 		try {
 			if(mForecastRepository == null){
 				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
 			}
 			
 			for(Forecast f: forecasts){
-				f1.ParameterName = f.ParameterName;
+				f.ReportingAreaObject = reportingArea;
 				f.Pollutant = getPollutantByName(f.ParameterName);
 				mForecastRepository.insert(f);
 			}
 			
 		} catch (SQLException e) {
 			callback.onError(e);
-			Log.d("service", f1.ParameterName);
 		}
 		
 		return callback;	
@@ -289,5 +290,13 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		}
 		
 		return pollutant;
+	}
+
+	public void updateReportingArea(ReportingArea reportingArea) throws SQLException {
+		if(mReportingAreaRepository == null){
+			mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
+		}		
+		
+		mReportingAreaRepository.update(reportingArea);
 	}	
 }

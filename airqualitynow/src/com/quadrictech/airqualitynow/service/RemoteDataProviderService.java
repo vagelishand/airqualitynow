@@ -29,11 +29,16 @@ import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.text.format.Time;
+import android.util.Log;
 
 public class RemoteDataProviderService extends Service implements IRemoteDataProviderService{
 	AirNowUrl mAirNowUrl;
@@ -42,6 +47,9 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 	Context mContext;
 	IForecastJsonProvider mForecastJsonProvider;
 	IObservationJsonProvider mObservationJsonProvider;
+	 private WakeLock mWakeLock;
+	 
+	
 	/**
      * Class for clients to access.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with
@@ -55,6 +63,25 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 	
 	private final IBinder mBinder = new LocalBinder();
 	
+	   private void handleIntent(Intent intent) {
+	        // obtain the wake lock
+	        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+	        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
+	        mWakeLock.acquire();
+	        
+	        // check the global background data setting
+	        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+	        if (!cm.getBackgroundDataSetting()) {
+	            stopSelf();
+	            return;
+	        }
+	        
+	        Log.d(getClass().getName(), "give me some work to do");
+	        backgroundObservationUpdate();
+	        backgroundForecastUpdate();
+	    }
+	    	
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
@@ -65,10 +92,14 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		
 		mContext = this.getBaseContext();
 		
+		if(intent.getBooleanExtra("FromAlarmManager", false)){
+			handleIntent(intent);
+		}
+		
 		return START_NOT_STICKY;
 	}
 
-	public List<Forecast> onGetForecastsByZipCode(String zipCode) throws IOException{
+	public List<Forecast> getForecastsByZipCode(String zipCode) throws IOException{
 		Time now = new Time();
 		now.setToNow();
 		
@@ -185,6 +216,19 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 			mForecasts = (List<Forecast>) msg.obj;
 		}
 	};
+
+	/**
+     * In onDestroy() we release our wake lock. This ensures that whenever the
+     * Service stops (killed for resources, stopSelf() called, etc.), the wake
+     * lock will be released.
+     */
+    public void onDestroy() {
+        super.onDestroy();
+        
+        if(mWakeLock != null){
+        	mWakeLock.release();
+        }
+    }	
 	
 	class GetForecastThread extends Thread{
 		private String mZipCode;
@@ -196,7 +240,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		public void run(){
 			try {
 				Message msg = Message.obtain();
-				msg.obj = onGetForecastsByZipCode(mZipCode);
+				msg.obj = getForecastsByZipCode(mZipCode);
 				handler.sendMessage(msg);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -204,4 +248,80 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 			}
 		}
 	}
+
+	public void backgroundForecastUpdate(){
+		UpdateForecastsTask task = new UpdateForecastsTask();
+		task.execute();
+	}
+	
+	private class UpdateForecastsTask extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			IDataRequestCallback<ReportingArea> callback = DataProviderServiceHelper.getInstance().getAllReportingAreas();
+			
+			if(!callback.getErrorStatus()){
+				List<ReportingArea> areas= callback.getList();
+				
+				for(ReportingArea area: areas){
+					try {
+						DataProviderServiceHelper.getInstance().updateReportingArea(area);
+						List<Forecast> forecasts = getForecastsByZipCode(area.ZipCode);
+						DataProviderServiceHelper.getInstance().insertForecasts(area, forecasts);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result){
+			stopSelf();
+		}
+		
+	}
+	
+	public void backgroundObservationUpdate() {
+		UpdateObservationsTask task = new UpdateObservationsTask();
+		task.execute();
+	}
+	
+	private class UpdateObservationsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            IDataRequestCallback<ReportingArea> callback = DataProviderServiceHelper.getInstance().getAllReportingAreas();
+            
+            if(!callback.getErrorStatus()){
+            	List<ReportingArea> areas = callback.getList();
+            	
+            	for(ReportingArea area: areas){
+            		try {
+            			DataProviderServiceHelper.getInstance().updateReportingArea(area);
+						List<Observation> observations = getObservationsbyZipCode(area.ZipCode);
+						DataProviderServiceHelper.getInstance().insertObservations(area, observations);
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+            	}
+            }
+            
+            return null;
+        }
+        
+        @Override
+        protected void onPostExecute(Void result) {
+            // handle your data
+            stopSelf();
+        }
+    }	
 }

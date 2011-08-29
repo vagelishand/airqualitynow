@@ -179,4 +179,23 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	public ReportingArea insertReportingArea(ReportingArea reportingArea) throws SQLException {
 		return mDataServiceProvider.insertReportArea(reportingArea);
 	}
+
+	/*
+	 * these methods are not asynchronous
+	 * */
+	public IDataRequestCallback<ReportingArea> getAllReportingAreas() {
+		return mDataServiceProvider.getAllReportingAreas();
+	}
+
+	public void insertObservations(ReportingArea reportingArea, List<Observation> observations) {
+		mDataServiceProvider.insertObservations(reportingArea, observations);		
+	}
+
+	public void updateReportingArea(ReportingArea reportingArea) throws SQLException {
+		mDataServiceProvider.updateReportingArea(reportingArea);		
+	}
+
+	public void insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts) {				
+		mDataServiceProvider.insertForecasts(reportingArea, forecasts);
+	}	
 }

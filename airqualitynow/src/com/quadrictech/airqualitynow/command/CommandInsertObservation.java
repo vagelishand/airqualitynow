@@ -15,7 +15,7 @@ public class CommandInsertObservation extends DaoCommand<IDataRequestCallback<Ob
 	}
 	
 	public IDataRequestCallback<Observation> execute() {
-		return mDataProviderService.insertObserved(mObservations);
+		return mDataProviderService.insertObservations(null, mObservations);
 	}
 
 }

@@ -15,7 +15,7 @@ public class CommandInsertForecast extends	DaoCommand<IDataRequestCallback<Forec
 	}
 	
 	public IDataRequestCallback<Forecast> execute() {
-		return mDataProviderService.insertForecasts(mForecasts);
+		return mDataProviderService.insertForecasts(null, mForecasts);
 	}
 
 }

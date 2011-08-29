@@ -24,8 +24,9 @@ public interface IDataProviderService {
 	public ReportingArea insertReportArea(ReportingArea reportingArea)throws SQLException;
 	public IDataRequestCallback<ReportingArea> insertReportingArea(ReportingArea reportingArea);
 	public IDataRequestCallback<ReportingArea> getReportingAreaByZipCode(String zipCode);
-	public IDataRequestCallback<Observation> insertObserved(List<Observation> observedList);
-	public IDataRequestCallback<Forecast> insertForecasts(List<Forecast> forecasts);
+	public IDataRequestCallback<Observation> insertObservations(ReportingArea reportingArea, List<Observation> observations);
+	public IDataRequestCallback<Forecast> insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts);
 	public IDataRequestCallback<ObservationAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate);
 	public Pollutant getPollutantByName(String name)throws SQLException;
+	public void updateReportingArea(ReportingArea reportingArea) throws SQLException;
 }
