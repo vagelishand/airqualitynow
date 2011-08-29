@@ -48,6 +48,10 @@ public class ReportingAreaArrayAdapter extends ArrayAdapter<ReportingArea> {
 			mViewHolder = (ViewHolder)convertView.getTag();
 		}
 		
+		if(position % 2 == 0){
+			mViewHolder.cityTextView.setBackgroundResource(R.drawable.container);
+		}
+		
 		mViewHolder.cityTextView.setText(((ReportingArea)this.getItem(position)).Name);
 		int today = ((ReportingArea)this.getItem(position)).ObservedAQI;
 		mViewHolder.currentTextView.setText((today == -1) ? "n/a" : today + "");
