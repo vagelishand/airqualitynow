@@ -4,78 +4,65 @@
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
        android:padding="5dp"
-       android:background="@drawable/sky">
-       <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       >
+		<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/reportingAreaListTableActionMenu"
 		   android:orientation="vertical"
 		   android:layout_width="fill_parent"
 		   android:layout_height="wrap_content"
-		   >
-         	<TableRow android:layout_margin="2dip">
+		   >         	
+		   <TableRow android:gravity="center_vertical">
          		<EditText
 			  		android:id="@+id/reportingAreaListTableSearchEditText"
 			          android:layout_width="0px"
-			          android:layout_weight=".45"
+			          android:layout_weight="1.0"
 			          android:layout_height="wrap_content"
 			          android:inputType="number"
 			       />
 			    <Button
 			  		android:id="@+id/reportingAreaListTableSearchButton"
-			          android:layout_width="0px"
-			          android:layout_weight=".20"
+			          android:layout_width="wrap_content"
 			          android:layout_height="wrap_content"
 			          android:drawableLeft="@drawable/ic_menu_search"
 			       />
 			    
 	         	<Button
 		  			android:id="@+id/reportingAreaListTableAddButton"
-		          	android:layout_width="0px"
-			          android:layout_weight=".20"
+		          	android:layout_width="wrap_content"
 		          	android:layout_height="wrap_content"
 		          	android:drawableLeft="@drawable/ic_menu_add"
 	       		/>
 	       		<Button
 		  			android:id="@+id/reportingAreaListTableGuideButton"
-		          	android:layout_width="0px"
-			          android:layout_weight=".15"
-		          	android:layout_height="wrap_content"
-					android:text="Guide"
+		          	android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+					android:drawableLeft="@drawable/ic_menu_info_details"
 	       		/>
-			   
-         	</TableRow>
+	       	</TableRow>
          	<TableRow android:layout_margin="1dip">
          	    <TextView
          	    	android:id="@+id/reportingAreaListTableReportingAreaTextView" 
 				    android:layout_width="0px"
-			          android:layout_weight=".45"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
+ 		          	android:layout_weight=".45"
 				    android:gravity="left"
 				    android:paddingLeft="5dip"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="@string/reportingAreaHeader"
 				/>
 				<TextView
 					android:id="@+id/reportingAreaListTableTodayTextView" 
 				    android:layout_width="0px"
-				          android:layout_weight=".25"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
+				    android:layout_weight=".25"
 				    android:gravity="right"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="@string/todayHeader"
 				/>
 			    <TextView
 			    	android:id="@+id/reportingAreaListTableTomorrowTextView" 
 				    android:layout_width="0px"
-				          android:layout_weight=".3"
+				    android:layout_weight=".3"
 				    android:layout_height="wrap_content"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="right"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="@string/tomorrowHeader"
 				/>
