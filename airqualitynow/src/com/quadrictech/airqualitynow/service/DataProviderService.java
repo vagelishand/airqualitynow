@@ -212,7 +212,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 				mForecastRepository.getQueryBuilder().where().
 			    eq("ReportingAreaObject_id", id).
 			    and().
-			    ge("DateIssue", issueDate).prepare());
+			    ge("DateForecast", issueDate).prepare());
 			
 			callback.onResponseReceived(forecasts);
 			
