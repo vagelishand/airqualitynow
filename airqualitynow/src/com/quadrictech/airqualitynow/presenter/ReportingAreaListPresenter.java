@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -144,7 +143,6 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		public void run() {
 			if(callback.getErrorStatus()){
 				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-				Log.d("presenter", callback.getErrorMessage());
 			}
 		}
 

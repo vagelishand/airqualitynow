@@ -8,7 +8,6 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import com.j256.ormlite.dao.Dao;
@@ -157,7 +156,6 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			}
 		}
 		catch(SQLException e){
-			Log.d("ERROR", "error " + e.getLocalizedMessage());
 			callback.onError(e);
 		}
 		
