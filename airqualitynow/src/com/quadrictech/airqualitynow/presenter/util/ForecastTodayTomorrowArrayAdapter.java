@@ -50,14 +50,20 @@ public class ForecastTodayTomorrowArrayAdapter extends ArrayAdapter<ForecastToda
 		ForecastTodayTomorrow f = this.getItem(position);
 		
 		if(f.TodayForecast != null){
-			mViewHolder.todayAQITextView.setText(f.TodayForecast.AQI + "");
-			mViewHolder.todayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(f.TodayForecast.AQI));
+			if(f.TodayForecast.AQI > -1){
+				mViewHolder.todayAQITextView.setText(f.TodayForecast.AQI + "");
+				mViewHolder.todayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(f.TodayForecast.AQI));
+			}
+			
 			mViewHolder.todayPollutantNameTextView.setText(f.TodayForecast.Pollutant.Name);
 		}
 
 		if(f.TomorrowForecast != null){
-			mViewHolder.tomorrowAQITextView.setText(f.TomorrowForecast.AQI + "");
-			mViewHolder.tomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(f.TomorrowForecast.AQI));
+			if(f.TomorrowForecast.AQI > -1){
+				mViewHolder.tomorrowAQITextView.setText(f.TomorrowForecast.AQI + "");
+				mViewHolder.tomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(f.TomorrowForecast.AQI));
+			}
+			
 			mViewHolder.tomorrowPollutantNameTextView.setText(f.TomorrowForecast.Pollutant.Name);
 		}
 		

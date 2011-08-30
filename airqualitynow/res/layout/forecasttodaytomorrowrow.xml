@@ -19,6 +19,7 @@
             android:layout_margin="1dip"
             android:layout_weight=".15"
             style="@style/listViewNumber"
+            android:text="n/a"
 	      />
 	  <TextView 
             android:id="@+id/forecastTodayTomorrowName2TextView"
@@ -34,6 +35,7 @@
             android:layout_margin="1dip"
             android:layout_weight=".15"
             style="@style/listViewNumber"
+            android:text="n/a"
 	      />
 	</TableRow>            
 </TableLayout>

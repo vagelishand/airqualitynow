@@ -159,11 +159,14 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 			return;
 		}
 		
-		mTodayAQITextView.setText(forecast.AQI + "");		
-		mTodayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
+		if(forecast.AQI > -1){
+			mTodayAQITextView.setText(forecast.AQI + "");		
+			mTodayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
+			mTodayAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
+			mTodayMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));
+		}
+		
 		mTodayPollutantNameTextView.setText(forecast.Pollutant.FullName);
-		mTodayAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
-		mTodayMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));		
 	}
 
 	public void setTomorrowForecastTableValues(Forecast forecast) {
@@ -171,11 +174,13 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 			return;
 		}
 		
-		mTomorrowAQITextView.setText(forecast.AQI + "");		
-		mTomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
-		mTomorrowPollutantNameTextView.setText(forecast.Pollutant.FullName);
-		mTomorrowAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
-		mTomorrowMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));
+		if(forecast.AQI > -1){
+			mTomorrowAQITextView.setText(forecast.AQI + "");		
+			mTomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
+			mTomorrowAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
+			mTomorrowMsgTextView.setText(AQIUtil.getHealthMessage(mContext, forecast.AQI));
+		}
 		
+		mTomorrowPollutantNameTextView.setText(forecast.Pollutant.FullName);
 	}
 }

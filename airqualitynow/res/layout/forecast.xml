@@ -45,6 +45,7 @@
 	       	android:layout_weight=".50"
 		    style="@style/tableText"
 		    android:layout_margin="1dip"
+		    android:text="n/a"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowAQITextView" 
@@ -52,6 +53,7 @@
 	       	android:layout_weight=".50"
 		    style="@style/tableText"
 		    android:layout_margin="1dip"
+		    android:text="n/a"
 			/>		
 	</TableRow>	
 	<TableRow>
