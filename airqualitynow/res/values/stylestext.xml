@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   	<style name="textTitle">
+		<item name="android:gravity">center</item>
+	  	<item name="android:textSize">24sp</item>
+	  	<item name="android:textColor">@android:color/black</item>
+   	</style>
+	<style name="textSubTitle">
+		<item name="android:gravity">center</item>
+	  	<item name="android:textSize">18sp</item>
+	  	<item name="android:textColor">@android:color/black</item>
+	  	<item name="android:background">#eee9e9</item>
+	  	
+   	</style>   	
+   	<style name="tableText">
+   		<item name="android:gravity">center</item>
+   		<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+   	</style> 
+	<style name="tableMsgText">
+		<item name="android:minLines">4</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+	</style>
+	<style name="listViewText">
+		<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+	</style>
+	<style name="listViewNumber" parent="listViewText">
+		<item name="android:gravity">right</item>
+	</style>
+</resources>
