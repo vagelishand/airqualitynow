@@ -24,20 +24,20 @@
 			  		android:id="@+id/reportingAreaListTableSearchButton"
 			          android:layout_width="wrap_content"
 			          android:layout_height="wrap_content"
-			          android:drawableLeft="@drawable/ic_menu_search"
+			          android:drawableLeft="@drawable/ic_btn_search"
 			       />
 			    
 	         	<Button
 		  			android:id="@+id/reportingAreaListTableAddButton"
 		          	android:layout_width="wrap_content"
 		          	android:layout_height="wrap_content"
-		          	android:drawableLeft="@drawable/ic_menu_add"
+		          	android:drawableLeft="@drawable/ic_input_add"
 	       		/>
 	       		<Button
 		  			android:id="@+id/reportingAreaListTableGuideButton"
 		          	android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-					android:drawableLeft="@drawable/ic_menu_info_details"
+			        android:drawableLeft="@drawable/ic_btn_info"
 	       		/>
 	       	</TableRow>
          	<TableRow android:layout_margin="1dip">
