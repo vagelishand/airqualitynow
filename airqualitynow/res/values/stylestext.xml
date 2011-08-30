@@ -25,6 +25,7 @@
 	</style>
 	<style name="listViewText" parent="textFont">
 		<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+		<item name="android:ellipsize">marquee</item>
 	</style>
 	<style name="listViewNumber" parent="listViewText">
 		<item name="android:gravity">right</item>
