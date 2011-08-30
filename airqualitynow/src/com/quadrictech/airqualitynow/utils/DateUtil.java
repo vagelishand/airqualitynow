@@ -32,7 +32,7 @@ public class DateUtil {
 		Date startingDate = new Date();
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(startingDate);
-		gc.add(Calendar.DAY_OF_YEAR, -1);
+		//gc.add(Calendar.DAY_OF_YEAR, -1);
 		Date result = gc.getTime();		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
