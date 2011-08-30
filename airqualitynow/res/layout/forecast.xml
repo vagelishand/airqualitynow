@@ -14,14 +14,10 @@
 	<TableRow>
 		<TextView
 	      	android:id="@+id/forecastTableReportingAreaTextView" 
-		   	android:layout_width="0px"
-	       	android:layout_weight="1"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:layout_margin="1dip"
 		    android:text="Reporting Area"
+		    android:layout_width="0px"
+	       	android:layout_weight="1.0"
+		    style="@style/textTitle"
 			/>  
 	</TableRow>
 	<TableRow>
@@ -29,22 +25,16 @@
 	      	android:id="@+id/forecastTableTodayHiTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
 		    android:layout_margin="1dip"
 		    android:text="@string/todayHi"
+		    style="@style/tableText"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowHiTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
 		    android:layout_margin="1dip"
+		    style="@style/tableText"
 		    android:text="@string/tomorrowHi"
 			/>		
 	</TableRow>
@@ -53,20 +43,14 @@
 	      	android:id="@+id/forecastTableTodayAQITextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+		    style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowAQITextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+		    style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>		
 	</TableRow>	
@@ -75,20 +59,14 @@
 	      	android:id="@+id/forecastTableTodayPollutantNameTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+		    style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowPollutantNameTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+		    style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>		
 	</TableRow>	
@@ -97,18 +75,14 @@
 	      	android:id="@+id/forecastTableTodayAQINameTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+	       	style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowAQINameTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight=".50"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:singleLine="true"
-		    android:textColor="#000000"
+		    style="@style/tableText"
 		    android:layout_margin="1dip"
 			/>		
 	</TableRow>	
@@ -117,18 +91,14 @@
 	      	android:id="@+id/forecastTableTodayMsgTextView" 
 		   	android:layout_width="0px"
 		   	android:layout_weight=".50"
-		   	android:minLines="4"
-		    android:textAppearance="?android:attr/textAppearanceSmall"
-		    android:textColor="#000000"
+		   	style="@style/tableMsgText"
 		    android:layout_margin="1dip"
 			/>	
 		<TextView
 	      	android:id="@+id/forecastTableTomorrowMsgTextView" 
 		   	android:layout_width="0px"
 		   	android:layout_weight=".50"
-		   	android:minLines="4"
-		    android:textAppearance="?android:attr/textAppearanceSmall"
-		    android:textColor="#000000"
+		   	style="@style/tableMsgText"
 		    android:layout_margin="1dip"
 			/>		
 	</TableRow>	
@@ -137,13 +107,9 @@
 	      	android:id="@+id/forecastTablePollutantDetailsTextView" 
 		   	android:layout_width="0px"
 	       	android:layout_weight="1"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:gravity="center"
-		    android:singleLine="true"
-		    android:textColor="#000000"
-		    android:background="#eee9e9"
 		    android:layout_margin="1dip"
 		    android:text="AQI - Pollutant Details"
+		    style="@style/textSubTitle"
 			/>  
 	</TableRow>
   </TableLayout>

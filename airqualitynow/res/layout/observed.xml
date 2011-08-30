@@ -36,12 +36,9 @@
          	    	android:id="@+id/observedTableReportingAreaTextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="Reporting Area"
+				    style="@style/textTitle"
 					/>         	
          	</TableRow>
          	<TableRow>
@@ -49,12 +46,9 @@
          	    	android:id="@+id/observedTableCurrentLabelTextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="@string/currentConditions"
+				    style="@style/tableText"
 					/>         	
          	</TableRow>
 			<TableRow>
@@ -62,11 +56,9 @@
          	    	android:id="@+id/observedTableCurrentAQITimeDescTextView" 
 				    android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="Observed at"
+				    style="@style/tableText"
 					/>
 			</TableRow>
 			<TableRow>
@@ -74,11 +66,8 @@
          	    	android:id="@+id/observedTableCurrentAQITextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
+				    style="@style/tableText"
 					/>
 			</TableRow>
 			<TableRow>
@@ -86,11 +75,8 @@
          	    	android:id="@+id/observedTableCurrentAQINameTextView" 
 				   	android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
+				    style="@style/tableText"
 					/>
 			</TableRow>
 			<TableRow>
@@ -98,11 +84,9 @@
          	    	android:id="@+id/observedTableCurrentAQIMsgTextView" 
 				    android:layout_width="wrap_content"
 				    android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
 				    android:text="Health Message"
+				    style="@style/tableMsgText"
 					/>	
          	</TableRow>
          	<TableRow>
@@ -110,13 +94,9 @@
          	    	android:id="@+id/observedTableObservationsTextView" 
 				    android:layout_width="0px"
 		        	android:layout_weight="1"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
-				    android:gravity="center"
-				    android:singleLine="true"
-				    android:textColor="#000000"
-				    android:background="#eee9e9"
 				    android:layout_margin="1dip"
 				    android:text="Observations"
+				    style="@style/textSubTitle"
 					/>
          	</TableRow>
      </TableLayout>
