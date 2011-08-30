@@ -159,7 +159,7 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 			return;
 		}
 		
-		mTodayAQITextView.setText(forecast.AQI);		
+		mTodayAQITextView.setText(forecast.AQI + "");		
 		mTodayAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
 		mTodayPollutantNameTextView.setText(forecast.Pollutant.FullName);
 		mTodayAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
@@ -171,7 +171,7 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 			return;
 		}
 		
-		mTomorrowAQITextView.setText(forecast.AQI);		
+		mTomorrowAQITextView.setText(forecast.AQI + "");		
 		mTomorrowAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(forecast.AQI));
 		mTomorrowPollutantNameTextView.setText(forecast.Pollutant.FullName);
 		mTomorrowAQINameTextView.setText(AQIUtil.getName(mContext, forecast.AQI));
