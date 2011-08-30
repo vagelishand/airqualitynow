@@ -121,11 +121,11 @@ public class ReportingAreaListView implements IReportingAreaListView<ListView>, 
 		
 		ReportingArea area = (ReportingArea)mView.getAdapter().getItem(info.position);
 		
-		menu.setHeaderTitle("Menu");
-    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecast for " + area.Name);
+		menu.setHeaderTitle(area.Name);
+    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecasts");
     	forecastMenuItem.setOnMenuItemClickListener(this);
     	
-    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observed for " + area.Name);
+    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observations");
     	observedMenuItem.setOnMenuItemClickListener(this);
     	
     	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Delete");
