@@ -13,15 +13,15 @@ public class Forecast {
 	public int Id;
 	@DatabaseField
 	public Date DateIssue;
-	@DatabaseField
+	@DatabaseField(uniqueCombo = true)
 	public Date DateForecast;
-	@DatabaseField(canBeNull = false, foreign = true)
+	@DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
 	public ReportingArea ReportingAreaObject;
 	public String ReportingArea;
 	public String StateCode;
 	public double Latitude;
 	public double Longitude;
-	@DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true)
+	@DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, uniqueCombo = true)
 	public Pollutant Pollutant;
 	public String ParameterName;
 	@DatabaseField
