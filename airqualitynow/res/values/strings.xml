@@ -4,7 +4,7 @@
     <string name="mainTableFirstRow">Air Quality Forecast</string>
     <string name="todayHi">Today\'s Hi</string>
     <string name="tomorrowHi">Tomorrow\'s Hi</string>
-    <string name="reportingAreaHeader">ReportingArea</string>
+    <string name="reportingAreaHeader">Reporting Area</string>
     <string name="todayHeader">Observed</string>
     <string name="tomorrowHeader">Forecast</string>
     <string name="currentConditions">Air Quality Index (AQI)</string>
