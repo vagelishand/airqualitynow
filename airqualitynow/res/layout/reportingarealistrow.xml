@@ -9,7 +9,7 @@
             android:id="@+id/reportingAreaListCityTextView"
             android:layout_width="0px"
             android:layout_margin="1dip"
-            android:layout_weight=".60"
+            android:layout_weight=".55"
             android:singleLine="true"
             style="@style/listViewText"
         />
@@ -17,7 +17,7 @@
             android:id="@+id/reportingAreaListCurrentTextView"
             android:layout_width="0px"
             android:layout_margin="1dip"
-            android:layout_weight=".20"
+            android:layout_weight=".225"
             style="@style/listViewNumber"
         />
     <TextView 
@@ -25,7 +25,7 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_margin="1dip"
-            android:layout_weight=".20"
+            android:layout_weight=".225"
             style="@style/listViewNumber"
         />
         </TableRow>

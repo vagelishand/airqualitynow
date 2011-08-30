@@ -44,7 +44,7 @@
          	    <TextView
          	    	android:id="@+id/reportingAreaListTableReportingAreaTextView" 
 				    android:layout_width="0px"
- 		          	android:layout_weight=".60"
+ 		          	android:layout_weight=".55"
 				    android:gravity="left"
 				    android:paddingLeft="5dip"
 				    android:layout_margin="1dip"
@@ -53,19 +53,19 @@
 				<TextView
 					android:id="@+id/reportingAreaListTableTodayTextView" 
 				    android:layout_width="0px"
-				    android:layout_weight=".20"
-				    android:gravity="right"
+				    android:layout_weight=".225"
 				    android:layout_margin="1dip"
 				    android:text="@string/todayHeader"
+				    style="@style/tableNumber"
 				/>
 			    <TextView
 			    	android:id="@+id/reportingAreaListTableTomorrowTextView" 
 				    android:layout_width="0px"
-				    android:layout_weight=".20"
+				    android:layout_weight=".225"
 				    android:layout_height="wrap_content"
-				    android:gravity="right"
 				    android:layout_margin="1dip"
 				    android:text="@string/tomorrowHeader"
+				    style="@style/tableNumber"
 				/>
      </TableRow>    	
    </TableLayout>
