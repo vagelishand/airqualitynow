@@ -102,23 +102,15 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 	public void insertObservations(ReportingArea reportingArea, List<Observation> observations, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		
-		for(Observation o: observations){
-			o.ReportingAreaObject = reportingArea;
-		}
-		
 		task = new DataAsyncTask<IDataRequestCallback<Observation>>();
-		task.execute(new CommandInsertObservation(observations, mDataServiceProvider));
+		task.execute(new CommandInsertObservation(reportingArea, observations, mDataServiceProvider));
 	}
 
 	public void insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts, IGuiRunnable<?> guiUpdateRunnable) {
 		runnable = guiUpdateRunnable;
 		
-		for(Forecast f: forecasts){
-			f.ReportingAreaObject = reportingArea;
-		}
-		
 		task = new DataAsyncTask<IDataRequestCallback<Forecast>>();
-		task.execute(new CommandInsertForecast(forecasts, mDataServiceProvider));
+		task.execute(new CommandInsertForecast(reportingArea, forecasts, mDataServiceProvider));
 	}
 	
 	public void onServiceConnected(ComponentName className, IBinder service) {
