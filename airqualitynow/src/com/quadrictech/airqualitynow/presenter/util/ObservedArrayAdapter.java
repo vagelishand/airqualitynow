@@ -52,7 +52,7 @@ public class ObservedArrayAdapter extends ArrayAdapter<Observation> {
 		Observation observation = getItem(position);
 		
 		try {
-			mViewHolder.pollutantDateTextView.setText(DateUtil.getDateString(observation.DateObserved, "M/dd/yyyy"));
+			mViewHolder.pollutantDateTextView.setText(DateUtil.getDateString(observation.DateObserved, "HH:mm a").replace("00:00 AM", "12:00 AM"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

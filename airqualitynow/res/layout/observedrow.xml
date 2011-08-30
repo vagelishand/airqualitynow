@@ -10,21 +10,21 @@
 	            android:id="@+id/observationListPollutantDateTextView"
 	            android:layout_width="0px"
 	            android:layout_margin="1dip"
-	            android:layout_weight=".30"
+	            android:layout_weight=".25"
 	            style="@style/listViewText"
 	        />
 		<TextView 
 	            android:id="@+id/observationListPollutantNameTextView"
 	            android:layout_width="0px"
 	            android:layout_margin="1dip"
-	            android:layout_weight=".50"
+	            android:layout_weight=".65"
 	            style="@style/listViewText"
 	        />    	
 		<TextView 
 	            android:id="@+id/observationListPollutantAQITextView"
 	            android:layout_width="0px"
 	            android:layout_margin="1dip"
-	            android:layout_weight=".20"
+	            android:layout_weight=".10"
 	            style="@style/listViewNumber"
 	        />	        
 	</TableRow>            

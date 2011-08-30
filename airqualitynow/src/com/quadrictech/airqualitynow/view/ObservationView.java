@@ -26,6 +26,7 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 	@InjectView(R.id.observedTableCurrentAQITextView)			public TextView currentAQITextView;
 	@InjectView(R.id.observedTableCurrentAQINameTextView)		public TextView currentAQINameTextView;
 	@InjectView(R.id.observedTableCurrentAQIMsgTextView)		public TextView currentAQIMsgTextView;
+	@InjectView(R.id.observedTableObservationsTextView)			public TextView observationsTextView;
 	IObservationPresenter<ListView> mPresenter;
 	private ObservedArrayAdapter mAdapter;
 
@@ -68,6 +69,8 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 		currentAQITextView.setBackgroundResource(ColorUtil.getAirQualityColor(observation.AQI));
 		currentAQINameTextView.setText(observation.Pollutant.FullName);
 		currentAQIMsgTextView.setText(AQIUtil.getHealthMessage(mContext, observation.AQI));
+		
+		observationsTextView.setText("Observations for " + DateUtil.getDateString(observation.DateObserved, "M/dd/yyyy"));
 	}
 
 	public void setAdapter(ObservedArrayAdapter observedArrayAdapter) {
