@@ -3,6 +3,7 @@ package com.quadrictech.airqualitynow.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -265,6 +266,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 				
 				for(ReportingArea area: areas){
 					try {
+						area.DateStamp = new Date();
 						DataProviderServiceHelper.getInstance().updateReportingArea(area);
 						List<Forecast> forecasts = getForecastsByZipCode(area.ZipCode);
 						DataProviderServiceHelper.getInstance().insertForecasts(area, forecasts);
@@ -303,6 +305,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
             	
             	for(ReportingArea area: areas){
             		try {
+            			area.DateStamp = new Date();
             			DataProviderServiceHelper.getInstance().updateReportingArea(area);
 						List<Observation> observations = getObservationsbyZipCode(area.ZipCode);
 						DataProviderServiceHelper.getInstance().insertObservations(area, observations);

@@ -112,6 +112,9 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			if(mReportingAreaRepository == null){
 				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
 			}
+			
+			reportingArea.DateStamp = new Date();
+			
 			mReportingAreaRepository.insert(reportingArea);
 			List<ReportingArea> areas = new ArrayList<ReportingArea>(1);
 			areas.add(reportingArea);
