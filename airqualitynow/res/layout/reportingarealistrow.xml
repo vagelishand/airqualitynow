@@ -10,6 +10,7 @@
             android:layout_width="0px"
             android:layout_margin="1dip"
             android:layout_weight=".60"
+            android:singleLine="true"
             style="@style/listViewText"
         />
         <TextView 
