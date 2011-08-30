@@ -5,7 +5,7 @@
     <string name="todayHi">Today\'s Hi</string>
     <string name="tomorrowHi">Tomorrow\'s Hi</string>
     <string name="reportingAreaHeader">ReportingArea</string>
-    <string name="todayHeader">Current</string>
+    <string name="todayHeader">Observed</string>
     <string name="tomorrowHeader">Forecast</string>
     <string name="currentConditions">Air Quality Index (AQI)</string>
     <string name="dataNotAvailable">Data not Available</string>
