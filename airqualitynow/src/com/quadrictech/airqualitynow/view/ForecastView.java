@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.model.Forecast;
-import com.quadrictech.airqualitynow.model.util.ForecastUtil;
-import com.quadrictech.airqualitynow.model.util.IForecastUtil;
 import com.quadrictech.airqualitynow.model.viewmodel.ForecastTodayTomorrow;
 import com.quadrictech.airqualitynow.presenter.IForecastPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ForecastTodayTomorrowArrayAdapter;
@@ -40,7 +38,6 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 	private Context mContext;
 	private List<ForecastTodayTomorrow> mForecastsTT;
 	private ForecastTodayTomorrowArrayAdapter mAdapter;
-	private IForecastUtil mForecastUtil;
 	
 	public void initialize() {
 		
@@ -53,7 +50,6 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 		mForecastsTT = new ArrayList<ForecastTodayTomorrow>();
 		mAreaTextView.setText(mReportingAreaName);
 		mListView.setOnItemClickListener(this);
-		mForecastUtil = new ForecastUtil();
 	}
 
 	public View getView() {
@@ -75,12 +71,7 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 			return;
 		}
 		
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "OZONE"));
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "PM10"));
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "PM2.5"));
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "CO"));
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "NO2"));
-		fillTwoDayForecastList(mForecastUtil.getFirstTwoForecastRecords(forecasts, "SO2"));
+		fillTwoDayForecastList(forecasts);
 		
 		if(mForecastsTT.size() > 0){
 			sortTwoDayForecastList();
