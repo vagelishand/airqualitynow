@@ -60,7 +60,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     	mDataProviderServiceHelper.doBindService(this);
     	mRemoteDataProviderServiceHelper.doBindService(this);
     	
-	    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+	    /*AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 	    Intent i = new Intent(this, RemoteDataProviderService.class);
 	    i.putExtra("FromAlarmManager", true);
 	    PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -70,7 +70,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 	        SystemClock.elapsedRealtime() + 30*1000,
 	        30*1000, pi);
 	    
-	    Toast.makeText(this, "scheduled service", Toast.LENGTH_SHORT).show();
+	    Toast.makeText(this, "scheduled service", Toast.LENGTH_SHORT).show();*/
     }
     
     @Override
