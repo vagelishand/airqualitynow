@@ -18,7 +18,10 @@ import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.inet.callback.RemoteCallbackData;
+import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ReportingArea;
+import com.quadrictech.airqualitynow.model.util.ForecastUtil;
+import com.quadrictech.airqualitynow.model.util.IForecastUtil;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
@@ -126,7 +129,11 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 				mAdapter.add(area);
 				
 				DataProviderServiceHelper.getInstance().insertObservations(area, data.observations, new HandleDmoInsertion());
-				DataProviderServiceHelper.getInstance().insertForecasts(area, data.forecasts, new HandleDmoInsertion());
+				IForecastUtil util = new ForecastUtil();
+				List<Forecast> forecasts = util.getFirstTwoForecastRecords(data.forecasts, 
+						DataProviderServiceHelper.getInstance().getAllPollutants());
+				
+				DataProviderServiceHelper.getInstance().insertForecasts(area, forecasts, new HandleDmoInsertion());
 			}
 		}
 
