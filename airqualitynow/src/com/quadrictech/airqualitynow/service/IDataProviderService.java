@@ -29,4 +29,5 @@ public interface IDataProviderService {
 	public IDataRequestCallback<ObservationAndForecast> getObservedAndForecastByReportingArea(int id, Date observedDate);
 	public Pollutant getPollutantByName(String name)throws SQLException;
 	public void updateReportingArea(ReportingArea reportingArea) throws SQLException;
+	public IDataRequestCallback<Pollutant> getPollutants();
 }

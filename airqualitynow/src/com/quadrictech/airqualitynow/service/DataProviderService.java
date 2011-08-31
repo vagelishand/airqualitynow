@@ -21,6 +21,7 @@ import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservationAndForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservationRequestCallback;
+import com.quadrictech.airqualitynow.db.callback.PollutantRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ReportingAreaRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observation;
@@ -299,5 +300,23 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		}		
 		
 		mReportingAreaRepository.update(reportingArea);
+	}
+
+	public IDataRequestCallback<Pollutant> getPollutants() {
+		IDataRequestCallback<Pollutant> callback = new PollutantRequestCallback();
+		
+		if(mPollutantRepository == null){
+			try {
+				
+				mPollutantRepository = new AppRepository(getHelper().getConnectionSource()).PollutantRepository();
+				
+				List<Pollutant> pollutants = mPollutantRepository.getAll();
+				callback.onResponseReceived(pollutants);
+			} catch (SQLException e) {
+				callback.onError(new Throwable("Error retrieving pollutants"));
+			}
+		}
+
+		return callback;
 	}	
 }
