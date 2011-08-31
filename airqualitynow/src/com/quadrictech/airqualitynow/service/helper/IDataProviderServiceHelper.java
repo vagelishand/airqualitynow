@@ -9,6 +9,7 @@ import android.content.Context;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observation;
+import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 
@@ -29,4 +30,5 @@ public interface IDataProviderServiceHelper extends IServiceHelper {
 	public void doBindService(Context context);
 	public void doUnBindService();
 	public void setWindowContext(Context context);
+	public List<Pollutant> getAllPollutants();
 }

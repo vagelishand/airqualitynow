@@ -26,6 +26,7 @@ import com.quadrictech.airqualitynow.command.IDaoCommand;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observation;
+import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.model.viewmodel.ObservationAndForecast;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
@@ -189,5 +190,9 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 
 	public void insertForecasts(ReportingArea reportingArea, List<Forecast> forecasts) {				
 		mDataServiceProvider.insertForecasts(reportingArea, forecasts);
+	}
+
+	public List<Pollutant> getAllPollutants() {
+		return mDataServiceProvider.getPollutants().getList();
 	}	
 }
