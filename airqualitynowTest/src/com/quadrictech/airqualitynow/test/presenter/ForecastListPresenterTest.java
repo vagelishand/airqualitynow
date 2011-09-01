@@ -1,6 +1,7 @@
 package com.quadrictech.airqualitynow.test.presenter;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.test.db.DataHelper;
+import com.quadrictech.airqualitynow.test.db.ForecastDataHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
 public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNowApplication> {
@@ -23,15 +24,15 @@ public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNow
 	private ReportingAreaListPresenter mPresenter;
 	private IReportingAreaListView<ListView> mView;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
-	private DataHelper<Forecast> mDataHelper;
+	private ForecastDataHelper<Forecast> mDataHelper;
 	IDataRequestCallback<Forecast> mCallback;
 	List<Forecast> mForecasts;
 	
 	@SuppressWarnings("unchecked")
-	public void setUp(){
+	public void setUp()throws ParseException{
 				
 		mView =  AndroidMock.createMock(IReportingAreaListView.class);
-		mDataHelper = new DataHelper<Forecast>(Forecast.class);
+		mDataHelper = new ForecastDataHelper<Forecast>(Forecast.class);
 		mCallback = AndroidMock.createMock(IDataRequestCallback.class);
 		mForecasts = mDataHelper.getList();
 		mPresenter = new ReportingAreaListPresenter(mView, mDataProviderServiceHelper, this.getInstrumentation().getContext());
