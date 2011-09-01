@@ -18,7 +18,7 @@ public class ForecastUtil implements IForecastUtil {
 				if(forecast.ParameterName.compareTo(pollutant.Name) == 0){
 					filteredForecasts.add(forecast);
 					
-					if(filteredForecasts.size() == 2){
+					if(filteredForecasts.size() % 2 == 0){
 						break;
 					}
 				}
