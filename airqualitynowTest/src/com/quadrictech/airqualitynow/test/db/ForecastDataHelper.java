@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.lang.reflect.Field;
 
+import com.quadrictech.airqualitynow.model.Pollutant;
 import com.quadrictech.airqualitynow.utils.DateUtil;
 
 public class ForecastDataHelper<T> {
@@ -45,6 +46,10 @@ public class ForecastDataHelper<T> {
 			field.set(entity, parameterName);
 			field = clazz.getField("DateForecast");
 			field.set(entity, forecastDate);
+			field = clazz.getField("Pollutant");
+			Pollutant p = new Pollutant();
+			p.Name = parameterName;
+			field.set(entity, p);
 			
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
