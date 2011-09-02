@@ -305,17 +305,17 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	public IDataRequestCallback<Pollutant> getPollutants() {
 		IDataRequestCallback<Pollutant> callback = new PollutantRequestCallback();
 		
-		if(mPollutantRepository == null){
-			try {
-				
+		
+		try {
+			if(mPollutantRepository == null){		
 				mPollutantRepository = new AppRepository(getHelper().getConnectionSource()).PollutantRepository();
-				
-				List<Pollutant> pollutants = mPollutantRepository.getAll();
-				callback.onResponseReceived(pollutants);
-			} catch (SQLException e) {
-				callback.onError(new Throwable("Error retrieving pollutants"));
 			}
+			List<Pollutant> pollutants = mPollutantRepository.getAll();
+			callback.onResponseReceived(pollutants);
+		} catch (SQLException e) {
+			callback.onError(new Throwable("Error retrieving pollutants"));
 		}
+		
 
 		return callback;
 	}	
