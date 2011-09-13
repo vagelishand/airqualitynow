@@ -11,24 +11,33 @@ public class ForecastUtil implements IForecastUtil {
 	public List<Forecast> getFirstTwoForecastRecords(List<Forecast> forecasts, List<Pollutant> pollutants) {
 		
 		List<Forecast> filteredForecasts = new ArrayList<Forecast>();
+		@SuppressWarnings("unused")
+		Pollutant currentPollutant = null;
+		int pollutantCnt = 0;
 		
 		for(Pollutant pollutant: pollutants){
-		
+			
 			for(Forecast forecast: forecasts){
+				currentPollutant = pollutant;
+				
 				if(forecast.ParameterName.compareTo(pollutant.Name) == 0){
+					forecast.Pollutant = pollutant;
 					filteredForecasts.add(forecast);
+					pollutantCnt++;
 					
-					if(filteredForecasts.size() % 2 == 0){
+					if(pollutantCnt == 2){
+						pollutantCnt = 0;
 						break;
 					}
 				}
 			}
 			
-			if(filteredForecasts.size() == 1){
+			if(pollutantCnt == 1){
 				Forecast f = new Forecast();
 				f.AQI = -1;
-				f.Pollutant = filteredForecasts.get(0).Pollutant;
+				f.Pollutant = pollutant;
 				filteredForecasts.add(f);
+				pollutantCnt = 0;
 			}
 		}
 		
