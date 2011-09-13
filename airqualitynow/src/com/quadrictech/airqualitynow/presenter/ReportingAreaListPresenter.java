@@ -6,14 +6,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.quadrictech.airqualitynow.ForecastActivity;
 import com.quadrictech.airqualitynow.ObservationActivity;
+import com.quadrictech.airqualitynow.PollutantGuideActivity;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
@@ -175,16 +174,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 	
 	public void onPollutantGuideButtonClick() {
-		AlertDialog.Builder builder;
-		AlertDialog alertDialog;
-
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService("layout_inflater");
-		View layout = inflater.inflate(R.layout.aqipollutantguide, null);
-
-		builder = new AlertDialog.Builder(mContext);
-		builder.setView(layout);
-		alertDialog = builder.create();
-		alertDialog.show();
+		Intent intent = new Intent(mListActivity, PollutantGuideActivity.class);
+		mListActivity.startActivity(intent);
 	}
 
 	public void onSearchAreaClick() {
