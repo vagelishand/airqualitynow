@@ -8,8 +8,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/jackson-core-asl-1.8.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-mapper-asl-1.8.5.jar"/>
 	<classpathentry kind="lib" path="lib/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="lib/google-http-client-extensions-android2-1.5.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/google-api-client-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="lib/google-http-client-extensions-android2-1.5.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/roboguice-1.2-20111006.142313-28.jar"/>
 	<classpathentry kind="lib" path="lib/guice-3.0-no_aop.jar"/>
 	<classpathentry kind="lib" path="lib/javax.inject.jar"/>

@@ -7,13 +7,14 @@ import com.quadrictech.airqualitynow.presenter.PresenterInitializeParameter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.ReportingAreaListView;
 
-import roboguice.activity.RoboActivity;
+//import roboguice.activity.RoboActivity;
+import roboguice.activity.RoboFragmentActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 
-public class ReportingAreaListActivity extends RoboActivity {
+public class ReportingAreaListActivity extends RoboFragmentActivity {
 	@Inject private ReportingAreaListView mReportingAreaListView;
 	@Inject private ReportingAreaListPresenter mReportingAreaListPresenter;
 	

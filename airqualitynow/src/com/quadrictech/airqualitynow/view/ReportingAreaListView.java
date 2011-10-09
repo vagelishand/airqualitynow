@@ -1,5 +1,6 @@
 package com.quadrictech.airqualitynow.view;
 
+import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
 import com.google.inject.Inject;
@@ -23,7 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ReportingAreaListView implements IReportingAreaListView<ListView>, OnItemClickListener, OnClickListener, OnMenuItemClickListener  {
+public class ReportingAreaListView extends RoboFragment implements IReportingAreaListView<ListView>, OnItemClickListener, OnClickListener, OnMenuItemClickListener  {
 	@InjectView(R.id.reportingAreasList) 					private ListView mView;
 	@InjectView(R.id.reportingAreaListTableSearchEditText) 	private EditText mSearchEditText;
 	@InjectView(R.id.reportingAreaListTableSearchButton)	private Button   mSearchButton;
