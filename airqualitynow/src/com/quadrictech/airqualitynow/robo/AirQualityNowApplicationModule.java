@@ -25,6 +25,8 @@ import com.quadrictech.airqualitynow.view.IForecastView;
 
 public class AirQualityNowApplicationModule extends AbstractModule{
 
+	public AirQualityNowApplicationModule(){}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void configure() {
