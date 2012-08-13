@@ -3,21 +3,23 @@ package com.quadrictech.airqualitynow.test.db.callback;
 import java.util.ArrayList;
 import java.util.List;
 
-import roboguice.test.RoboUnitTestCase;
+import junit.framework.TestCase;
+
+import org.junit.After;
+import org.junit.Before;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservationRequestCallback;
 import com.quadrictech.airqualitynow.model.Observation;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowApplication>{
+public class ObservedRequestCallbackTest extends TestCase{
 	private IDataRequestCallback<Observation> callback;
 	
-	@Override
-	public void setUp()throws Exception{
-		super.setUp();
+	@Before
+	public void setUp()
+	{
 		callback = new ObservationRequestCallback();
 	}
 	
@@ -33,8 +35,8 @@ public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowA
 		
 		callback.onResponseReceived(observed);
 		
-		assertNotNull(callback.getList());
-		assertEquals(2, callback.getList().size());
+		org.junit.Assert.assertNotNull(callback.getList());
+		org.junit.Assert.assertEquals(2, callback.getList().size());
 	}
 	
 	@MediumTest
@@ -42,14 +44,13 @@ public class ObservedRequestCallbackTest extends RoboUnitTestCase<AirQualityNowA
 		Throwable throwable = new Throwable("Test Error");
 		callback.onError(throwable);
 		
-		assertEquals(true, callback.getErrorStatus());
-		assertEquals("Test Error", callback.getErrorMessage());
+		org.junit.Assert.assertEquals(true, callback.getErrorStatus());
+		org.junit.Assert.assertEquals("Test Error", callback.getErrorMessage());
 	}
 	
-	@Override
-	public void tearDown()throws Exception{
+	@After
+	public void tearDown(){
 		callback = null;
-		super.tearDown();
 	}
 
 }

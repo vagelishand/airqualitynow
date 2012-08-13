@@ -3,25 +3,24 @@ package com.quadrictech.airqualitynow.test.json;
 import java.io.IOException;
 
 import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-
-import roboguice.test.RoboUnitTestCase;
+import org.junit.Before;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.quadrictech.airqualitynow.json.ForecastJsonProvider;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowApplication>{
+public class ForecastJsonProviderTest extends TestCase{
 	private ForecastJsonProvider mJsonProvider;
 	private String mJson;
 
-	@Override
+	@Before
 	public void setUp(){
 		mJson = "{\"forecast\": [" +//this is forecast wrapper
 		"{\"DateIssue\":\"8/11/2011 12:00:00 AM\",\"DateForecast\":\"8/11/2011 12:00:00 AM\",\"ReportingArea\":\"Napa\",\"StateCode\":\"CA\",\"Latitude\":\"38.3300\",\"Longitude\":\"-122.2800\",\"ParameterName\":\"PM2.5\",\"AQI\":\"42\",\"CategoryNumber\":\"1\",\"CategoryName\":\"Good\",\"ActionDay\":\"False\",\"Discussion\":\"\"}," +
@@ -39,8 +38,8 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 	public void testParseForecastWrapper() throws JsonParseException, JsonMappingException, IOException{
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
-		assertNotNull(wrapper);
-		assertEquals(6, wrapper.getForecast().size());
+		org.junit.Assert.assertNotNull(wrapper);
+		org.junit.Assert.assertEquals(6, wrapper.getForecast().size());
 	}
 	
 	@MediumTest 
@@ -48,15 +47,15 @@ public class ForecastJsonProviderTest extends RoboUnitTestCase<AirQualityNowAppl
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		Forecast forecast = wrapper.getForecast().get(0);
 		
-		assertEquals("Napa", forecast.ReportingArea);
-		assertEquals("CA", forecast.StateCode);
-		assertEquals(38.33, forecast.Latitude);
-		assertEquals(-122.28, forecast.Longitude);
-		assertEquals("PM2.5", forecast.ParameterName);
-		assertEquals(42, forecast.AQI);
-		assertEquals(1, forecast.CategoryNumber);
-		assertEquals("Good", forecast.CategoryName);
-		assertEquals(false, forecast.ActionDay);
+		org.junit.Assert.assertEquals("Napa", forecast.ReportingArea);
+		org.junit.Assert.assertEquals("CA", forecast.StateCode);
+		org.junit.Assert.assertEquals(38.33, forecast.Latitude);
+		org.junit.Assert.assertEquals(-122.28, forecast.Longitude);
+		org.junit.Assert.assertEquals("PM2.5", forecast.ParameterName);
+		org.junit.Assert.assertEquals(42, forecast.AQI);
+		org.junit.Assert.assertEquals(1, forecast.CategoryNumber);
+		org.junit.Assert.assertEquals("Good", forecast.CategoryName);
+		org.junit.Assert.assertEquals(false, forecast.ActionDay);
 	}
 	
 	@MediumTest

@@ -1,6 +1,6 @@
 package com.quadrictech.airqualitynow.test.inet.rest;
 
-import roboguice.test.RoboUnitTestCase;
+import org.junit.Before;
 
 import com.google.android.testing.mocking.AndroidMock;
 import com.google.android.testing.mocking.UsesMocks;
@@ -12,15 +12,15 @@ import com.quadrictech.airqualitynow.base.callback.IRequestCallback;
 import com.quadrictech.airqualitynow.inet.rest.RestClient;
 import com.quadrictech.airqualitynow.json.IForecastJsonProvider;
 import com.quadrictech.airqualitynow.model.IForecastWrapper;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class RestClientTest extends RoboUnitTestCase<AirQualityNowApplication>{
+public class RestClientTest{
 	private RestClient client;
 	private IForecastJsonProvider mJsonProvider;
 	private IForecastWrapper mForecastWrapper;
 	
-	@Override
-	public void setUp(){
+	@Before
+	public void setUp()
+	{
 		client = new RestClient();
 		mJsonProvider = AndroidMock.createMock(IForecastJsonProvider.class);
 		mForecastWrapper = AndroidMock.createMock(IForecastWrapper.class);

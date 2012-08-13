@@ -1,25 +1,29 @@
 package com.quadrictech.airqualitynow.test.inet.rest;
 
-import roboguice.test.RoboUnitTestCase;
+import junit.framework.TestCase;
+import roboguice.RoboGuice;
+import org.junit.Before;
 
+import android.app.Activity;
 import android.content.Context;
+import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.text.format.Time;
 
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.inet.rest.AirNowUrl;
 import com.quadrictech.airqualitynow.inet.rest.AirNowUrlParameter;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class AirNowUrlTest extends RoboUnitTestCase<AirQualityNowApplication>{
+public class AirNowUrlTest extends AndroidTestCase{
 	private AirNowUrl mAirNowUrl;
 	AirNowUrlParameter mAirNowUrlParameter;
 	Context mContext;
 	
-	@Override
-	public void setUp(){
-		mContext = this.getInstrumentation().getTargetContext();
-			}
+	@Before
+	public void setUp()
+	{
+		mContext = this.getContext();
+	}
 	
 	@MediumTest
 	public void testUrlBuilding(){
@@ -31,6 +35,6 @@ public class AirNowUrlTest extends RoboUnitTestCase<AirQualityNowApplication>{
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
 		
-		assertEquals("http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecastbyzipcode?key=secret&zipCode=78586&date=2011-08-16&format=json", mAirNowUrl.url.toString());
+		org.junit.Assert.assertEquals("http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecastbyzipcode?key=secret&zipCode=78586&date=2011-08-16&format=json", mAirNowUrl.url.toString());
 	}
 }

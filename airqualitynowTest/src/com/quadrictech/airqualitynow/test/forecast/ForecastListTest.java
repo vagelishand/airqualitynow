@@ -4,15 +4,14 @@ package com.quadrictech.airqualitynow.test.forecast;
 import java.util.ArrayList;
 import java.util.List;
 
-import roboguice.test.RoboUnitTestCase;
+import junit.framework.TestCase;
 
 import android.test.suitebuilder.annotation.MediumTest;
 import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 
-public class ForecastListTest extends RoboUnitTestCase<AirQualityNowApplication>{
+public class ForecastListTest extends TestCase{
 	
 	@UsesMocks(ReportingAreaListPresenter.class)
 	@MediumTest

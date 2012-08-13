@@ -4,8 +4,11 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.junit.Before;
 
-import roboguice.test.RoboUnitTestCase;
+
+import android.app.Activity;
+import android.content.Context;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.ListView;
 
@@ -14,12 +17,11 @@ import com.google.android.testing.mocking.UsesMocks;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
-import com.quadrictech.airqualitynow.robo.AirQualityNowApplication;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.test.db.ForecastDataHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
-public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNowApplication> {
+public class ForecastListPresenterTest<T> {
 	
 	private ReportingAreaListPresenter mPresenter;
 	private IReportingAreaListView<ListView> mView;
@@ -27,15 +29,17 @@ public class ForecastListPresenterTest<T> extends RoboUnitTestCase<AirQualityNow
 	private ForecastDataHelper<Forecast> mDataHelper;
 	IDataRequestCallback<Forecast> mCallback;
 	List<Forecast> mForecasts;
+	Context mContext = new Activity();
 	
 	@SuppressWarnings("unchecked")
+	@Before
 	public void setUp()throws ParseException{
 				
 		mView =  AndroidMock.createMock(IReportingAreaListView.class);
 		mDataHelper = new ForecastDataHelper<Forecast>(Forecast.class);
 		mCallback = AndroidMock.createMock(IDataRequestCallback.class);
 		mForecasts = mDataHelper.getList();
-		mPresenter = new ReportingAreaListPresenter(mView, mDataProviderServiceHelper, this.getInstrumentation().getContext());
+		mPresenter = new ReportingAreaListPresenter(mView, mDataProviderServiceHelper, mContext);
 	}
 	
 	@UsesMocks(IDataRequestCallback.class)

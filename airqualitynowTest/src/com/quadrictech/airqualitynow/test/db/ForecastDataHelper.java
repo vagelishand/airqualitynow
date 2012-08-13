@@ -16,6 +16,20 @@ public class ForecastDataHelper<T> {
 		this.clazz = clazz;
 	}
 	
+	public List<T> getListWithOnePollutantPerDate() throws ParseException{
+		List<T> list = new ArrayList<T>(){
+			private static final long serialVersionUID = 1L;
+
+		{
+			add(getForecast(10, "OZONE", DateUtil.getDate("8/31/2011", "M/dd/yyyy")));
+			add(getForecast(200, "PM10", DateUtil.getDate("8/31/2011", "M/dd/yyyy")));
+			add(getForecast(200, "PM2.5", DateUtil.getDate("8/31/2011", "M/dd/yyyy")));
+		}};
+		
+		return list;
+		
+	}
+	
 	public List<T> getList() throws ParseException{
 		
 		List<T> list = new ArrayList<T>(){
