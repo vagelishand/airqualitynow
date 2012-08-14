@@ -35,8 +35,8 @@ public class ForecastRequestCallbackTest extends TestCase{
 		
 		callback.onResponseReceived(forecasts);
 		
-		org.junit.Assert.assertNotNull(callback.getList());
-		org.junit.Assert.assertEquals(2, callback.getList().size());
+		assertNotNull(callback.getList());
+		assertEquals(2, callback.getList().size());
 	}
 	
 	@MediumTest
@@ -44,8 +44,8 @@ public class ForecastRequestCallbackTest extends TestCase{
 		Throwable throwable = new Throwable("Test Error");
 		callback.onError(throwable);
 		
-		org.junit.Assert.assertEquals(true, callback.getErrorStatus());
-		org.junit.Assert.assertEquals("Test Error", callback.getErrorMessage());
+		assertEquals(true, callback.getErrorStatus());
+		assertEquals("Test Error", callback.getErrorMessage());
 	}
 	
 	@After
