@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 
 import android.test.suitebuilder.annotation.MediumTest;
@@ -15,7 +17,7 @@ import com.quadrictech.airqualitynow.test.db.ForecastDataHelper;
 import com.quadrictech.airqualitynow.test.db.PollutantDataHelper;
 import com.quadrictech.airqualitynow.utils.DateUtil;
 
-public class ForecastUtilTest{
+public class ForecastUtilTest extends TestCase{
 	private ForecastUtil mForecastUtil;
 	private List<Forecast> mForecasts;
 	private List<Pollutant> mPollutants;
@@ -37,7 +39,7 @@ public class ForecastUtilTest{
 	public void testGetList(){
 		List<Forecast> filteredList = mForecastUtil.getFirstTwoForecastRecords(mForecasts, mPollutants);
 		
-		org.junit.Assert.assertEquals(6, filteredList.size());
+		assertEquals(6, filteredList.size());
 	}
 	
 	@MediumTest
@@ -46,18 +48,18 @@ public class ForecastUtilTest{
 		Date aug31 = DateUtil.getDate("8/31/2011", "M/dd/yyyy");
 		Date sep01 = DateUtil.getDate("9/1/2011", "M/dd/yyyy");
 		
-		org.junit.Assert.assertEquals("OZONE", filteredList.get(0).Pollutant.Name);
-		org.junit.Assert.assertEquals(aug31, filteredList.get(0).DateForecast);
-		org.junit.Assert.assertEquals("OZONE", filteredList.get(1).Pollutant.Name);
-		org.junit.Assert.assertEquals(sep01, filteredList.get(1).DateForecast);
-		org.junit.Assert.assertEquals("PM10", filteredList.get(2).Pollutant.Name);
-		org.junit.Assert.assertEquals(aug31, filteredList.get(2).DateForecast);
-		org.junit.Assert.assertEquals("PM10", filteredList.get(3).Pollutant.Name);
-		org.junit.Assert.assertEquals(sep01, filteredList.get(3).DateForecast);
-		org.junit.Assert.assertEquals("PM2.5", filteredList.get(4).Pollutant.Name);
-		org.junit.Assert.assertEquals(aug31, filteredList.get(4).DateForecast);
-		org.junit.Assert.assertEquals("PM2.5", filteredList.get(5).Pollutant.Name);
-		org.junit.Assert.assertEquals(sep01, filteredList.get(5).DateForecast);
+		assertEquals("OZONE", filteredList.get(0).Pollutant.Name);
+		assertEquals(aug31, filteredList.get(0).DateForecast);
+		assertEquals("OZONE", filteredList.get(1).Pollutant.Name);
+		assertEquals(sep01, filteredList.get(1).DateForecast);
+		assertEquals("PM10", filteredList.get(2).Pollutant.Name);
+		assertEquals(aug31, filteredList.get(2).DateForecast);
+		assertEquals("PM10", filteredList.get(3).Pollutant.Name);
+		assertEquals(sep01, filteredList.get(3).DateForecast);
+		assertEquals("PM2.5", filteredList.get(4).Pollutant.Name);
+		assertEquals(aug31, filteredList.get(4).DateForecast);
+		assertEquals("PM2.5", filteredList.get(5).Pollutant.Name);
+		assertEquals(sep01, filteredList.get(5).DateForecast);
 	}
 	
 	@MediumTest
@@ -65,7 +67,7 @@ public class ForecastUtilTest{
 		List<Forecast> filteredList = mForecastUtil.getFirstTwoForecastRecords(mForecasts, mPollutants);
 		
 		for(Forecast forecast: filteredList){
-			org.junit.Assert.assertNotNull(forecast.Pollutant);
+			assertNotNull(forecast.Pollutant);
 		}
 	}
 	
@@ -75,9 +77,9 @@ public class ForecastUtilTest{
 		
 		List<Forecast> filteredList = mForecastUtil.getFirstTwoForecastRecords(mForecasts, mPollutants);
 		
-		org.junit.Assert.assertEquals("OZONE", filteredList.get(0).Pollutant.Name);
-		org.junit.Assert.assertNotNull(filteredList.get(1).Pollutant);
-		org.junit.Assert.assertEquals("OZONE", filteredList.get(1).Pollutant.Name);
+		assertEquals("OZONE", filteredList.get(0).Pollutant.Name);
+		assertNotNull(filteredList.get(1).Pollutant);
+		assertEquals("OZONE", filteredList.get(1).Pollutant.Name);
 	}
 	
 }
