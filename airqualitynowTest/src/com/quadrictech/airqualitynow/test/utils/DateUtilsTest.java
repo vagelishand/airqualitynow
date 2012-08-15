@@ -18,7 +18,7 @@ public class DateUtilsTest extends TestCase{
 		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
 	    Date newDate = sdf.parse(sdf.format(date));
 	    
-	    org.junit.Assert.assertEquals("8/12/2012", sdf.format(newDate));
+	    assertEquals("8/13/2012", sdf.format(newDate));
 	}
 	
 	@MediumTest
@@ -26,7 +26,7 @@ public class DateUtilsTest extends TestCase{
 		Date date = DateUtil.getForecastIssueDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy");
 		
-		org.junit.Assert.assertNotNull(date);
-		org.junit.Assert.assertEquals("", sdf.format(date));
+		assertNotNull(date);
+		assertEquals("08/13/2012", sdf.format(date));
 	}
 }
