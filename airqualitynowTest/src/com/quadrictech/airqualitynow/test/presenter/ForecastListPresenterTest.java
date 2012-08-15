@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 
 
@@ -21,7 +23,7 @@ import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.test.db.ForecastDataHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
-public class ForecastListPresenterTest<T> {
+public class ForecastListPresenterTest<T> extends TestCase{
 	
 	private ReportingAreaListPresenter mPresenter;
 	private IReportingAreaListView<ListView> mView;
@@ -52,7 +54,7 @@ public class ForecastListPresenterTest<T> {
 		AndroidMock.replay(mCallback);
 		
 		mCallback.onResponseReceived(mForecasts);
-		//mPresenter.handleForecasts(mCallback);
+		//mPresenter.handleGetReportingAreas(mCallback);
 		AndroidMock.verify(mCallback);
 	}
 	
