@@ -35,6 +35,6 @@ public class AirNowUrlTest extends AndroidTestCase{
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
 		
-		org.junit.Assert.assertEquals("http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecastbyzipcode?key=secret&zipCode=78586&date=2011-08-16&format=json", mAirNowUrl.url.toString());
+		assertEquals("http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/forecastbyzipcode?key=secret&zipCode=78586&date=2011-08-16&format=json", mAirNowUrl.url.toString());
 	}
 }
