@@ -38,8 +38,8 @@ public class ForecastJsonProviderTest extends TestCase{
 	public void testParseForecastWrapper() throws JsonParseException, JsonMappingException, IOException{
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
-		org.junit.Assert.assertNotNull(wrapper);
-		org.junit.Assert.assertEquals(6, wrapper.getForecast().size());
+		assertNotNull(wrapper);
+		assertEquals(6, wrapper.getForecast().size());
 	}
 	
 	@MediumTest 
@@ -47,15 +47,15 @@ public class ForecastJsonProviderTest extends TestCase{
 		IForecastWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		Forecast forecast = wrapper.getForecast().get(0);
 		
-		org.junit.Assert.assertEquals("Napa", forecast.ReportingArea);
-		org.junit.Assert.assertEquals("CA", forecast.StateCode);
-		org.junit.Assert.assertEquals(38.33, forecast.Latitude);
-		org.junit.Assert.assertEquals(-122.28, forecast.Longitude);
-		org.junit.Assert.assertEquals("PM2.5", forecast.ParameterName);
-		org.junit.Assert.assertEquals(42, forecast.AQI);
-		org.junit.Assert.assertEquals(1, forecast.CategoryNumber);
-		org.junit.Assert.assertEquals("Good", forecast.CategoryName);
-		org.junit.Assert.assertEquals(false, forecast.ActionDay);
+		assertEquals("Napa", forecast.ReportingArea);
+		assertEquals("CA", forecast.StateCode);
+		assertEquals(38.33, forecast.Latitude);
+		assertEquals(-122.28, forecast.Longitude);
+		assertEquals("PM2.5", forecast.ParameterName);
+		assertEquals(42, forecast.AQI);
+		assertEquals(1, forecast.CategoryNumber);
+		assertEquals("Good", forecast.CategoryName);
+		assertEquals(false, forecast.ActionDay);
 	}
 	
 	@MediumTest

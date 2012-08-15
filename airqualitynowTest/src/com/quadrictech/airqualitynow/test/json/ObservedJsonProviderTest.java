@@ -35,8 +35,8 @@ public class ObservedJsonProviderTest extends TestCase{
 	public void testParseObservedWrapper() throws JsonParseException, JsonMappingException, IOException{
 		IObservationWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		
-		org.junit.Assert.assertNotNull(wrapper);
-		org.junit.Assert.assertEquals(2, wrapper.getObserved().size());
+		assertNotNull(wrapper);
+		assertEquals(2, wrapper.getObserved().size());
 	}
 	
 	@MediumTest
@@ -44,15 +44,15 @@ public class ObservedJsonProviderTest extends TestCase{
 		IObservationWrapper wrapper = mJsonProvider.parseJson(new ObjectMapper(), mJson);
 		Observation observed = wrapper.getObserved().get(0);
 		
-		org.junit.Assert.assertEquals("10", observed.HourObserved);
-		org.junit.Assert.assertEquals("Napa", observed.ReportingArea);
-		org.junit.Assert.assertEquals("CA", observed.StateCode);
-		org.junit.Assert.assertEquals(38.33, observed.Latitude);
-		org.junit.Assert.assertEquals(-122.28, observed.Longitude);
-		org.junit.Assert.assertEquals("OZONE", observed.ParameterName);
-		org.junit.Assert.assertEquals(18, observed.AQI);
-		org.junit.Assert.assertEquals(1, observed.CategoryNumber);
-		org.junit.Assert.assertEquals("Good", observed.CategoryName);
+		assertEquals(10, observed.HourObserved);
+		assertEquals("Napa", observed.ReportingArea);
+		assertEquals("CA", observed.StateCode);
+		assertEquals(38.33, observed.Latitude);
+		assertEquals(-122.28, observed.Longitude);
+		assertEquals("OZONE", observed.ParameterName);
+		assertEquals(18, observed.AQI);
+		assertEquals(1, observed.CategoryNumber);
+		assertEquals("Good", observed.CategoryName);
 	}
 	
 	@MediumTest
