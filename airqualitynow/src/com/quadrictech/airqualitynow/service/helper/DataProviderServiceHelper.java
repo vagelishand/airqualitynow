@@ -194,5 +194,5 @@ public class DataProviderServiceHelper implements IDataProviderServiceHelper, Se
 
 	public List<Pollutant> getAllPollutants() {
 		return mDataServiceProvider.getPollutants().getList();
-	}	
+	}
 }
