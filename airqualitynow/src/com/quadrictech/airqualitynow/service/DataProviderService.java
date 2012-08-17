@@ -13,10 +13,6 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import com.j256.ormlite.dao.Dao;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
-import com.quadrictech.airqualitynow.db.IForecastRepository;
-import com.quadrictech.airqualitynow.db.IObservationRepository;
-import com.quadrictech.airqualitynow.db.IPollutantRepository;
-import com.quadrictech.airqualitynow.db.IReportingAreaRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservationAndForecastRequestCallback;
@@ -42,10 +38,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
     }
 	
 	private final IBinder mBinder = new LocalBinder();
-	private IForecastRepository mForecastRepository;
-	private IReportingAreaRepository mReportingAreaRepository;
-	private IObservationRepository mObservationRepository;
-	private IPollutantRepository mPollutantRepository;
+	private AppRepository mAppRepository;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -54,30 +47,15 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+		mAppRepository = new AppRepository(getHelper().getConnectionSource());
 		
 		return START_NOT_STICKY;
 	}
 	
-	public void initialize(IForecastRepository fr) {
-		mForecastRepository = fr;
-	}
-	
-	public void initialize( IReportingAreaRepository rar){
-		mReportingAreaRepository = rar;
-	}
-
-	public void initialize(IObservationRepository or) {
-		mObservationRepository = or;		
-	}
-
 	public IDataRequestCallback<ReportingArea> getAllReportingAreas(){
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		try {
-			if(mReportingAreaRepository == null){
-				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
-			}
-						
-			List<ReportingArea> reportingAreas = mReportingAreaRepository.getAll();
+			List<ReportingArea> reportingAreas = mAppRepository.ReportingAreaRepository().getAll();
 			
 			callback.onResponseReceived(reportingAreas);
 			
@@ -92,11 +70,8 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
-			if(mForecastRepository == null){
-				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
-			}
+			List<Forecast> forecasts = mAppRepository.ForecastRepository().getAll();
 			
-			List<Forecast> forecasts = mForecastRepository.getAll();
 			callback.onResponseReceived(forecasts);
 			
 		} catch (SQLException e) {
@@ -110,13 +85,9 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		
 		try {
-			if(mReportingAreaRepository == null){
-				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
-			}
-			
 			reportingArea.DateStamp = new Date();
 			
-			mReportingAreaRepository.insert(reportingArea);
+			mAppRepository.ReportingAreaRepository().insert(reportingArea);
 			List<ReportingArea> areas = new ArrayList<ReportingArea>(1);
 			areas.add(reportingArea);
 			callback.onResponseReceived(areas);
@@ -131,11 +102,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<ReportingArea> callback = new ReportingAreaRequestCallback();
 		
 		try {
-			if(mReportingAreaRepository == null){
-				mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
-			}
-			
-			List<ReportingArea> areas = mReportingAreaRepository.getByFieldEquals("ZipCode", zipCode);
+			List<ReportingArea> areas = mAppRepository.ReportingAreaRepository().getByFieldEquals("ZipCode", zipCode);
 			
 			callback.onResponseReceived(areas);
 		} catch (SQLException e) {
@@ -149,15 +116,18 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<Observation> callback = new ObservationRequestCallback();
 		
 		try{
-			if(mObservationRepository == null){
-				mObservationRepository = new AppRepository(getHelper().getConnectionSource()).ObservationRepository();
-			}
+			
+			ReportingArea area = mAppRepository.ReportingAreaRepository().getById(reportingArea.Id);
+			area.ObservedAQI = observations.get(0).AQI;
+			updateReportingArea(area);
 			
 			for(Observation o: observations){
 				o.ReportingAreaObject = reportingArea;
 				o.Pollutant = getPollutantByName(o.ParameterName);
-				mObservationRepository.insert(o);
+				mAppRepository.ObservationRepository().insert(o);
 			}
+			
+			callback.onResponseReceived(observations);
 		}
 		catch(SQLException e){
 			callback.onError(e);
@@ -170,14 +140,11 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
-			if(mForecastRepository == null){
-				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
-			}
 			
 			for(Forecast f: forecasts){
 				f.ReportingAreaObject = reportingArea;
 				f.Pollutant = getPollutantByName(f.ParameterName);
-				mForecastRepository.insert(f);
+				mAppRepository.ForecastRepository().insert(f);
 			}
 			
 		} catch (SQLException e) {
@@ -205,12 +172,9 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<Forecast> callback = new ForecastRequestCallback();
 		
 		try {
-			if(mForecastRepository == null){
-				mForecastRepository = new AppRepository(getHelper().getConnectionSource()).ForecastRepository();
-			}
 			
-			List<Forecast> forecasts = mForecastRepository.getQueryResults(
-				mForecastRepository.getQueryBuilder().where().
+			List<Forecast> forecasts = mAppRepository.ForecastRepository().getQueryResults(
+				mAppRepository.ForecastRepository().getQueryBuilder().where().
 			    eq("ReportingAreaObject_id", id).
 			    and().
 			    ge("DateForecast", issueDate).prepare());
@@ -228,12 +192,9 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		IDataRequestCallback<Observation> callback = new ObservationRequestCallback();
 		
 		try {
-			if(mObservationRepository == null){
-				mObservationRepository = new AppRepository(getHelper().getConnectionSource()).ObservationRepository();
-			}
 			
-			List<Observation> observed = mObservationRepository.getQueryResults(
-				mObservationRepository.getQueryBuilder().where().
+			List<Observation> observed = mAppRepository.ObservationRepository().getQueryResults(
+				mAppRepository.ObservationRepository().getQueryBuilder().where().
 				eq("ReportingAreaObject_id", id).
 				and().
 				eq("DateObserved", date).prepare());
@@ -241,8 +202,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			callback.onResponseReceived(observed);
 		} catch (SQLException e) {
 			callback.onError(e);
-		} 
-		
+		}
 		return callback;
 	}
 
@@ -280,13 +240,10 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	}
 
 	public Pollutant getPollutantByName(String name) throws SQLException {
-		if(mPollutantRepository == null){
-			mPollutantRepository = new AppRepository(getHelper().getConnectionSource()).PollutantRepository();
-		}
 		
 		Pollutant pollutant = null;
 		
-		List<Pollutant> pollutants = mPollutantRepository.getByFieldEquals("Name", name);
+		List<Pollutant> pollutants = mAppRepository.PollutantRepository().getByFieldEquals("Name", name);
 		if(pollutants.size() > 0){
 			pollutant = pollutants.get(0);
 		}
@@ -295,11 +252,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	}
 
 	public void updateReportingArea(ReportingArea reportingArea) throws SQLException {
-		if(mReportingAreaRepository == null){
-			mReportingAreaRepository = new AppRepository(getHelper().getConnectionSource()).ReportingAreaRepository();
-		}		
-		
-		mReportingAreaRepository.update(reportingArea);
+		mAppRepository.ReportingAreaRepository().update(reportingArea);
 	}
 
 	public IDataRequestCallback<Pollutant> getPollutants() {
@@ -307,10 +260,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		
 		
 		try {
-			if(mPollutantRepository == null){		
-				mPollutantRepository = new AppRepository(getHelper().getConnectionSource()).PollutantRepository();
-			}
-			List<Pollutant> pollutants = mPollutantRepository.getAll();
+			List<Pollutant> pollutants = mAppRepository.PollutantRepository().getAll();
 			callback.onResponseReceived(pollutants);
 		} catch (SQLException e) {
 			callback.onError(new Throwable("Error retrieving pollutants"));
