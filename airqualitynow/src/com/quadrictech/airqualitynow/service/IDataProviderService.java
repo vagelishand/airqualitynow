@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import com.quadrictech.airqualitynow.db.IAppRepository;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.Observation;
@@ -24,4 +25,5 @@ public interface IDataProviderService {
 	public Pollutant getPollutantByName(String name)throws SQLException;
 	public void updateReportingArea(ReportingArea reportingArea) throws SQLException;
 	public IDataRequestCallback<Pollutant> getPollutants();
+	public void initialize(IAppRepository appRepository);
 }

@@ -13,6 +13,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseService;
 import com.j256.ormlite.dao.Dao;
 import com.quadrictech.airqualitynow.db.AppRepository;
 import com.quadrictech.airqualitynow.db.DatabaseHelper;
+import com.quadrictech.airqualitynow.db.IAppRepository;
 import com.quadrictech.airqualitynow.db.callback.ForecastRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.db.callback.ObservationAndForecastRequestCallback;
@@ -38,7 +39,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
     }
 	
 	private final IBinder mBinder = new LocalBinder();
-	private AppRepository mAppRepository;
+	private IAppRepository mAppRepository;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -47,7 +48,10 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 	
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-		mAppRepository = new AppRepository(getHelper().getConnectionSource());
+		
+		if(!intent.getBooleanExtra("UnitTest", false)){
+			mAppRepository = new AppRepository(getHelper().getConnectionSource());
+		}
 		
 		return START_NOT_STICKY;
 	}
@@ -268,5 +272,10 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 		
 
 		return callback;
-	}	
+	}
+
+	public void initialize(IAppRepository appRepository) {
+		this.mAppRepository = appRepository;
+	}
+
 }
