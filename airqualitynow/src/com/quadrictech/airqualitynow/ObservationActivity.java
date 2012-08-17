@@ -23,7 +23,8 @@ public class ObservationActivity extends RoboActivity {
         DataProviderServiceHelper.getInstance().setWindowContext(this);
         
         mObservedView.initialize(mObservedPresenter, getIntent().getStringExtra("areaName"));
-        mObservedPresenter.initialize(new PresenterInitializeParameter(mObservedView, getIntent().getIntExtra("areaId", 0)));
+        mObservedPresenter.initialize(new PresenterInitializeParameter(mObservedView, getIntent().getIntExtra("areaId", 0),
+        		                                                       getIntent().getStringExtra("areaZipCode")));
     }
     
     @Override
