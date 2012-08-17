@@ -12,6 +12,7 @@ public class PresenterInitializeParameter {
 	public IForecastView<View> forecastView;
 	public IObservationView<ListView> observedView;
 	public int reportingAreaId;
+	public String zipCode;
 	
 	public PresenterInitializeParameter(IReportingAreaListView<ListView> view) {
 		this.listView = view;
@@ -22,8 +23,9 @@ public class PresenterInitializeParameter {
 		this.reportingAreaId = reportingAreaId;
 	}
 	
-	public PresenterInitializeParameter(IObservationView<ListView> observedView, int reportingAreaId){
+	public PresenterInitializeParameter(IObservationView<ListView> observedView, int reportingAreaId, String zipCode){
 		this.observedView = observedView;
 		this.reportingAreaId = reportingAreaId;
+		this.zipCode = zipCode;
 	}
 }

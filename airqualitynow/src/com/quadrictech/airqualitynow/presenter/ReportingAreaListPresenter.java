@@ -16,26 +16,22 @@ import com.quadrictech.airqualitynow.PollutantGuideActivity;
 import com.quadrictech.airqualitynow.R;
 import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
-import com.quadrictech.airqualitynow.inet.callback.RemoteCallbackData;
-import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.model.ReportingArea;
-import com.quadrictech.airqualitynow.model.util.ForecastUtil;
-import com.quadrictech.airqualitynow.model.util.IForecastUtil;
+import com.quadrictech.airqualitynow.presenter.handlers.ReportingAreaGetAll;
+import com.quadrictech.airqualitynow.presenter.handlers.ReportingAreaGetByZipCode;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
-import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
-import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
 public class ReportingAreaListPresenter implements IReportingAreaListPresenter<IReportingAreaListView<ListView>>{
 	
 	private IReportingAreaListView<ListView> mForecastListView;
-	private Context mContext;
-	private ReportingAreaArrayAdapter mAdapter;
+	public Context mContext;
+	public ReportingAreaArrayAdapter mAdapter;
 	private List<ReportingArea> mReportingAreas;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
-	private String mZipCode;
+	public String mZipCode;
 	public ReportingAreaListActivity mListActivity;
 	/***
 	 * REquired for roboguice parameter injection
@@ -59,7 +55,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	}
 
 	public void initializeList(){
-		mDataProviderServiceHelper.getAllReportingAreas(new HandleGetReportingAreas());
+		mDataProviderServiceHelper.getAllReportingAreas(new ReportingAreaGetAll(this));
 	}
 
 	public void handleGetReportingAreas(IDataRequestCallback<ReportingArea> callback){
@@ -75,86 +71,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		}
 	}	
 
-	class HandleGetReportingAreas implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
-		IDataRequestCallback<ReportingArea> callback;
-		
-		public void run() {
-			handleGetReportingAreas(callback);			
-		}
-
-		@SuppressWarnings("unchecked")
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<ReportingArea>) callback;
-		}
-	}
-	
 	public void handleGetReportingAreaByZipCode(IDataRequestCallback<ReportingArea> callback){
 		Toast.makeText(mContext, "function", Toast.LENGTH_SHORT).show();
-	}
-	
-	class HandleGetReportingAreaByZipCode implements IGuiRunnable<IDataRequestCallback<ReportingArea>>{
-		IDataRequestCallback<ReportingArea> callback;
-		
-		public void run() {
-			if(callback.getErrorStatus()){
-				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-			}
-			//if not found locally search remotely
-			else if(!callback.getErrorStatus() && callback.getList().size() == 0){
-				RemoteDataProviderServiceHelper.getInstance().getReportingAreaByZipCode(mZipCode, new HandleRemote());
-			}
-			else{
-				handleGetReportingAreaByZipCode(callback);
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<ReportingArea>) callback;
-		}
-	}
-	
-	class HandleRemote implements IGuiRunnable<IDataRequestCallback<RemoteCallbackData>>{
-		private IDataRequestCallback<RemoteCallbackData> callback;
-		
-		public void run() {
-			if(callback.getErrorStatus()){
-				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-			}
-			else{
-				List<RemoteCallbackData> list = callback.getList();
-				RemoteCallbackData data = list.get(0);
-				ReportingArea area = data.reportingArea;
-				mAdapter.add(area);
-				
-				DataProviderServiceHelper.getInstance().insertObservations(area, data.observations, new HandleDmoInsertion());
-				IForecastUtil util = new ForecastUtil();
-				List<Forecast> forecasts = util.getFirstTwoForecastRecords(data.forecasts, 
-						DataProviderServiceHelper.getInstance().getAllPollutants());
-				
-				DataProviderServiceHelper.getInstance().insertForecasts(area, forecasts, new HandleDmoInsertion());
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = (IDataRequestCallback<RemoteCallbackData>) callback;			
-		}
-		
-	}
-	
-	class HandleDmoInsertion implements IGuiRunnable<IDataRequestCallback<?>>{
-		private IDataRequestCallback<?> callback;
-		
-		public void run() {
-			if(callback.getErrorStatus()){
-				Toast.makeText(mContext, callback.getErrorMessage(), Toast.LENGTH_SHORT).show();
-			}
-		}
-
-		public void setCallback(IDataRequestCallback<?> callback) {
-			this.callback = callback;
-		}
 	}
 	
 	public void onDestroy() {
@@ -194,7 +112,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			input.setInputType(2);
 			input.requestFocus();
 			alert.setView(input);
-	
+			final ReportingAreaListPresenter presenter = this;
 			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				  mZipCode = input.getText().toString();
@@ -206,7 +124,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 						return;
 					}
 				}
-			  mDataProviderServiceHelper.getReportingAreaByZipCode(mZipCode, new HandleGetReportingAreaByZipCode());
+			  mDataProviderServiceHelper.getReportingAreaByZipCode(mZipCode, new ReportingAreaGetByZipCode(presenter));
 			  }
 			});
 	
@@ -230,7 +148,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		Intent intent = new Intent(mListActivity, ObservationActivity.class);
 		intent.putExtra("areaId", area.Id);
 		intent.putExtra("areaName", area.Name);
+		intent.putExtra("areaZipCode", area.ZipCode);
 		mListActivity.startActivity(intent);
-		
 	}
 }
