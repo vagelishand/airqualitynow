@@ -1,7 +1,6 @@
 package com.quadrictech.airqualitynow.db;
 
 import java.sql.SQLException;
-
 import com.j256.ormlite.support.ConnectionSource;
 
 public class AppRepository implements IAppRepository {
@@ -10,7 +9,12 @@ public class AppRepository implements IAppRepository {
 	IReportingAreaRepository mReportingAreaRepository;
 	IObservationRepository mObservationRepository;
 	IPollutantRepository mPollutantRepository;
+	
+	public AppRepository()
+	{
 		
+	}
+	
 	public AppRepository(ConnectionSource connectionSource){
 		mConnectionSource = connectionSource;
 	}
@@ -44,5 +48,21 @@ public class AppRepository implements IAppRepository {
 		}
 		
 		return mPollutantRepository;
+	}
+
+	public void initialize(IReportingAreaRepository reportingAreaRepository) {
+		mReportingAreaRepository = reportingAreaRepository;
+	}
+
+	public void initialize(IForecastRepository forecastRepository) {
+		mForecastRepository = forecastRepository;
+	}
+
+	public void initialize(IObservationRepository observationRepository) {
+		mObservationRepository = observationRepository;
+	}
+
+	public void initialize(IPollutantRepository pollutantRepository) {
+		this.mPollutantRepository = pollutantRepository;
 	}
 }
