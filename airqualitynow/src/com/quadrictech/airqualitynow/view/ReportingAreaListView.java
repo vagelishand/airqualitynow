@@ -9,6 +9,8 @@ import com.quadrictech.airqualitynow.ReportingAreaListActivity;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
+import com.quadrictech.airqualitynow.settings.AppPreferences;
+import com.quadrictech.airqualitynow.settings.IPreferences;
 
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -99,9 +101,17 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 	    		return returnValue = true;
 	    	}
 	    	case 3:{
+	    		IPreferences pref = new AppPreferences(this.getActivity().getBaseContext());
+	    		pref.setDefaultReportingAreaId(area.Id);
+	    		pref.setDefaultReportingArea(area.Name);
+	    		pref.setDefaultReportingAreaZipCode(area.ZipCode);
+	    		return returnValue = true;	    		
+	    	}
+	    	case 4:{
 	    		Toast.makeText(mView.getContext(), "three", Toast.LENGTH_SHORT).show();
 	    		return returnValue = true;
 	    	}
+
 		}
 	
 		return returnValue;

@@ -19,9 +19,13 @@ import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.model.ReportingArea;
 import com.quadrictech.airqualitynow.presenter.handlers.ReportingAreaGetAll;
 import com.quadrictech.airqualitynow.presenter.handlers.ReportingAreaGetByZipCode;
+import com.quadrictech.airqualitynow.presenter.handlers.ReportingAreaRemoteDownload;
 import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.settings.AppPreferences;
+import com.quadrictech.airqualitynow.settings.IPreferences;
 import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
 public class ReportingAreaListPresenter implements IReportingAreaListPresenter<IReportingAreaListView<ListView>>{
@@ -68,6 +72,18 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			mAdapter = new ReportingAreaArrayAdapter(mContext, R.layout.reportingarealistrow, mReportingAreas);
 			
 			mForecastListView.setAdapter(mAdapter);
+			
+			if(callback.getList().size() == 0)
+			{
+				IPreferences pref = new AppPreferences(mContext);
+				
+				if(pref.getDefaultReportingAreaZipCode() != null){
+					RemoteDataProviderServiceHelper.getInstance().
+													getReportingAreaByZipCode(
+															pref.getDefaultReportingAreaZipCode(), 
+															new ReportingAreaRemoteDownload(this));
+				}
+			}
 		}
 	}	
 

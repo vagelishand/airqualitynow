@@ -40,6 +40,7 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.Time;
 import android.util.Log;
+import android.widget.Toast;
 
 public class RemoteDataProviderService extends Service implements IRemoteDataProviderService{
 	AirNowUrl mAirNowUrl;

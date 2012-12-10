@@ -1,11 +1,14 @@
 package com.quadrictech.airqualitynow;
 
+import com.quadrictech.airqualitynow.location.ReverseGeoHelper;
 import com.quadrictech.airqualitynow.service.DataProviderService;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.IRemoteDataProviderServiceHelper;
 import com.quadrictech.airqualitynow.service.helper.RemoteDataProviderServiceHelper;
+import com.quadrictech.airqualitynow.settings.AppPreferences;
+import com.quadrictech.airqualitynow.settings.IPreferences;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
@@ -31,6 +34,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        checkForDefaultReportingArea();
         
         Intent intent = new Intent(this, DataProviderService.class);
         startService(intent);
@@ -60,17 +64,19 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     	mDataProviderServiceHelper.doBindService(this);
     	mRemoteDataProviderServiceHelper.doBindService(this);
     	
-	    /*AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+	    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 	    Intent i = new Intent(this, RemoteDataProviderService.class);
 	    i.putExtra("FromAlarmManager", true);
 	    PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
 	    am.cancel(pi);
     	    
 	    am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-	        SystemClock.elapsedRealtime() + 30*1000,
-	        30*1000, pi);
+	    	    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+	    	    AlarmManager.INTERVAL_DAY, pi);
 	    
-	    Toast.makeText(this, "scheduled service", Toast.LENGTH_SHORT).show();*/
+	    /*am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+	        SystemClock.elapsedRealtime() + 30*1000,
+	        30*1000, pi);*/
     }
     
     @Override
@@ -98,4 +104,14 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 		    am.cancel(pi);
 		}
 	}
+	
+	public void checkForDefaultReportingArea(){
+		IPreferences pref = new AppPreferences(this);
+		
+		if(pref.getDefaultReportingAreaZipCode() == null){
+			Toast.makeText(this, "getAddresses", Toast.LENGTH_SHORT).show();
+			ReverseGeoHelper.getInstance().getAddresses(getBaseContext());
+		}
+	}
+	
 }
