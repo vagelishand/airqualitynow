@@ -48,7 +48,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
         
         mButton.setOnClickListener(this);
         mFButton.setOnClickListener(this);
-        mPButton.setOnClickListener(this);
+        mPButton.setVisibility(4);
     }
     
     @Override
@@ -73,10 +73,6 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 	    am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 	    	    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
 	    	    AlarmManager.INTERVAL_DAY, pi);
-	    
-	    /*am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-	        SystemClock.elapsedRealtime() + 30*1000,
-	        30*1000, pi);*/
     }
     
     @Override
@@ -94,14 +90,6 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 		else if(view.getId() == R.id.mainTableForecastListButton){
 			Intent intent = new Intent(AirQualityNow.this, ReportingAreaListActivity.class);
 			startActivity(intent);
-		}
-		else{
-			AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-		    Intent i = new Intent(this, RemoteDataProviderService.class);
-		    
-		    i.putExtra("FromAlarmManager", true);
-		    PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
-		    am.cancel(pi);
 		}
 	}
 	
