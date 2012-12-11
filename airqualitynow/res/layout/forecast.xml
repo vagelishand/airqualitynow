@@ -6,6 +6,18 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:background="@drawable/sky">
+  <LinearLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+	android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+	>
+	  <com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="a14e17e0238f688"
+                         ads:adSize="BANNER"
+                         ads:loadAdOnCreate="false"/>
+	 </LinearLayout>
   <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/forecastTable"
 		   android:orientation="vertical"

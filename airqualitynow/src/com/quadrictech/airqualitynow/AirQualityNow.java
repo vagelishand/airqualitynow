@@ -20,16 +20,19 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import com.google.ads.*;
 
 public class AirQualityNow extends RoboActivity implements OnClickListener{
     /** Called when the activity is first created. */
 	@InjectView(R.id.mainTableObservedForecastButton) Button mButton;
 	@InjectView(R.id.mainTableForecastListButton)		Button mFButton;
 	@InjectView(R.id.mainTableMapPointsButton)			Button mPButton;
+	@InjectView(R.id.adView) private AdView adView;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
 	private IRemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
-	
+		
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,14 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
         mButton.setOnClickListener(this);
         mFButton.setOnClickListener(this);
         mPButton.setVisibility(4);
+        
+     // Create the adView
+        //adView = new AdView(this, AdSize.BANNER, "faedc52824ef4c2e");
+        
+        AdRequest adRequest = new AdRequest();
+        adRequest.addTestDevice("17BAA6C5D06F6ABDD2DDED17A764AE35");
+        // Initiate a generic request to load it with an ad
+        adView.loadAd(new AdRequest());
     }
     
     @Override
@@ -84,6 +95,13 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 
 	public void onClick(View view) {
 		if(view.getId() == R.id.mainTableObservedForecastButton){
+			IPreferences pref = new AppPreferences(this);
+			
+			if(pref.getDefaultReportingAreaId() == 0){
+				Toast.makeText(this, "Default reporting area not set.", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
 			Intent intent = new Intent(AirQualityNow.this, ObservationActivity.class);
 			startActivity(intent);
 		}
@@ -97,7 +115,6 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 		IPreferences pref = new AppPreferences(this);
 		
 		if(pref.getDefaultReportingAreaZipCode() == null){
-			Toast.makeText(this, "getAddresses", Toast.LENGTH_SHORT).show();
 			ReverseGeoHelper.getInstance().getAddresses(getBaseContext());
 		}
 	}

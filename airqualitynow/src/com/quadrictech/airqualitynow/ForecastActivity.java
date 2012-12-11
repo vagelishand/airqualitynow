@@ -1,5 +1,7 @@
 package com.quadrictech.airqualitynow;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 import com.google.inject.Inject;
 
 import com.quadrictech.airqualitynow.R;
@@ -9,13 +11,14 @@ import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
 import com.quadrictech.airqualitynow.view.IForecastView;
 
 import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.View;
 
 public class ForecastActivity extends RoboActivity {
 	@Inject private IForecastView<View> mForecastView;
 	@Inject private IForecastPresenter<View> mForecastPresenter;
-	
+	@InjectView(R.id.adView) private AdView adView;
 	
     /** Called when the activity is first created. */
     @Override
@@ -25,6 +28,11 @@ public class ForecastActivity extends RoboActivity {
                 
         DataProviderServiceHelper.getInstance().setWindowContext(this);
         mForecastView.initialize(mForecastPresenter, getIntent().getStringExtra("areaName"));
+        
+        AdRequest adRequest = new AdRequest();
+        adRequest.addTestDevice("17BAA6C5D06F6ABDD2DDED17A764AE35");
+        // Initiate a generic request to load it with an ad
+        adView.loadAd(new AdRequest());
         
     	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, 
     			                                                       getIntent().getIntExtra("areaId", 0)));

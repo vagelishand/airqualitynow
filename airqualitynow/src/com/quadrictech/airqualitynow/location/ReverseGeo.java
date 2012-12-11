@@ -13,7 +13,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.os.Message;
 
 public class ReverseGeo implements IReverseGeo {
 	Context mContext;
@@ -28,20 +27,17 @@ public class ReverseGeo implements IReverseGeo {
 		
 		IDataRequestCallback<RemoteCallbackData> callback = new GeoRequestCallback();
 		List<RemoteCallbackData> response;
-
+		RemoteCallbackData callbackData = new RemoteCallbackData();
 		Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
 
         List<Address> addresses = null;
         try {
-            // Call the synchronous getFromLocation() method by passing in the lat/long values.
             addresses = geocoder.getFromLocation(mLocation.getLatitude(), mLocation.getLongitude(), 1);
         } catch (IOException e) {
-            e.printStackTrace();
-            // Update UI field with the exception.
-            //Message.obtain(mHandler, UPDATE_ADDRESS, e.toString()).sendToTarget();
+        	callback.onError(e);
+        	return callback;
         }
-		
-        RemoteCallbackData callbackData = new RemoteCallbackData();
+        
         response = new ArrayList<RemoteCallbackData>();
         callbackData.addresses = addresses;
         

@@ -40,7 +40,6 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.Time;
 import android.util.Log;
-import android.widget.Toast;
 
 public class RemoteDataProviderService extends Service implements IRemoteDataProviderService{
 	AirNowUrl mAirNowUrl;
@@ -176,11 +175,15 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		
 		ReportingArea area = new ReportingArea();
 		Observation observation = observations.get(0);
-		Forecast forecast = mForecasts.get(0);
+		
+		if(mForecasts.size() > 0){
+			Forecast forecast = mForecasts.get(0);
+			area.ForecastAQI = forecast.AQI;
+		}
 		
 		area.Name = observation.ReportingArea;
 		area.ObservedAQI = observation.AQI;
-		area.ForecastAQI = forecast.AQI;
+		
 		area.State = observation.StateCode;
 		area.ZipCode = zipCode;
 		area.Latitude = (int) (observation.Latitude * 1E6);

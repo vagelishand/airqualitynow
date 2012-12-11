@@ -5,11 +5,14 @@ import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.presenter.handlers.ObservationGetById;
 import com.quadrictech.airqualitynow.presenter.util.ObservedArrayAdapter;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
+import com.quadrictech.airqualitynow.settings.AppPreferences;
+import com.quadrictech.airqualitynow.settings.IPreferences;
 import com.quadrictech.airqualitynow.utils.DateUtil;
 import com.quadrictech.airqualitynow.view.IObservationView;
 
 import android.content.Context;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ObservationPresenter implements IObservationPresenter<IObservationView<ListView>> {
 	public  Context mContext;

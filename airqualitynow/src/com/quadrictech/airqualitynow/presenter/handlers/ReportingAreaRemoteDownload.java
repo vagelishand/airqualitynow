@@ -13,6 +13,8 @@ import com.quadrictech.airqualitynow.model.util.IForecastUtil;
 import com.quadrictech.airqualitynow.presenter.ReportingAreaListPresenter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.helper.DataProviderServiceHelper;
+import com.quadrictech.airqualitynow.settings.AppPreferences;
+import com.quadrictech.airqualitynow.settings.IPreferences;
 
 public class ReportingAreaRemoteDownload implements IGuiRunnable<IDataRequestCallback<RemoteCallbackData>>{
 	private IDataRequestCallback<RemoteCallbackData> callback;
@@ -31,6 +33,13 @@ public class ReportingAreaRemoteDownload implements IGuiRunnable<IDataRequestCal
 			List<RemoteCallbackData> list = callback.getList();
 			RemoteCallbackData data = list.get(0);
 			ReportingArea area = data.reportingArea;
+			
+			if(_presenter.mAdapter.isEmpty()){
+				IPreferences pref = new AppPreferences(_presenter.mContext);
+				pref.setDefaultReportingAreaId(area.Id);
+				pref.setDefaultReportingArea(area.Name);
+			}
+			
 			_presenter.mAdapter.add(area);
 			
 			DataProviderServiceHelper.getInstance().insertObservations(area, data.observations, new ReportingAreaDmoInsertion(_presenter));
