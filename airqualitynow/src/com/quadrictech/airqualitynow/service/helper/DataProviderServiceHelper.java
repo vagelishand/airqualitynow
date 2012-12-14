@@ -12,6 +12,7 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.quadrictech.airqualitynow.base.IDisposable;
 import com.quadrictech.airqualitynow.command.CommandGetAllReportingAreas;

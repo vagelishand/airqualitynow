@@ -28,7 +28,7 @@ public class ReportingAreaListActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reportingarealist);
         
-        DataProviderServiceHelper.getInstance().setWindowContext(this);
+        DataProviderServiceHelper.getInstance().setWindowContext(this.getApplicationContext());
         
         mReportingAreaListView.initialize();
     	mReportingAreaListView.mPresenter = mReportingAreaListPresenter;

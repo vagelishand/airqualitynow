@@ -7,4 +7,6 @@ public interface IPreferences {
 	void setDefaultReportingAreaId(int id);
 	String getDefaultReportingAreaZipCode();
 	void setDefaultReportingAreaZipCode(String zipCode);
+	boolean getEulaAccepted();
+	void setEulaAccepted();
 }

@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="libs/ormlite-android-4.24.jar"/>
 	<classpathentry kind="lib" path="libs/ormlite-core-4.24.jar"/>
 	<classpathentry kind="lib" path="libs/roboguice-1.2-20111006.142313-28.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/GoogleAdMobAdsSdk-6.2.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

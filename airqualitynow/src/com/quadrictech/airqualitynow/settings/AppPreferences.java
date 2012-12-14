@@ -38,4 +38,12 @@ public class AppPreferences extends Preferences implements IPreferences {
 		mEditor.putString("reportingAreaZip", zipCode);
 		mEditor.commit();
 	}
+
+	public boolean getEulaAccepted() {
+		return mPreferences.getBoolean("eula", false);
+	}
+
+	public void setEulaAccepted() {
+		mEditor.putBoolean("eula", true);
+	}
 }

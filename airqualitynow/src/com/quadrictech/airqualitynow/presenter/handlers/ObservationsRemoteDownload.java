@@ -28,7 +28,7 @@ public class ObservationsRemoteDownload implements IGuiRunnable<IDataRequestCall
 				ReportingArea area = new ReportingArea();
 				area.Id = _presenter.mCurrentReportingAreaId;
 				
-				DataProviderServiceHelper.getInstance().insertObservations(area, callback.getList(), new ObservationDmoInsertion(_presenter));
+				DataProviderServiceHelper.getInstance().insertObservations(area, callback.getList(), new ObservationUpdateDisplay(_presenter));
 			}
 		}
 		

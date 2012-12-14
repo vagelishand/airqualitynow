@@ -37,6 +37,9 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        Eula.showEulaRequireAcceptance(this);
+        
         checkForDefaultReportingArea();
         
         Intent intent = new Intent(this, DataProviderService.class);

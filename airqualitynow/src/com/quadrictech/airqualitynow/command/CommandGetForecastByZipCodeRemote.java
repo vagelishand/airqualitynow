@@ -1,6 +1,10 @@
 package com.quadrictech.airqualitynow.command;
 
+import java.io.IOException;
+import java.util.List;
+
 import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
+import com.quadrictech.airqualitynow.inet.callback.ForecastRemoteRequestCallback;
 import com.quadrictech.airqualitynow.model.Forecast;
 import com.quadrictech.airqualitynow.service.IRemoteDataProviderService;
 
@@ -13,7 +17,18 @@ public class CommandGetForecastByZipCodeRemote extends RemoteDaoCommand<IDataReq
 	}
 	
 	public IDataRequestCallback<Forecast> execute() {
-		return null;
+		List<Forecast> forecasts = null;
+		IDataRequestCallback<Forecast> callback = new ForecastRemoteRequestCallback();
+		
+		try{
+			forecasts = mRemoteDataProviderService.getForecastsByZipCode(mZipCode);
+			callback.onResponseReceived(forecasts);
+		}
+		catch(IOException e){
+			callback.onError(e);
+		}
+		
+		return callback;
 	}
 
 }

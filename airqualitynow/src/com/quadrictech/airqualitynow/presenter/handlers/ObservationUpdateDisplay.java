@@ -11,11 +11,11 @@ import com.quadrictech.airqualitynow.presenter.ObservationPresenter;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.presenter.util.ObservedArrayAdapter;
 
-public class ObservationDmoInsertion implements IGuiRunnable<IDataRequestCallback<Observation>>{
+public class ObservationUpdateDisplay implements IGuiRunnable<IDataRequestCallback<Observation>>{
 	private IDataRequestCallback<Observation> callback;
 	private ObservationPresenter _presenter;
 	
-	public ObservationDmoInsertion(ObservationPresenter presenter)
+	public ObservationUpdateDisplay(ObservationPresenter presenter)
 	{
 		_presenter = presenter;
 	}
@@ -33,8 +33,7 @@ public class ObservationDmoInsertion implements IGuiRunnable<IDataRequestCallbac
 			try {
 				_presenter.onSetObservationTableValues(callback.getList().get(0));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Toast.makeText(_presenter.mContext, "Unable to update display", Toast.LENGTH_SHORT).show();
 			}
 			
 		}

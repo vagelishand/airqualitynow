@@ -8,6 +8,7 @@ import com.quadrictech.airqualitynow.db.callback.IDataRequestCallback;
 import com.quadrictech.airqualitynow.presenter.util.IGuiRunnable;
 import com.quadrictech.airqualitynow.service.RemoteDataProviderService;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServiceHelper, ServiceConnection{
 	private RemoteDataProviderService mRemoteDataProviderService;
@@ -79,7 +81,19 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 	class RemoteAsyncTask extends AsyncTask<IDaoCommand<?>, Integer, IDataRequestCallback<?>>{
 		IDataRequestCallback<?> callback;
 		IGuiRunnable<?> mRunnable;
+		ProgressDialog dialog;
 		
+		protected void onPreExecute(){
+			dialog = new ProgressDialog(mContext);
+			dialog.setTitle("Downloading...");
+			dialog.setMessage("Please be patient...");
+			
+			try{
+				dialog.show();
+			}catch (Exception e){
+				Log.d("REMOTEDATASERVICEPROVIDERHELPER", "Error showing dialog");
+			}
+		}
 		public RemoteAsyncTask(){}
 		
 		public RemoteAsyncTask(IGuiRunnable<?> runnable){

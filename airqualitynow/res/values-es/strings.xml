@@ -16,5 +16,9 @@
     <string name="fourdayForecastOzone">Ozono</string>
     <string name="fourdayForecastActionDay">Dia de Acción</string>
     <string name="zipCodeInputSubmit">Enviar</string>
-    <string name="zipCodeInputCancel">Cancelar</string>    
+    <string name="zipCodeInputCancel">Cancelar</string>
+    <string name="eula_title">End User License Agreement</string>
+    <string name="ok">OK</string>
+    <string name="decline">Rechazo</string>
+    <string name="accept">Accepto</string>    
 </resources>

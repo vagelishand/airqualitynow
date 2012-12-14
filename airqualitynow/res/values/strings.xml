@@ -16,4 +16,8 @@
     <string name="fourdayForecastActionDay">Action Day</string>
     <string name="zipCodeInputSubmit">Submit</string>
     <string name="zipCodeInputCancel">Cancel</string>
+	<string name="eula_title">End User License Agreement</string>
+    <string name="ok">OK</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>    
 </resources>
