@@ -35,7 +35,8 @@ public class ForecastActivity extends RoboActivity {
         adView.loadAd(new AdRequest());
         
     	mForecastPresenter.initialize(new PresenterInitializeParameter(mForecastView, 
-    			                                                       getIntent().getIntExtra("areaId", 0)));
+    			                                                       getIntent().getIntExtra("areaId", 0),
+    			                                                       getIntent().getStringExtra("areaZipCode")));
     }
     
     @Override

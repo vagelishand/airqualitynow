@@ -18,9 +18,10 @@ public class PresenterInitializeParameter {
 		this.listView = view;
 	}
 	
-	public PresenterInitializeParameter(IForecastView<View> view, int reportingAreaId) {
+	public PresenterInitializeParameter(IForecastView<View> view, int reportingAreaId, String zipCode) {
 		this.forecastView = view;
 		this.reportingAreaId = reportingAreaId;
+		this.zipCode = zipCode;
 	}
 	
 	public PresenterInitializeParameter(IObservationView<ListView> observedView, int reportingAreaId, String zipCode){

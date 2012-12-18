@@ -35,6 +35,7 @@ public class ForecastPresenter implements IForecastPresenter<IForecastView<View>
 		mContext = parameterObject.forecastView.getView().getContext();
 		mForecastView = parameterObject.forecastView;
 		mCurrentReportingAreaId = parameterObject.reportingAreaId;
+		mZipCode = parameterObject.zipCode;
 		initializeTable();
 	}
 	

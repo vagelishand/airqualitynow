@@ -111,5 +111,9 @@ public class RemoteDataProviderServiceHelper implements IRemoteDataProviderServi
 			
 			return callback;
 		}
+		
+		protected void onPostExecute(IDataRequestCallback<?> callback){
+			dialog.dismiss();
+		}
 	}
 }
