@@ -127,7 +127,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			
 			for(Observation o: observations){
 				o.ReportingAreaObject = reportingArea;
-				o.Pollutant = getPollutantByName(o.ParameterName);
+				o.Pollutant = getPollutantByName(o.ParameterName.trim());
 				mAppRepository.ObservationRepository().insert(o);
 			}
 			
@@ -147,7 +147,7 @@ public class DataProviderService extends OrmLiteBaseService<DatabaseHelper> impl
 			
 			for(Forecast f: forecasts){
 				f.ReportingAreaObject = reportingArea;
-				f.Pollutant = getPollutantByName(f.ParameterName);
+				f.Pollutant = getPollutantByName(f.ParameterName.trim());
 				mAppRepository.ForecastRepository().insert(f);
 			}
 			

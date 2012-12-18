@@ -157,6 +157,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		Intent intent = new Intent(mListActivity, ForecastActivity.class);
 		intent.putExtra("areaId", area.Id);
 		intent.putExtra("areaName", area.Name);
+		intent.putExtra("areaZipCode", area.ZipCode);
 		mListActivity.startActivity(intent);
 	}
 
