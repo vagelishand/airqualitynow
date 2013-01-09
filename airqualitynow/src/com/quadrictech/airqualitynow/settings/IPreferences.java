@@ -9,4 +9,6 @@ public interface IPreferences {
 	void setDefaultReportingAreaZipCode(String zipCode);
 	boolean getEulaAccepted();
 	void setEulaAccepted();
+	String getFacebookToken();
+	void setFacebookToken(String token);
 }

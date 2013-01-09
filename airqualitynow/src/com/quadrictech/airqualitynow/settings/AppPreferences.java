@@ -45,5 +45,15 @@ public class AppPreferences extends Preferences implements IPreferences {
 
 	public void setEulaAccepted() {
 		mEditor.putBoolean("eula", true);
+		mEditor.commit();
+	}
+
+	public String getFacebookToken() {
+		return mPreferences.getString("facebookToken", null);
+	}
+
+	public void setFacebookToken(String token) {
+		mEditor.putString("facebookToken", token);
+		mEditor.commit();
 	}
 }
