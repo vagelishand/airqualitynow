@@ -2,7 +2,10 @@ package com.quadrictech.airqualitynow.view;
 
 import java.text.ParseException;
 
+import com.facebook.android.Facebook;
+import com.quadrictech.airqualitynow.ObservationActivity;
 import com.quadrictech.airqualitynow.R;
+import com.quadrictech.airqualitynow.facebook.Facebooker;
 import com.quadrictech.airqualitynow.model.Observation;
 import com.quadrictech.airqualitynow.presenter.IObservationPresenter;
 import com.quadrictech.airqualitynow.presenter.util.ObservedArrayAdapter;
@@ -12,13 +15,15 @@ import com.quadrictech.airqualitynow.utils.DateUtil;
 
 import roboguice.inject.InjectView;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ObservationView implements IObservationView<ListView>,OnItemClickListener{
+public class ObservationView implements IObservationView<ListView>,OnItemClickListener, OnClickListener{
 	@InjectView(R.id.observationList)						public ListView mListView;
 	
 	@InjectView(R.id.observedTableReportingAreaTextView)		public TextView currentReportingAreaTextView;
@@ -28,6 +33,8 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 	@InjectView(R.id.observedTableCurrentAQIMsgTextView)		public TextView currentAQIMsgTextView;
 	@InjectView(R.id.observedTableObservationsTextView)			public TextView observationsTextView;
 	IObservationPresenter<ListView> mPresenter;
+	Facebook mFacebook;
+		
 	private ObservedArrayAdapter mAdapter;
 
 	private Context mContext;
@@ -40,11 +47,13 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 		// TODO Auto-generated method stub
 	}
 	
-	public void initialize(IObservationPresenter<ListView> presenter, String reportingAreaName) {
+	public void initialize(IObservationPresenter<ListView> presenter, String reportingAreaName, Facebook facebook) {
 		mPresenter = presenter;
+		mFacebook = facebook;
 		currentReportingAreaTextView.setText(reportingAreaName);
 		mContext = mListView.getContext();
 		mListView.setOnItemClickListener(this);
+		observationsTextView.setOnClickListener(this);
 	}
 
 	public ListView getView() {
@@ -57,8 +66,25 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-
+		if(v.getId() == R.id.observedTableObservationsTextView){
+			Facebooker face = new Facebooker((ObservationActivity)mContext, mFacebook, getFacebookDescription());
+			face.share();
+		}	                                                        
+	}
+	
+	public String getFacebookDescription(){
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append(currentReportingAreaTextView.getText().toString() + "<center>  </center>");
+		builder.append(currentAQITimeDescTextView.getText().toString()  + "<center>  </center>");
+		Log.d("TEST", mAdapter.getCount() + "");
+		for (int i=0; i < mAdapter.getCount(); i++){
+			
+			Observation o = (Observation)mAdapter.getItem(i);
+			builder.append(o.Pollutant.FullName + " " + o.AQI + "<center>  </center>");
+		}
+		
+		return builder.toString();
 	}
 
 	public void setObservationTableValues(Observation observation) throws ParseException {
