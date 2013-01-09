@@ -10,15 +10,21 @@
     <string name="dataNotAvailable">Datos no Disponibles</string>
     <string name="forecastTableForecastHeader">Pronóstico</string>
     <string name="forecastTableReportingAreaHeader">Área Reportando</string>
-	<string name="fourdayForecastTableDay">Dia</string>
+	<string name="fourdayForecastTableDay">Día</string>
     <string name="fourdayForecastPM10">PM10</string>
     <string name="fourdayForecastPM25">PM25</string>
     <string name="fourdayForecastOzone">Ozono</string>
-    <string name="fourdayForecastActionDay">Dia de Acción</string>
+    <string name="fourdayForecastActionDay">Día de Acción</string>
     <string name="zipCodeInputSubmit">Enviar</string>
     <string name="zipCodeInputCancel">Cancelar</string>
+    <string name="reportingAreasButton">Areas Reportando</string>
+    <string name="observedButton">Observado</string>
+    <string name="mapPoints">Mapa-Pronto</string>
     <string name="eula_title">End User License Agreement</string>
     <string name="ok">OK</string>
     <string name="decline">Rechazo</string>
     <string name="accept">Accepto</string>    
+    <string name="enterZipCode">Codigo</string>
+    <string name="healthMessage">Mensaje de Salud</string>
+    <string name="observations">Observaciones</string>
 </resources>
