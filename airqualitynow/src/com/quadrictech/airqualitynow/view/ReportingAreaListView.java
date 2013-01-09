@@ -12,6 +12,8 @@ import com.quadrictech.airqualitynow.presenter.util.ReportingAreaArrayAdapter;
 import com.quadrictech.airqualitynow.settings.AppPreferences;
 import com.quadrictech.airqualitynow.settings.IPreferences;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -33,6 +35,8 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 	@InjectView(R.id.reportingAreaListTableAddButton)		private Button   mAddButton;
 	@InjectView(R.id.reportingAreaListTableGuideButton)		private Button   mGuideButton;
 	@Inject 												public ReportingAreaListPresenter mPresenter;
+	ReportingAreaArrayAdapter mReportingAreaArrayAdapter;
+	
 	public ReportingAreaListActivity mListActivity;
 	
 	public ReportingAreaListView(){
@@ -48,6 +52,26 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 		mSearchButton.setOnClickListener(this);
 		mAddButton.setOnClickListener(this);
 		mGuideButton.setOnClickListener(this);
+		mView.setTextFilterEnabled(true);
+		mSearchEditText.addTextChangedListener(new TextWatcher(){
+
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onTextChanged(CharSequence s, int arg1, int arg2,
+					int arg3) {
+				mReportingAreaArrayAdapter.getFilter().filter(s);	
+			}
+			
+		});
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -57,10 +81,10 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 
 	public void onClick(View v) {
 		if(v.getId() == R.id.reportingAreaListTableSearchButton){
-			
+			mReportingAreaArrayAdapter.getFilter().filter(mSearchEditText.getText().toString());
 		}
 		else if(v.getId() == R.id.reportingAreaListTableAddButton){
-			mPresenter.onAddReportingAreaClick();
+			mPresenter.onAddReportingAreaClick(this.mSearchEditText.getText().toString());
 		}
 		else if(v.getId() == R.id.reportingAreaListTableGuideButton){
 			mPresenter.onPollutantGuideButtonClick();
@@ -72,7 +96,8 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 	}
 
 	public void setAdapter(ReportingAreaArrayAdapter adapter) {
-		mView.setAdapter(adapter);		
+		mReportingAreaArrayAdapter = adapter;
+		mView.setAdapter(adapter);
 	}
 
 	public String getEditTextString() {
@@ -101,10 +126,13 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 	    		return returnValue = true;
 	    	}
 	    	case 3:{
-	    		IPreferences pref = new AppPreferences(this.getActivity().getBaseContext());
+	    		IPreferences pref = new AppPreferences(mView.getContext());
 	    		pref.setDefaultReportingAreaId(area.Id);
 	    		pref.setDefaultReportingArea(area.Name);
 	    		pref.setDefaultReportingAreaZipCode(area.ZipCode);
+	    		
+	    		Toast.makeText(mView.getContext(), area.Name + " now default observed.", Toast.LENGTH_SHORT).show();
+	    		
 	    		return returnValue = true;	    		
 	    	}
 	    	case 4:{
@@ -139,7 +167,7 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
     	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observations");
     	observedMenuItem.setOnMenuItemClickListener(this);
     	
-    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Delete");
+    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Set as Default");
     	deleteMenuItem.setOnMenuItemClickListener(this);				
 	}
 }

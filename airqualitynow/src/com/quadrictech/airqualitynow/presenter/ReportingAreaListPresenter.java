@@ -30,7 +30,7 @@ import com.quadrictech.airqualitynow.view.IReportingAreaListView;
 
 public class ReportingAreaListPresenter implements IReportingAreaListPresenter<IReportingAreaListView<ListView>>{
 	
-	private IReportingAreaListView<ListView> mForecastListView;
+	private IReportingAreaListView<ListView> mReportingAreaListView;
 	public Context mContext;
 	public ReportingAreaArrayAdapter mAdapter;
 	private List<ReportingArea> mReportingAreas;
@@ -46,13 +46,13 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 	public ReportingAreaListPresenter(IReportingAreaListView<ListView> view, IDataProviderServiceHelper dataProviderServiceHelper, Context context){
 		mContext = context;
-		mForecastListView = view;
+		mReportingAreaListView = view;
 		mDataProviderServiceHelper = dataProviderServiceHelper;
 	}
 	
 	public void initialize(PresenterInitializeParameter parameterObject) {
 		mContext = parameterObject.listView.getView().getContext();
-		mForecastListView = parameterObject.listView;
+		mReportingAreaListView = parameterObject.listView;
 		mDataProviderServiceHelper = DataProviderServiceHelper.getInstance();
 		DataProviderServiceHelper.getInstance().setWindowContext(mContext);
 		initializeList();
@@ -71,7 +71,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			mReportingAreas =  (List<ReportingArea>) callback.getList();
 			mAdapter = new ReportingAreaArrayAdapter(mContext, R.layout.reportingarealistrow, mReportingAreas);
 			
-			mForecastListView.setAdapter(mAdapter);
+			mReportingAreaListView.setAdapter(mAdapter);
 			
 			if(callback.getList().size() == 0)
 			{
@@ -103,8 +103,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			mReportingAreas = null;
 		}
 		
-		mForecastListView.onDestroy();
-		mForecastListView = null;
+		mReportingAreaListView.onDestroy();
+		mReportingAreaListView = null;
 	}
 	
 	public void onPollutantGuideButtonClick() {
@@ -116,7 +116,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		
 	}
 
-	public void onAddReportingAreaClick() {
+	public void onAddReportingAreaClick(String zipCode) {
 		
 			AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 	
@@ -125,13 +125,19 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 	
 			// Set an EditText view to get user input 
 			final EditText input = new EditText(mContext);
+			input.setText(zipCode);
 			input.setInputType(2);
 			input.requestFocus();
 			alert.setView(input);
 			final ReportingAreaListPresenter presenter = this;
 			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				  mZipCode = input.getText().toString();
+				mZipCode = input.getText().toString().trim();
+				  
+				if(mZipCode.length() != 5){
+					Toast.makeText(mContext, "Zip code must be 5 digits only.", Toast.LENGTH_SHORT).show();
+					return;
+				}  
 
 				for(int i=0; i < mAdapter.getCount(); i++){
 					ReportingArea area = mAdapter.getItem(i);
