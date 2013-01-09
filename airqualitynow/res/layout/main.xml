@@ -29,37 +29,38 @@
          	    <Button
          	    	android:id="@+id/mainTableForecastListButton" 
 				    android:layout_width="fill_parent"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
 				    android:paddingLeft="5dip"
 				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
-				    android:text="Forecast List"
+				    android:background="@drawable/bluebutton" 
+				    style="@style/ButtonText"
+				    android:text="@string/reportingAreasButton"
 				/>
 			</TableRow>
 			<TableRow>
 				<Button
 					android:id="@+id/mainTableObservedForecastButton" 
 				    android:layout_width="fill_parent"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
 				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
-				    android:text="Observed Forecast"
+				    android:background="@drawable/bluebutton" 
+				    style="@style/ButtonText"
+				    android:text="@string/observedButton"
 				/>
 			</TableRow>
 			<TableRow>
 			    <Button
 			    	android:id="@+id/mainTableMapPointsButton" 
 				    android:layout_width="fill_parent"
-				    android:textAppearance="?android:attr/textAppearanceMedium"
 				    android:gravity="center"
 				    android:singleLine="true"
-				    android:textColor="#000000"
 				    android:layout_margin="1dip"
-				    android:text="Map Points"
+				    android:background="@drawable/bluebutton" 
+				    style="@style/ButtonText"
+				    android:enabled="false"
+				    android:text="@string/mapPoints"
 				/>
      	</TableRow>			
    </TableLayout>
