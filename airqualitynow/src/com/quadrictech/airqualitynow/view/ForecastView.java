@@ -67,7 +67,7 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 	}
 
 	public void setForecastTableValues(List<Forecast> forecasts) {
-		if(forecasts.size() == 0){
+		if(forecasts == null || forecasts.size() == 0){
 			return;
 		}
 		
@@ -91,16 +91,21 @@ public class ForecastView implements IForecastView<View>, OnClickListener, OnIte
 		
 		for(int i = 0; i < n; i++){
 			for(int j=1; j < n; j++){
-				if(mForecastsTT.get(j-1).TodayForecast.AQI < mForecastsTT.get(j).TodayForecast.AQI){
-					tmpForecast = mForecastsTT.get(j-1).TodayForecast;
-					mForecastsTT.get(j-1).TodayForecast = mForecastsTT.get(j).TodayForecast; 
-					mForecastsTT.get(j).TodayForecast = tmpForecast;
+				try{
+					if(mForecastsTT.get(j-1).TodayForecast.AQI < mForecastsTT.get(j).TodayForecast.AQI){
+						tmpForecast = mForecastsTT.get(j-1).TodayForecast;
+						mForecastsTT.get(j-1).TodayForecast = mForecastsTT.get(j).TodayForecast; 
+						mForecastsTT.get(j).TodayForecast = tmpForecast;
+					}
+					
+					if(mForecastsTT.get(j-1).TomorrowForecast.AQI < mForecastsTT.get(j).TomorrowForecast.AQI){
+						tmpForecast = mForecastsTT.get(j-1).TomorrowForecast;
+						mForecastsTT.get(j-1).TomorrowForecast = mForecastsTT.get(j).TomorrowForecast; 
+						mForecastsTT.get(j).TomorrowForecast = tmpForecast;
+					}
 				}
-				
-				if(mForecastsTT.get(j-1).TomorrowForecast.AQI < mForecastsTT.get(j).TomorrowForecast.AQI){
-					tmpForecast = mForecastsTT.get(j-1).TomorrowForecast;
-					mForecastsTT.get(j-1).TomorrowForecast = mForecastsTT.get(j).TomorrowForecast; 
-					mForecastsTT.get(j).TomorrowForecast = tmpForecast;
+				catch(NullPointerException e){
+					
 				}
 			}
 		}
