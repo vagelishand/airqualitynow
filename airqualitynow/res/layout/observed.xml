@@ -11,12 +11,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 	>
-	  <com.google.ads.AdView android:id="@+id/adView"
+	 <com.google.ads.AdView android:id="@+id/adView"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          ads:adUnitId="a14e17e0238f688"
                          ads:adSize="BANNER"
-                         ads:loadAdOnCreate="false"/>
+                         ads:loadAdOnCreate="false"/> 
 	 </LinearLayout>
       <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:id="@+id/observedTable"
@@ -29,7 +29,7 @@
 				   	android:layout_width="0px"
 		        	android:layout_weight="1"
 				    android:layout_margin="1dip"
-				    android:text="Reporting Area"
+				    android:text="@string/reportingAreaHeader"
 				    style="@style/textTitle"
 					/>         	
          	</TableRow>
@@ -49,7 +49,7 @@
 				    android:layout_width="0px"
 		        	android:layout_weight="1"
 				    android:layout_margin="1dip"
-				    android:text="Observed at"
+				    android:text="@string/todayHeader"
 				    style="@style/tableText"
 					/>
 			</TableRow>
@@ -77,7 +77,7 @@
 				    android:layout_width="wrap_content"
 				    android:layout_weight="1"
 				    android:layout_margin="1dip"
-				    android:text="Health Message"
+				    android:text="@string/healthMessage"
 				    style="@style/tableMsgText"
 					/>	
          	</TableRow>
@@ -87,9 +87,11 @@
 				    android:layout_width="0px"
 		        	android:layout_weight="1"
 				    android:layout_margin="1dip"
-				    android:text="Observations"
+				    android:text="@string/observations"
 				    style="@style/textSubTitle"
+				    android:drawableRight="@drawable/facebook"
 					/>
+         		
          	</TableRow>
      </TableLayout>
 	<ListView android:id="@+id/observationList" android:layout_width="fill_parent"
