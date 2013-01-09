@@ -77,7 +77,7 @@ public class ObservationView implements IObservationView<ListView>,OnItemClickLi
 		
 		builder.append(currentReportingAreaTextView.getText().toString() + "<center>  </center>");
 		builder.append(currentAQITimeDescTextView.getText().toString()  + "<center>  </center>");
-		Log.d("TEST", mAdapter.getCount() + "");
+		
 		for (int i=0; i < mAdapter.getCount(); i++){
 			
 			Observation o = (Observation)mAdapter.getItem(i);
