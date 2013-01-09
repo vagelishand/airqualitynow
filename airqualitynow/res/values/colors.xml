@@ -6,4 +6,6 @@
 	<color name="red">#FF0000</color>
 	<color name="maroon">#7E0023</color>
 	<color name="purple">#99004C</color>
+	<drawable name="white">#ffffff</drawable>
+    <drawable name="black">#000000</drawable>
 </resources>
