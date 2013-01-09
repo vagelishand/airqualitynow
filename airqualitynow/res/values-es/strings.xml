@@ -24,7 +24,15 @@
     <string name="ok">OK</string>
     <string name="decline">Rechazo</string>
     <string name="accept">Accepto</string>    
-    <string name="enterZipCode">Codigo</string>
+    <string name="enterZipCode">Código</string>
     <string name="healthMessage">Mensaje de Salud</string>
     <string name="observations">Observaciones</string>
+    <string name="defaultReportingAreaNotSet">Área reportando no existe</string>
+    <string name="defaultObserved">ahora observada predeterminada.</string>
+    <string name="observed">Observado</string>
+    <string name="forecast">Pronóstico</string>
+    <string name="forecasts">Pronósticos</string>
+    <string name="defaultArea">Predeterminada</string>
+    <string name="addReportingArea">Añadir área</string>
+    <string name="zipCodeDigitLimit">Código postal sólo 5 dígitos.</string>
 </resources>

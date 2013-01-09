@@ -97,7 +97,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 			IPreferences pref = new AppPreferences(this);
 			
 			if(pref.getDefaultReportingAreaId() == 0){
-				Toast.makeText(this, "Default reporting area not set.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, this.getString(R.string.defaultReportingAreaNotSet), Toast.LENGTH_SHORT).show();
 				return;
 			}
 

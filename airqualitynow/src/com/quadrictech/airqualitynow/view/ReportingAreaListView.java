@@ -131,7 +131,7 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 	    		pref.setDefaultReportingArea(area.Name);
 	    		pref.setDefaultReportingAreaZipCode(area.ZipCode);
 	    		
-	    		Toast.makeText(mView.getContext(), area.Name + " now default observed.", Toast.LENGTH_SHORT).show();
+	    		Toast.makeText(mView.getContext(), area.Name + " " + mView.getContext().getString(R.string.defaultObserved), Toast.LENGTH_SHORT).show();
 	    		
 	    		return returnValue = true;	    		
 	    	}
@@ -161,13 +161,13 @@ public class ReportingAreaListView extends RoboFragment implements IReportingAre
 		ReportingArea area = (ReportingArea)mView.getAdapter().getItem(info.position);
 		
 		menu.setHeaderTitle(area.Name);
-    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, "Forecasts");
+    	MenuItem forecastMenuItem = menu.add(0, Menu.FIRST, 0, mView.getContext().getString(R.string.forecasts));
     	forecastMenuItem.setOnMenuItemClickListener(this);
     	
-    	MenuItem observedMenuItem = menu.add(0, 2, 0, "Observations");
+    	MenuItem observedMenuItem = menu.add(0, 2, 0, mView.getContext().getString(R.string.observations));
     	observedMenuItem.setOnMenuItemClickListener(this);
     	
-    	MenuItem deleteMenuItem = menu.add(0, 3, 0, "Set as Default");
+    	MenuItem deleteMenuItem = menu.add(0, 3, 0, mView.getContext().getString(R.string.defaultArea));
     	deleteMenuItem.setOnMenuItemClickListener(this);				
 	}
 }

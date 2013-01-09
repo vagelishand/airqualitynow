@@ -30,6 +30,15 @@
     <string name="enterZipCode">Zip Code</string>
     <string name="healthMessage">Health Message</string>
     <string name="observations">Observations</string>
+    <string name="defaultReportingAreaNotSet">Default reporting area not set</string>
+    <string name="defaultObserved">now default observed.</string>
+    <string name="observed">Observed</string>
+    <string name="observation">Observation</string>
+    <string name="forecast">Forecast</string>
+    <string name="forecasts">Forecasts</string>
+    <string name="defaultArea">Set as default</string>
+    <string name="addReportingArea">Add Reporting Area</string>
+    <string name="zipCodeDigitLimit">Zip code must be 5 digits only.</string>
     <style name="ButtonText">
 	    <item name="android:layout_width">fill_parent</item>
 	    <item name="android:layout_height">wrap_content</item>

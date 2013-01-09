@@ -120,8 +120,8 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 		
 			AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 	
-			alert.setTitle("Add Reporting Area");
-			alert.setMessage("Enter Zip Code");
+			alert.setTitle(mContext.getString(R.string.addReportingArea));
+			alert.setMessage(mContext.getString(R.string.enterZipCode));
 	
 			// Set an EditText view to get user input 
 			final EditText input = new EditText(mContext);
@@ -135,7 +135,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 				mZipCode = input.getText().toString().trim();
 				  
 				if(mZipCode.length() != 5){
-					Toast.makeText(mContext, "Zip code must be 5 digits only.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, mContext.getString(R.string.zipCodeDigitLimit), Toast.LENGTH_SHORT).show();
 					return;
 				}  
 
@@ -150,7 +150,7 @@ public class ReportingAreaListPresenter implements IReportingAreaListPresenter<I
 			  }
 			});
 	
-			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			alert.setNegativeButton(mContext.getString(R.string.decline), new DialogInterface.OnClickListener() {
 			  public void onClick(DialogInterface dialog, int whichButton) {
 			    // Canceled.
 			  }
