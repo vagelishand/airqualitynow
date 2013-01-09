@@ -20,13 +20,13 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.ads.*;
 
 public class AirQualityNow extends RoboActivity implements OnClickListener{
     /** Called when the activity is first created. */
-	@InjectView(R.id.mainTableObservedForecastButton) Button mButton;
+	@InjectView(R.id.mainTableObservedForecastButton) 	Button mButton;
 	@InjectView(R.id.mainTableForecastListButton)		Button mFButton;
 	@InjectView(R.id.mainTableMapPointsButton)			Button mPButton;
 	@InjectView(R.id.adView) private AdView adView;
@@ -54,10 +54,6 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
         
         mButton.setOnClickListener(this);
         mFButton.setOnClickListener(this);
-        mPButton.setVisibility(4);
-        
-     // Create the adView
-        //adView = new AdView(this, AdSize.BANNER, "faedc52824ef4c2e");
         
         AdRequest adRequest = new AdRequest();
         adRequest.addTestDevice("17BAA6C5D06F6ABDD2DDED17A764AE35");
@@ -85,7 +81,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 	    am.cancel(pi);
     	    
 	    am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-	    	    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+	    	    SystemClock.elapsedRealtime() + 1000*60,
 	    	    AlarmManager.INTERVAL_DAY, pi);
     }
     
@@ -112,6 +108,10 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 			Intent intent = new Intent(AirQualityNow.this, ReportingAreaListActivity.class);
 			startActivity(intent);
 		}
+		else{
+			Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
+		}
+			
 	}
 	
 	public void checkForDefaultReportingArea(){
