@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.devterous.aqn.model.Category;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -37,7 +38,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			e.printStackTrace();
 		}		
 	}
-	
+
+    private void createCategoryData() throws SQLException{
+        Dao<Category, Integer> cDao = getDao(Category.class);
+
+        Category c = new Category("Good");
+        cDao.create(c);
+
+        c = new Category("Moderate");
+        cDao.create(c);
+
+        c = new Category("Unhealthy for Sensitive Groups");
+        cDao.create(c);
+
+        c = new Category("Unhealthy");
+        cDao.create(c);
+
+        c = new Category("Very Unhealthy");
+        cDao.create(c);
+
+        c = new Category("Hazardous");
+        cDao.create(c);
+
+        c = new Category("Unavailable");
+        cDao.create(c);
+    }
+
 	private void createPollutantData() throws SQLException{
 		Dao<Pollutant, Integer> pDao = getDao(Pollutant.class);
 		

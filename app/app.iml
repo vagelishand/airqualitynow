@@ -17,7 +17,7 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$USER_HOME$/AndroidStudioProjects/airqualitynow/app/src/main/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -83,20 +83,18 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="google-api-client-1.5.0-beta" level="project" />
     <orderEntry type="library" exported="" name="google-collections-1.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="google-http-client-extensions-android2-1.5.0-beta" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-asl-1.8.5" level="project" />
     <orderEntry type="library" exported="" name="roboguice-1.2-20111006.142313-28" level="project" />
     <orderEntry type="library" exported="" name="google-http-client-1.5.0-beta" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.24" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="GoogleAdMobAdsSdk-6.2.1" level="project" />
     <orderEntry type="library" exported="" name="guice-3.0-no_aop" level="project" />
     <orderEntry type="library" exported="" name="jackson-mapper-asl-1.8.5" level="project" />
+    <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="javax.inject" level="project" />
     <orderEntry type="library" exported="" name="ormlite-android-4.24" level="project" />
     <orderEntry type="module" module-name="facebook" exported="" />

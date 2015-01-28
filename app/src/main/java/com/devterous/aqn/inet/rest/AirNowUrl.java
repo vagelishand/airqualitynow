@@ -44,6 +44,6 @@ public class AirNowUrl {
 	}
 	
 	private void addKey(String key) {
-		stringBuilder.append("&key=" + key);
+		stringBuilder.append("&api_key=" + key);
 	}
 }

@@ -28,7 +28,6 @@ public class Observation {
 	public String ParameterName;
 	@DatabaseField
 	public int AQI;
-	@DatabaseField
-	public int CategoryNumber;
-	public String CategoryName;
+	@DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+	public Category Category;
 }

@@ -26,9 +26,8 @@ public class Forecast {
 	public String ParameterName;
 	@DatabaseField
 	public int AQI; //-1 is no forecast
-	@DatabaseField
-	public int CategoryNumber;
-	public String CategoryName;
+    @DatabaseField(canBeNull = false, foreign = true, uniqueCombo = true)
+    public Category Category;
 	@DatabaseField
 	public boolean ActionDay;
 	@DatabaseField

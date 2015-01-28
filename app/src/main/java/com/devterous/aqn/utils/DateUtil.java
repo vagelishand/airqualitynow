@@ -13,7 +13,7 @@ public class DateUtil {
 	/**
 	 * Format yyyy/MM/dd HH:mm:ss a
 	 */
-	public static final String DATE_FORMAT = "M/dd/yyyy HH:mm:ss a";
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	public static SimpleDateFormat getDateFormat(String dateFormat){
 		return new SimpleDateFormat(dateFormat);

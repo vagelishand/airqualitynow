@@ -105,7 +105,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		now.setToNow();
 		
 		mAirNowUrlParameter = new AirNowUrlParameter(mContext.getString(R.string.airnowgatewayforecastbyzipcodeurl),
-				                                     zipCode, now.format("%Y-%m-%d"), "json", 
+				                                     zipCode, now.format("%Y-%m-%d"), "application/json",
 				                                     mContext.getString(R.string.airnowgateway_apikey));
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
@@ -130,7 +130,7 @@ public class RemoteDataProviderService extends Service implements IRemoteDataPro
 		now.setToNow();
 		
 		mAirNowUrlParameter = new AirNowUrlParameter(mContext.getString(R.string.airnowgatewayobservedbyzipcode),
-						        zipCode, now.format("%Y-%m-%d"), "json", 
+						        zipCode, now.format("%Y-%m-%d"), "application/json",
 						        mContext.getString(R.string.airnowgateway_apikey));
 		
 		mAirNowUrl = new AirNowUrl(mAirNowUrlParameter);
