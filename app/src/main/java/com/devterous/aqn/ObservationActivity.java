@@ -20,8 +20,8 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
 public class ObservationActivity extends RoboActivity {
-	@Inject IObservationView<ListView> mObservedView;
-	@Inject IObservationPresenter<ListView> mObservedPresenter;
+	@Inject IObservationView mObservedView;
+	@Inject IObservationPresenter mObservedPresenter;
 	//@InjectView(R.id.adView) private AdView adView;
 	public Facebook mFacebook;
 	

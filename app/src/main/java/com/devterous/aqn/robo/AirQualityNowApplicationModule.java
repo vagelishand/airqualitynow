@@ -31,13 +31,11 @@ public class AirQualityNowApplicationModule extends AbstractModule{
 	@Override
 	protected void configure() {
         bind(IObservationPresenter.class).to(ObservationPresenter.class);
-		//bind(new TypeLiteral<IObservationPresenter<ListView>>(){}).to((Class<? extends IObservationPresenter<ListView>>) ObservationPresenter.class);
-		bind(new TypeLiteral<IObservationView<ListView>>(){}).to(ObservationView.class);
+        bind(IObservationView.class ).to(ObservationView.class);
 		bind(IForecastJsonProvider.class).to(ForecastJsonProvider.class);
 		bind(IForecastWrapper.class).to(ForecastWrapper.class);
-		//bind(new TypeLiteral <IForecastPresenter<View>>(){}).to((Class<? extends IForecastPresenter<View>>) ForecastPresenter.class);
         bind(IForecastPresenter.class).to(ForecastPresenter.class);
-		bind(new TypeLiteral<IForecastView<View>>(){}).to(ForecastView.class);
+        bind(IForecastView.class).to(ForecastView.class);
 		bind(IReportingAreaListPresenter.class).to(ReportingAreaListPresenter.class);
 		bind(IReportingAreaListView.class).to(ReportingAreaListView.class);
 	}

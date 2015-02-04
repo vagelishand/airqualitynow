@@ -14,6 +14,7 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -32,6 +33,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 	//@InjectView(R.id.adView) private AdView adView;
 	private IDataProviderServiceHelper mDataProviderServiceHelper;
 	private IRemoteDataProviderServiceHelper mRemoteDataProviderServiceHelper;
+    private Context aqnContext;
 		
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
         setContentView(R.layout.main);
         
         Eula.showEulaRequireAcceptance(this);
-        
+        aqnContext = this;
         checkForDefaultReportingArea();
         
         Intent intent = new Intent(this, DataProviderService.class);
@@ -94,7 +96,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 
 	public void onClick(View view) {
 		if(view.getId() == R.id.mainTableObservedForecastButton){
-			IPreferences pref = new AppPreferences(this);
+			IPreferences pref = new AppPreferences(aqnContext);
 			
 			if(pref.getDefaultReportingAreaId() == 0){
 				Toast.makeText(this, this.getString(R.string.defaultReportingAreaNotSet), Toast.LENGTH_SHORT).show();
@@ -102,6 +104,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 			}
 
 			Intent intent = new Intent(AirQualityNow.this, ObservationActivity.class);
+            intent.putExtra("areaZipCode", pref.getDefaultReportingAreaZipCode());
 			startActivity(intent);
 		}
 		else if(view.getId() == R.id.mainTableForecastListButton){
@@ -115,7 +118,7 @@ public class AirQualityNow extends RoboActivity implements OnClickListener{
 	}
 	
 	public void checkForDefaultReportingArea(){
-		IPreferences pref = new AppPreferences(this);
+		IPreferences pref = new AppPreferences(aqnContext);
 		
 		if(pref.getDefaultReportingAreaZipCode() == null){
 			ReverseGeoHelper.getInstance().getAddresses(getBaseContext());

@@ -16,8 +16,8 @@ import android.os.Bundle;
 import android.view.View;
 
 public class ForecastActivity extends RoboActivity {
-	@Inject private IForecastView<View> mForecastView;
-	@Inject private IForecastPresenter<View> mForecastPresenter;
+	@Inject private IForecastView mForecastView;
+	@Inject private IForecastPresenter mForecastPresenter;
 	//@InjectView(R.id.adView) private AdView adView;
 	
     /** Called when the activity is first created. */

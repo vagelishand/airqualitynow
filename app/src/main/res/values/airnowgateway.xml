@@ -2,7 +2,7 @@
 <resources>
     <string name="airnowgateway_apikey">654C8A3C-683A-43FD-BBB2-B1F45B8F1E21</string>
     <string name="airnowgatewayforecastbyzipcodeurl">http://www.airnowapi.org/aq/forecast/zipcode/</string>
-    <string name="airnowgatewayobservedbyzipcode">http://www.airnowapi.org/aq/observation/zipcode/current</string>
+    <string name="airnowgatewayobservedbyzipcode">http://www.airnowapi.org/aq/observation/zipcode/current/</string>
     <string name="airnowgatewayforecastsbyissuedate">http://www.airnowapi.org/aq/forecast/zipcode/</string>
     <string name="airnowgatewaygetreportingareas">http://ws1.airnowgateway.org/GatewayWebServiceREST/Gateway.svc/reportingareas</string>
     <string name="airnowgatewaypointdata">http://ws1.airnowgateway.org/wcs/wcs.asmx/wcs</string>
